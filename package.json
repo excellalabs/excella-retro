@@ -1,0 +1,30 @@
+{
+  "name": "remote-retro-hapi",
+  "version": "0.0.1",
+  "description": "A tool to host retrospectives for Agile Scrum projects with remote members",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "bower install",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/excellaco/remote-retro-hapi.git"
+  },
+  "author": "Doguhan Uluca",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/excellaco/remote-retro-hapi/issues"
+  },
+  "homepage": "https://github.com/excellaco/remote-retro-hapi",
+  "dependencies": {
+    "good": "^2.1.2",
+    "hapi": "^6.0.2",
+    "require-directory": "^1.2.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.6",
+    "gulp-browserify": "^0.5.0"
+  }
+}
