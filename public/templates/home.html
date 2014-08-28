@@ -1,1 +1,10 @@
-<p> {{ whatsup }} </p>
+<div ng-controller="HomeController">
+    <div id="title-main">
+        <h1>Remote Retrospective</h1>
+        <hr/>
+        <h2>Excella Consulting</h2>
+    </div>
+    <form action="board" method="post">
+        <a class="btn btn-primary" value="Create new board" ng-click="createBoard()">Create new board</a>
+    </form>
+</div>

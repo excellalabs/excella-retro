@@ -5,7 +5,7 @@ require('../controllers/_module_init');
 angular.element(document).ready(function() {
 
 	var requires = [
-		'boilerplate.controllers',
+		'remoteRetro.controllers',
 		'ngRoute'
 	];
 
@@ -15,7 +15,7 @@ angular.element(document).ready(function() {
         $routeProvider
             .when('/', {
                 templateUrl: '/templates/home.html', 
-                controller: 'WelcomeCtrl'
+                controller: 'HomeController'
             })
             .otherwise( 
                 {

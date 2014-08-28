@@ -1,0 +1,14 @@
+{
+    "name": "hash",
+    "description": "A basic implementation of the Hash class in JavaScript requiring no dependencies that supports merging, getting/setting values and chained method calls.",
+    "version": "1.0.1",
+    "homepage": "https://github.com/gburghardt/hash",
+    "authors": [
+        "Greg Burghardt <greg_burghardt@yahoo.com>"
+    ],
+    "license": "MIT",
+    "repository": { "type": "git", "url": "https://github.com/gburghardt/hash.git" },
+    "main": [
+        "lib/hash.js"
+    ]
+}
