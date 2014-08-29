@@ -1,0 +1,32 @@
+{
+  "app": {
+    "_id": "5400adbae31213cb0c000110",
+    "name": "218-madison-ave",
+    "developerId": "54009c82156124e48f9e9b96",
+    "updatedAt": 1409330619818,
+    "services": [
+      {
+        "dockerId": "2b50817100d73d60adf4f034baa7233aab0e3cf9a9ca2e7927fcc408d68cda34",
+        "name": "remote-retro",
+        "privateAddr": "172.17.51.124",
+        "publicAddr": "64.71.188.179:50258",
+        "satelliteAddr": "64.71.188.179:50257",
+        "sshAddr": "64.71.188.179:50256",
+        "image": "node",
+        "customPorts": {},
+        "start": "npm start",
+        "build": "npm install",
+        "test": "npm test"
+      }
+    ],
+    "isActive": true
+  },
+  "config": {
+    "remote-retro": {
+      "image": "node",
+      "start": "npm start",
+      "build": "npm install",
+      "test": "npm test"
+    }
+  }
+}

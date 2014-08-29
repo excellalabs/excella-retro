@@ -8,10 +8,8 @@ A remote retrospective tool for Scrum Masters to hold a sprint retrospective to 
 1. Git
   * Make sure git cmd and bin folders are in your path.
 
-
 ## Setup
 npm install
-
 
 ## Run
 npm start
