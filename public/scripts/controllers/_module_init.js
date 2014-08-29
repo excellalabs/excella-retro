@@ -6,3 +6,4 @@ module.exports = angular.module('remoteRetro.controllers', ['remoteRetro.boardRe
 
 // Just define the list of controllers here while developing the whole app (in this boilerplate, just one):
 require('./home.js');
+require('./board.js');

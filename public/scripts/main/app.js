@@ -23,6 +23,10 @@ angular.element(document).ready(function() {
                 templateUrl: '/templates/home.html', 
                 controller: 'HomeController'
             })
+            .when('/board/:id', {
+                templateUrl: '/templates/boardContainer.html',
+                controller: 'BoardController'
+            })
             .otherwise( 
                 {
                     redirectTo: '/'

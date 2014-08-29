@@ -1,6 +1,7 @@
 var app = require('./_module_init.js');
-var helpers = require('../../../shared/helpers');
 require('../../bower_components/angular/angular');
+
+var helpers = require('../../../shared/helpers');
 
 app.controller('HomeController', ['$scope', 'userProvider', 'boardRetriever', function($scope, userProvider, boardRetriever) {
     $scope.createBoard = function(){

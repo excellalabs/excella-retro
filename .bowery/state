@@ -24,6 +24,7 @@
   "config": {
     "remote-retro": {
       "image": "node",
+      "path": ".:/application",
       "start": "npm start",
       "build": "npm install",
       "test": "npm test"
