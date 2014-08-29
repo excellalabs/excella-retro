@@ -1,11 +1,15 @@
 require('../../bower_components/angular/angular');
 require('../../bower_components/angular-route/angular-route');
 require('../controllers/_module_init');
+require('../boardRetriever');
+require('../userProvider');
 
 angular.element(document).ready(function() {
 
 	var requires = [
-		'remoteRetro.controllers',
+        'remoteRetro.controllers',
+        'remoteRetro.userProvider',
+		'remoteRetro.boardRetriever',
 		'ngRoute'
 	];
 

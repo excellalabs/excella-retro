@@ -42,4 +42,4 @@ var app = angular.module('remoteRetro.userProvider', [])
     .value('user', user)
     .value('userHash', userHash);
 
-module.exports.app = app;
+module.exports = app;

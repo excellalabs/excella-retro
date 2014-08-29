@@ -4,9 +4,8 @@
     require('../bower_components/angular/angular');
     var _ = require('../bower_components/lodash/dist/lodash');
 
-    var retriever = function(module){
-
-        module.factory('boardRetriever', ['$http', '$q', 'userProvider',
+    var app = angular.module('remoteRetro.boardRetriever', []);
+    app.factory('boardRetriever', ['$http', '$q', 'userProvider',
             function($http, $q, userProvider){
                 var boardUrl = '../board/';
                 function decorateBoard(board){
@@ -70,7 +69,6 @@
                 };
                 return retriever;
             }]);
-    };
 
-    module.exports.retriever = retriever;
+    module.exports = app;
 

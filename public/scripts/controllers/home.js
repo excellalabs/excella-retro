@@ -1,7 +1,5 @@
-var userProvider = require('../userProvider.js')
-var boardRetriever = require('../boardRetriever.js');
-
-var HomeController = function($scope) {
+var app = require('./_module_init.js');
+app.controller('HomeController', ['$scope', 'userProvider', 'boardRetriever', function($scope, userProvider, boardRetriever) {
     $scope.createBoard = function(){
         var validation = [];
         userProvider.setUser($scope.user, validation);
@@ -21,7 +19,6 @@ var HomeController = function($scope) {
             $scope.validation = validation;
         });
     };
-};
+}]);
 
-var module = require('./_module_init.js');
-module.controller('HomeController', ['$scope', HomeController]);
+module.exports = app;
