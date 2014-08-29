@@ -1,3 +1,5 @@
-/**
- * Created by Doguhan on 8/29/2014.
- */
+var level = require('level');
+
+var db = level('./remoteRetroDb');
+
+module.exports = db;

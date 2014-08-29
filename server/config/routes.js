@@ -51,6 +51,11 @@ module.exports = function(server) {
             path: '/board',
             config: controller.board.getBoards
         },
+        {
+            method: 'POST',
+            path: '/board',
+            config: controller.board.createBoard
+        },
     ];
     return routeTable;
 }

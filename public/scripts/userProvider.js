@@ -1,7 +1,7 @@
 'use strict';
 
 require('../bower_components/angular/angular');
-var hash = require('../bower_components/hash/lib/hash');
+var md5 = require('../bower_components/js-md5/js/md5').md5;
 
 var user = '', userHash = '';
 
@@ -24,7 +24,7 @@ var app = angular.module('remoteRetro.userProvider', [])
                 }
 
                 user = newUser;
-                userHash = hash(user);
+                userHash = md5(user);
 
                 app.value('user', user);
                 app.value('userHash', userHash);

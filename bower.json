@@ -1,9 +1,18 @@
 {
   "name": "remote-retro-hapi",
   "version": "0.0.1",
-  "authors": [
-    "Doguhan Uluca <duluca@gmail.com>"
-  ],
+    "contributors": [
+        {
+            "name": "Doguhan Uluca",
+            "email": "duluca@gmail.com",
+            "url": "https://github.com/duluca"
+        },
+        {
+            "name": "Kevin Groat",
+            "email": "kgroat@live.com",
+            "url": "https://github.com/thegrtman"
+        }
+    ],
   "license": "MIT",
   "private": true,
   "ignore": [
@@ -17,6 +26,7 @@
     "angular": "~1.2.20",
     "bootstrap": "~3.2.0",
     "lodash": "~2.4.1",
-    "angular-route": "~1.2.20"
+    "angular-route": "~1.2.20",
+    "js-md5": "~1.1.0"
   }
 }

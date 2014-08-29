@@ -1,30 +1,22 @@
-﻿var validators = require('./validators');
-var mongoose = require('mongoose');
-var md5 = require('blueimp-md5').md5;
-var Schema = mongoose.Schema;
+﻿var md5 = require('blueimp-md5').md5;
+var db = require('./database');
 
-var BoardSchema = new Schema({
-    title: { type: String, trim: true, validate: validators.buildLengthValidator('title', 2, 50) },
-    phase: { type: String, trim: false, validate: validators.buildLengthValidator('phase', 2, 50) },
-    scrumMasterHash: { type: String, trim: false, validate: validators.buildLengthValidator('scrum master', 32, 32)  }
-});
-
-function pare (board){
-    return board;
-}
-
-BoardSchema.statics = {
-
+module.exports = {
     /**
      * Create new Board
      * @param {Function} callback
      * @api public
      */
-    generate: function(user, callback){
-        var board = new Board({ title: 'My Board', phase: 'prelim', scrumMasterHash: md5(user) });
-        board.save(callback);
-    },
+    create: function(user, boardName, guid, callback){
+        var board = { id: guid, title: boardName, phase: 'prelim', scrumMasterHash: md5(user) };
+        db.put(guid, board, function(err) {
+            if (err) {
+                console.log('Create failed: ', err);
+            }
 
+            callback(err, board);
+        });
+    },
     /**
      * Create new Board
      * @param {Function} callback
@@ -37,7 +29,6 @@ BoardSchema.statics = {
         var board = new Board({ title: 'My Board', phase: 'prelim', scrumMasterHash: md5(user) });
         board.save(callback);
     },
-    
     /**
      * Create new Board
      * @param {Function} callback
@@ -50,7 +41,6 @@ BoardSchema.statics = {
         var board = new Board({ title: 'My Board', phase: 'prelim', scrumMasterHash: md5(user) });
         board.save(callback);
     },
-
     /**
      * Save the Board identified by the given boardId with the specified updates
      *
@@ -68,7 +58,3 @@ BoardSchema.statics = {
         Board.findOneAndUpdate(conditions, update, callback);
     }
 };
-
-var Board = mongoose.model('Board', BoardSchema);
-
-return Board;

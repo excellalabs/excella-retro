@@ -6,13 +6,25 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "bower install",
-    "start": "node server.js"
+    "prestart": "gulp",
+    "start": "node server"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/excellaco/remote-retro-hapi.git"
   },
-  "author": "Doguhan Uluca",
+  "contributors": [
+    {
+      "name": "Doguhan Uluca",
+      "email": "duluca@gmail.com",
+      "url": "https://github.com/duluca"
+    },
+    {
+      "name": "Kevin Groat",
+      "email": "kgroat@live.com",
+      "url": "https://github.com/thegrtman"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/excellaco/remote-retro-hapi/issues"
@@ -21,7 +33,9 @@
   "dependencies": {
     "good": "^2.1.2",
     "hapi": "^6.0.2",
-    "require-directory": "^1.2.0"
+    "require-directory": "^1.2.0",
+    "blueimp-md5": "^1.1.0",
+    "level": "^0.18.0"
   },
   "devDependencies": {
     "gulp": "^3.8.6",

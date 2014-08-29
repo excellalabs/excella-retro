@@ -3,6 +3,7 @@ require('../../bower_components/angular-route/angular-route');
 require('../controllers/_module_init');
 require('../boardRetriever');
 require('../userProvider');
+require('../directives');
 
 angular.element(document).ready(function() {
 
@@ -10,10 +11,11 @@ angular.element(document).ready(function() {
         'remoteRetro.controllers',
         'remoteRetro.userProvider',
 		'remoteRetro.boardRetriever',
+        'remoteRetro.directives',
 		'ngRoute'
 	];
 
-	var app = angular.module('boilerplate', requires);
+	var app = angular.module('remoteRetro', requires);
 
 	app.config(['$routeProvider', function($routeProvider) {
         $routeProvider
@@ -27,6 +29,6 @@ angular.element(document).ready(function() {
                 });
             }]);
 
-	angular.bootstrap(document, ['boilerplate']);
+	angular.bootstrap(document, ['remoteRetro']);
 
 });

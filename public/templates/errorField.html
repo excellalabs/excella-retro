@@ -1,4 +1,6 @@
-<ul class="errorList ng-hide" ng-show="errors">
-    <li class="head">An error occurred!</li>
-    <li class="error" ng-repeat="error in errors">{{ error }}</li>
-</ul>
+<div class="alert alert-danger fade in ng-hide" role="alert" ng-show="errors">
+    <ul class="errorList">
+        <li class="head">An error occurred!</li>
+        <li class="error" ng-repeat="error in errors">{{ error }}</li>
+    </ul>
+</div>
