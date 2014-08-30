@@ -48,8 +48,8 @@ module.exports = function(server) {
         // Board
         {
             method: 'GET',
-            path: '/board',
-            config: controller.board.getBoards
+            path: '/board/{id}',
+            config: controller.board.getBoard
         },
         {
             method: 'POST',

@@ -1,5 +1,5 @@
 var level = require('level');
 
-var db = level('./remoteRetroDb');
+var db = level('./remoteRetroDb', { valueEncoding: 'json'});
 
 module.exports = db;

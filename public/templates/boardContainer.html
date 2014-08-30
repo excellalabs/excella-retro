@@ -1,4 +1,42 @@
 <div class="row" ng-controller="BoardController">
-    <div class="col-md-3" id="boardTools" ui-view></div>
-    <div class="col-md-9" id="board" ui-view></div>
+    <div class="col-md-3" id="boardTools">
+        <div class="row">
+            <div class="col-md12">
+                {{user}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md12">
+                <div>Participants On Board</div>
+                <ul ng-repeat="participant in participants">
+                    <li>{{participant}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row" ng-if="isScrumMaster">
+            <div class="col-md12">
+                <div>Scrum Master Tools</div>
+                <div>Invite Participants: <a ng-href="{{participantMailToLink()}}" title="Send email to participants">{{ url }}</a></div>
+                <div>Scrum Master Access: <a ng-href="{{scrumMasterAccessLink()}}" title="Scrum Master Access Link">{{ url }}</a></div>
+                <button type="button" class="btn btn-default" ng-if="boardState == 'initial'">Start Feedback Gathering</button>
+                <button type="button" class="btn btn-default" ng-if="boardState == 'feedback-completed'">Add Theme</button>
+                <button type="button" class="btn btn-default" ng-if="boardState == 'feedback-completed'">Start Theme Voting</button>
+                <div class="row">
+                    <a class="btn btn-danger">CLOSE BOARD</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9" id="board">
+        <div class="row">
+            <div class="col-md12">
+                <h3>{{board.title}} ({{boardStateDisplayName}})</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md12">
+                (please wait until Scrum Master initiates feedback gathering)
+            </div>
+        </div>
+    </div>
 </div>

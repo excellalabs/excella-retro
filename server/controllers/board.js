@@ -2,9 +2,17 @@ var board = require('../models/board');
 var Hapi = require('hapi');
 
 module.exports = {
-    getBoards: {
+    getBoard: {
         handler: function(request, reply){
-          reply('hello world');
+            board.get(request.params.id, function(err, board) {
+                if(err) {
+                    var error = Hapi.error.badRequest('Cannot find board!');
+                    error.output.statusCode = 404;
+                    reply(error);
+                } else {
+                    reply(board);
+                }
+            });
         },
         app: {
             name: 'board'

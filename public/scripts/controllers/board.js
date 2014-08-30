@@ -1,12 +1,11 @@
 var app = require('./_module_init.js');
 require('../../bower_components/angular/angular');
 
-app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardRetriever', function($scope, routeParams, userProvider, boardRetriever) {
+app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', function($scope, $routeParams, userProvider, boardService) {
     $scope.boardId = $routeParams.id;
 
-
-    boardRetriever.getBoard(boardId).then(function(board){
-
+    boardService.getBoard($scope.boardId).then(function(board){
+        $scope.board = board;
     });
 }]);
 

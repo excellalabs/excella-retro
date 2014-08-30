@@ -8,8 +8,17 @@ module.exports = {
      * @api public
      */
     create: function(user, boardName, guid, callback){
-        var board = { id: guid, title: boardName, phase: 'prelim', scrumMasterHash: md5(user) };
+        var board = { id: guid, title: boardName, phase: 'initial', scrumMasterHash: md5(user) };
         db.put(guid, board, function(err) {
+            if (err) {
+                console.log('Create failed: ', err);
+            }
+
+            callback(err, board);
+        });
+    },
+    get: function(guid, callback){
+        db.get(guid, function(err, board) {
             if (err) {
                 console.log('Create failed: ', err);
             }

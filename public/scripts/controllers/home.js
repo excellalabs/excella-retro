@@ -3,7 +3,7 @@ require('../../bower_components/angular/angular');
 
 var helpers = require('../../../shared/helpers');
 
-app.controller('HomeController', ['$scope', 'userProvider', 'boardRetriever', function($scope, userProvider, boardRetriever) {
+app.controller('HomeController', ['$scope', 'userProvider', 'boardService', '$location', function($scope, userProvider, boardService, $location) {
     $scope.createBoard = function(){
         var validation = [];
         userProvider.setUser($scope.user, validation);
@@ -15,11 +15,8 @@ app.controller('HomeController', ['$scope', 'userProvider', 'boardRetriever', fu
 
         var guid = helpers.guid();
 
-        boardRetriever.createBoard($scope.user, $scope.boardName, guid).then(function(board){
-            //$rootScope.boardId = board.id;
-            alert(board.id);
-
-            //$state.go('board.edit', { boardId: board._id });
+        boardService.createBoard($scope.user, $scope.boardName, guid).then(function(board){
+            $location.path('board/' + board.id);
         }, function(validation){
             if(typeof validation !== "object"){
                 validation = [validation];

@@ -3,8 +3,8 @@
 require('../bower_components/angular/angular');
 var _ = require('../bower_components/lodash/dist/lodash');
 
-var app = angular.module('remoteRetro.boardRetriever', []);
-app.factory('boardRetriever', ['$http', '$q', 'userProvider',
+var app = angular.module('remoteRetro.boardService', []);
+app.factory('boardService', ['$http', '$q', 'userProvider',
         function($http, $q, userProvider){
             var boardUrl = '../board';
             function decorateBoard(board){
@@ -29,7 +29,7 @@ app.factory('boardRetriever', ['$http', '$q', 'userProvider',
                 },
                 getBoard: function(boardId){
                     var deferred = $q.defer();
-                    $http.get(boardUrl + boardId).then(function(ctx){
+                    $http.get(boardUrl + '/' + boardId).then(function(ctx){
                         deferred.resolve(decorateBoard(ctx.data));
                     }, function(ctx) {
                         deferred.reject(ctx.data);
