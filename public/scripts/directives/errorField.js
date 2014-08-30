@@ -1,8 +1,9 @@
-require('../bower_components/angular/angular');
+var app = require('./_module_init.js');
+require('../../bower_components/angular/angular');
+
 
 'use strict';
-var app = angular.module('remoteRetro.directives', [])
-    .directive('errorField', [function() {
+app.directive('errorField', [function() {
         return {
             restrict: 'E',
             templateUrl: '/templates/errorField.html',
