@@ -6,7 +6,7 @@ require('../../bower_components/angular/angular');
 app.directive('errorField', [function() {
         return {
             restrict: 'E',
-            templateUrl: '/templates/errorField.html',
+            templateUrl: 'templates/directives/errorField.html',
             scope: {
                 errors: '=model'
             }

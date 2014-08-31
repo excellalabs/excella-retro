@@ -2,8 +2,8 @@ require('../../bower_components/angular/angular');
 require('../../bower_components/angular-route/angular-route');
 require('../controllers/_module_init');
 require('../directives/_module_init');
-require('../boardService');
-require('../userProvider');
+require('../services/boardService');
+require('../services/userProvider');
 
 
 angular.element(document).ready(function() {
@@ -24,10 +24,18 @@ angular.element(document).ready(function() {
                 templateUrl: '/templates/home.html', 
                 controller: 'HomeController'
             })
+            .when('/board/:id/join', {
+                templateUrl: '/templates/join.html',
+                controller: 'JoinController'
+            })
             .when('/board/:id', {
                 templateUrl: '/templates/boardContainer.html',
                 controller: 'BoardController'
             })
+//            .when('/board/:id/:scrumMasterKey', {
+//                templateUrl: '/templates/boardContainer.html',
+//                controller: 'BoardController'
+//            })
             .otherwise( 
                 {
                     redirectTo: '/'

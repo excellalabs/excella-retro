@@ -27,3 +27,5 @@ remoteRetroDb/*
 **/.idea/workspace.xml
 *.orig
 
+
+public/js/app.js

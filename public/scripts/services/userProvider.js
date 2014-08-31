@@ -1,14 +1,12 @@
-'use strict';
+require('../../bower_components/angular/angular');
+var helpers = require('../../../shared/helpers');
 
-require('../bower_components/angular/angular');
-var md5 = require('../bower_components/js-md5/js/md5').md5;
-
-var user = '', userHash = '';
+var user = '', scrumMasterKey = null;
 
 var app = angular.module('remoteRetro.userProvider', [])
     .factory('userProvider', [function(){
         return {
-            setUser: function(newUser, validation){
+            setUser: function(newUser, isScrumMaster, validation){
                 if(!validation || typeof validation.push !== "function"){
                     validation = [];
                 }
@@ -24,22 +22,31 @@ var app = angular.module('remoteRetro.userProvider', [])
                 }
 
                 user = newUser;
-                userHash = md5(user);
 
                 app.value('user', user);
-                app.value('userHash', userHash);
 
-                return userHash;
+                if(isScrumMaster) {
+                    scrumMasterKey = helpers.guid();
+                    app.value('scrumMasterKey', scrumMasterKey);
+                } else {
+                    scrumMasterKey = '';
+                }
+
+                return scrumMasterKey;
             },
             getUser: function(){
                 return user;
             },
-            getUserHash: function(){
-                return userHash;
+            isUserScrumMaster: function(routeKey, boardsScrumMasterKey){
+                if(scrumMasterKey == null) {
+                    scrumMasterKey = boardsScrumMasterKey;
+                    app.value('scrumMasterKey', scrumMasterKey);
+                }
+                return scrumMasterKey == routeKey;
             }
         }
     }])
     .value('user', user)
-    .value('userHash', userHash);
+    .value('scrumMasterKey', scrumMasterKey);
 
 module.exports = app;

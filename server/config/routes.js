@@ -47,15 +47,25 @@ module.exports = function(server) {
         },
         // Board
         {
-            method: 'GET',
-            path: '/board/{id}',
-            config: controller.board.getBoard
-        },
-        {
             method: 'POST',
             path: '/board',
-            config: controller.board.createBoard
+            config: controller.boardController.createBoard
         },
+        {
+            method: 'GET',
+            path: '/board/{id}',
+            config: controller.boardController.getBoard
+        },
+        {
+            method: 'GET',
+            path: '/board/{id}/participants',
+            config: controller.boardController.getBoardParticipants
+        },
+        {
+            method: 'PUT',
+            path: '/board/{id}/join',
+            config: controller.boardController.joinBoard
+        }
     ];
     return routeTable;
 }

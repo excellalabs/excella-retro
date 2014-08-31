@@ -1,15 +1,23 @@
-﻿var md5 = require('blueimp-md5').md5;
-var db = require('./database');
+﻿var db = require('./database');
+var helpers = require('../../shared/helpers.js');
+
+function saveBoard(boardId, board, callback) {
+    db.put(boardId, board, function(err) {
+        if (err) {
+            console.log('Create failed: ', err);
+        }
+        callback(err, board);
+    });
+}
 
 module.exports = {
-    /**
-     * Create new Board
-     * @param {Function} callback
-     * @api public
-     */
-    create: function(user, boardName, guid, callback){
-        var board = { id: guid, title: boardName, phase: 'initial', scrumMasterHash: md5(user) };
-        db.put(guid, board, function(err) {
+    create: function(user, boardName, scrumMasterKey, callback){
+        var boardId = helpers.guid();
+        var board = { id: boardId, title: boardName, phase: 'initial', scrumMasterKey: scrumMasterKey, participants: [ user ] };
+        saveBoard(boardId, board, callback);
+    },
+    get: function(boardId, callback){
+        db.get(boardId, function(err, board) {
             if (err) {
                 console.log('Create failed: ', err);
             }
@@ -17,53 +25,18 @@ module.exports = {
             callback(err, board);
         });
     },
-    get: function(guid, callback){
-        db.get(guid, function(err, board) {
-            if (err) {
-                console.log('Create failed: ', err);
-            }
-
-            callback(err, board);
+    getBoardParticipants: function(boardId, callback){
+        this.get(boardId, function(err, board) {
+            callback(err, board.participants);
         });
     },
-    /**
-     * Create new Board
-     * @param {Function} callback
-     * @api public
-     */
-    getById: function(user, callback){
-        if(!scrumMasterValidation[0](user)){
-            return callback(scrumMasterValidation[1]);
-        }
-        var board = new Board({ title: 'My Board', phase: 'prelim', scrumMasterHash: md5(user) });
-        board.save(callback);
-    },
-    /**
-     * Create new Board
-     * @param {Function} callback
-     * @api public
-     */
-    getByIdParedDown: function(user, callback){
-        if(!scrumMasterValidation[0](user)){
-            return callback(scrumMasterValidation[1]);
-        }
-        var board = new Board({ title: 'My Board', phase: 'prelim', scrumMasterHash: md5(user) });
-        board.save(callback);
-    },
-    /**
-     * Save the Board identified by the given boardId with the specified updates
-     *
-     * @param {Schema.Types.ObjectId|String} boardId
-     * @param {?} scrumMaster
-     * @param {Object} update
-     * @param {Function} callback
-     * @api public
-     */
-    ensureScrumMasterAndUpdate: function(boardId, scrumMaster, update, callback) {
-        var conditions = {
-            _id: boardId,
-            scrumMasterHash: md5(scrumMaster)
-        };
-        Board.findOneAndUpdate(conditions, update, callback);
+    joinBoard: function(boardId, user, callback) {
+        this.get(boardId, function(err, board) {
+            board.participants.push(user);
+            saveBoard(boardId, board, function(err) {
+                var joined = err === 'undefined';
+                callback(err, joined);
+            });
+        });
     }
 };
