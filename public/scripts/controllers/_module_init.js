@@ -7,3 +7,5 @@ module.exports = angular.module('remoteRetro.controllers', ['remoteRetro.boardSe
 require('./homeViewModel.js');
 require('./boardViewModel.js');
 require('./joinViewModel.js');
+require('./scrumMasterViewModel.js');
+

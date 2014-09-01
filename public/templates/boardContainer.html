@@ -1,4 +1,4 @@
-<div class="row" ng-controller="BoardController">
+<div class="row">
     <div class="col-md-3" id="boardTools">
         <div class="row">
             <div class="col-md12">
@@ -16,8 +16,8 @@
         <div class="row" ng-if="isScrumMaster">
             <div class="col-md12">
                 <div>Scrum Master Tools</div>
-                <div>Invite Participants: <a ng-href="{{participantMailToLink()}}" title="Send email to participants">{{ url }}</a></div>
-                <div>Scrum Master Access: <a ng-href="{{scrumMasterAccessLink()}}" title="Scrum Master Access Link">{{ url }}</a></div>
+                <div>Invite Participants: <a ng-href="{{participantMailToLink()}}" title="Send email to participants">here</a></div>
+                <div>Scrum Master Access: <a ng-href="{{scrumMasterAccessLink()}}" title="Scrum Master Access Link">here</a></div>
                 <button type="button" class="btn btn-default" ng-if="board.phase == 'feedback-completed'">Add Theme</button>
                 <button type="button" class="btn btn-default" ng-if="board.phase == 'feedback-completed'">Start Theme Voting</button>
                 <button type="button" class="btn btn-default" ng-if="board.phase == 'initial'">Start Feedback Gathering</button>

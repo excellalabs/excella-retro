@@ -24,18 +24,18 @@ angular.element(document).ready(function() {
                 templateUrl: '/templates/home.html', 
                 controller: 'HomeController'
             })
+            .when('/board/:id/:scrumMasterKey', {
+                templateUrl: '/templates/joinAsScrumMaster.html',
+                controller: 'ScrumMasterController'
+            })
             .when('/board/:id/join', {
                 templateUrl: '/templates/join.html',
                 controller: 'JoinController'
             })
-            .when('/board/:id', {
+            .when('/board', {
                 templateUrl: '/templates/boardContainer.html',
                 controller: 'BoardController'
             })
-//            .when('/board/:id/:scrumMasterKey', {
-//                templateUrl: '/templates/boardContainer.html',
-//                controller: 'BoardController'
-//            })
             .otherwise( 
                 {
                     redirectTo: '/'

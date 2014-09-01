@@ -13,7 +13,7 @@ function saveBoard(boardId, board, callback) {
 module.exports = {
     create: function(user, boardName, scrumMasterKey, callback){
         var boardId = helpers.guid();
-        var board = { id: boardId, title: boardName, phase: 'initial', scrumMasterKey: scrumMasterKey, participants: [ user ] };
+        var board = { id: boardId, title: boardName, phase: 'initial', scrumMaster: user, scrumMasterKey: scrumMasterKey, participants: [ user ] };
         saveBoard(boardId, board, callback);
     },
     get: function(boardId, callback){
