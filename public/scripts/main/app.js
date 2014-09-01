@@ -24,13 +24,13 @@ angular.element(document).ready(function() {
                 templateUrl: '/templates/home.html', 
                 controller: 'HomeController'
             })
-            .when('/board/:id/:scrumMasterKey', {
-                templateUrl: '/templates/joinAsScrumMaster.html',
-                controller: 'ScrumMasterController'
-            })
             .when('/board/:id/join', {
                 templateUrl: '/templates/join.html',
                 controller: 'JoinController'
+            })
+            .when('/board/:id/:scrumMasterKey', {
+                templateUrl: '/templates/joinAsScrumMaster.html',
+                controller: 'ScrumMasterController'
             })
             .when('/board', {
                 templateUrl: '/templates/boardContainer.html',

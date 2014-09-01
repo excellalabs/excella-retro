@@ -1,11 +1,8 @@
 /**
 * Dependencies.
 */
-var requireDirectory = require('require-directory');
-
 module.exports = function(server) {
-    // Bootstrap your controllers so you dont have to load them individually. This loads them all into the controller name space. https://github.com/troygoode/node-require-directory
-    var controller = requireDirectory(module, './server/controllers');
+   var controller = require('./controllers')(server);
 
     // Array of routes for Hapi
     var routeTable = [
@@ -49,22 +46,22 @@ module.exports = function(server) {
         {
             method: 'POST',
             path: '/board',
-            config: controller.boardController.createBoard
+            config: controller.board.createBoard
         },
         {
             method: 'GET',
             path: '/board/{id}',
-            config: controller.boardController.getBoard
+            config: controller.board.getBoard
         },
         {
             method: 'GET',
             path: '/board/{id}/participants',
-            config: controller.boardController.getBoardParticipants
+            config: controller.board.getBoardParticipants
         },
         {
             method: 'PUT',
             path: '/board/{id}/join',
-            config: controller.boardController.joinBoard
+            config: controller.board.joinBoard
         }
     ];
     return routeTable;
