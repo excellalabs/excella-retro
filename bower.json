@@ -29,6 +29,7 @@
     "angular-route": "~1.2.23",
     "js-md5": "~1.1.0",
     "angular-resource": "~1.2.23",
-    "angular-mocks": "~1.2.23"
+    "angular-mocks": "~1.2.23",
+    "socket.io-client": "~1.0.6"
   }
 }

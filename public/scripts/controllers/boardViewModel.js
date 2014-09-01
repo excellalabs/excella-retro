@@ -1,5 +1,6 @@
 var app = require('./_module_init.js');
 require('../../bower_components/angular/angular');
+var io = require('../../bower_components/socket.io-client')
 
 app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', function($scope, $routeParams, userProvider, boardService, $location, $rootScope) {
     if(!$rootScope.boardId) {
@@ -44,6 +45,12 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
         }
 
         boardService.getBoardParticipants($rootScope.boardId).then(function(participants){
+            $scope.participants = participants;
+        });
+
+        var socket = io();
+
+        socket.on('join', function(participants){
             $scope.participants = participants;
         });
     }

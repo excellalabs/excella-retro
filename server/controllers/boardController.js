@@ -52,13 +52,14 @@ module.exports = {
     },
     joinBoard: {
         handler: function(request, reply){
-            board.joinBoard(request.params.id, request.payload.user, function(err, board) {
+            board.joinBoard(request.params.id, request.payload.user, function(err, participants) {
                 if(err) {
                     var error = Hapi.error.badRequest('Cannot find board!');
                     error.output.statusCode = 404;
                     reply(error);
                 } else {
-                    reply(board);
+                    this.io.emit('joined', participants);
+                    reply(true);
                 }
             });
         },

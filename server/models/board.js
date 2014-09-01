@@ -33,9 +33,8 @@ module.exports = {
     joinBoard: function(boardId, user, callback) {
         this.get(boardId, function(err, board) {
             board.participants.push(user);
-            saveBoard(boardId, board, function(err) {
-                var joined = err === 'undefined';
-                callback(err, joined);
+            saveBoard(boardId, board, function(err, board) {
+                callback(err, board.participants);
             });
         });
     }
