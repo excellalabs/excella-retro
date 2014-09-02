@@ -3,9 +3,8 @@
 
 var app = require('./_module_init.js');
 require('../../bower_components/angular/angular');
-var io = require('socket.io-client');
 
-app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', function($scope, $routeParams, userProvider, boardService, $location, $rootScope) {
+app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', 'socket', function($scope, $routeParams, userProvider, boardService, $location, $rootScope, socket) {
     "use strict";
     if(!$rootScope.boardId) {
         $location.path('#');
@@ -56,11 +55,11 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
             $scope.board.phase = 'feedback-started';
         };
 
-        var socket = io();
-
-        socket.on('connect', function(){
+        socket.connectPromise.then(function(){
             socket.emit('room', $rootScope.boardId);
         });
+
+        socket.off('joined');
 
         socket.on('joined', function(participants){
             $scope.participants = participants;
