@@ -22,6 +22,7 @@
                 <button type="button" class="btn btn-default" ng-if="board.phase == 'feedback-completed'">Add Theme</button>
                 <button type="button" class="btn btn-default" ng-if="board.phase == 'feedback-completed'">Start Theme Voting</button>
                 <button type="button" class="btn btn-default" ng-if="board.phase == 'initial'" ng-click="startFeedbackGathering()">Start Feedback Gathering</button>
+                <button type="button" class="btn btn-default" ng-if="board.phase == 'feedback-started'" ng-click="stopFeedbackGathering()">Stop Feedback Gathering</button>
                 <div class="row">
                     <a class="btn btn-danger">CLOSE BOARD</a>
                 </div>

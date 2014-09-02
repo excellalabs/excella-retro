@@ -7,6 +7,16 @@ module.exports = function boardController(server){
     "use strict";
     var io = SocketIO.listen(server.listener);
 
+    io.sockets.on('connection', function(socket){
+        socket.on('room', function(room){
+            if(socket.currentRoom !== undefined){
+                socket.leave(socket.currentRoom);
+            }
+            socket.join(room);
+            socket.currentRoom = room;
+        });
+    });
+
     var controller = {
         createBoard: {
             handler: function (request, reply) {
@@ -65,7 +75,7 @@ module.exports = function boardController(server){
                         reply(error);
                     } else {
                         //TODO: append guid or use pools
-                        io.emit('joined', participants);
+                        io.to(request.params.id).emit('joined', participants);
                         reply(true);
                     }
                 });

@@ -58,7 +58,10 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
 
         var socket = io();
 
-        // TODO: append guid or use pools
+        socket.on('connect', function(){
+            socket.emit('room', $rootScope.boardId);
+        });
+
         socket.on('joined', function(participants){
             $scope.participants = participants;
             $scope.$apply();
