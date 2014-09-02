@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "bower install",
-    "prestart": "./node_modules/.bin/gulp",
+    "prestart": "gulp",
     "start": "node server",
     "stop": "taskkill /F /IM node.exe"
   },
@@ -42,7 +42,7 @@
     "socket.io-client": "^1.0.6"
   },
   "devDependencies": {
-    "gulp": "^3.8.6",
+    "gulp": "^3.4.0",
     "gulp-browserify": "^0.5.0"
   }
 }
