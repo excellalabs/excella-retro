@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "A tool to host retrospectives for Agile Scrum projects with remote members",
   "main": "server.js",
+  "engines" : {
+    "node": "0.10.x"
+  },
   "scripts": {
     "postinstall": "bower install",
     "prestart": "gulp",
