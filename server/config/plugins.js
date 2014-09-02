@@ -9,24 +9,10 @@ module.exports = function(server) {
         }
     };
 
-    var ioOptions = {
-        messageHandler: function (socket) {
-            return function (message) {
-                console.log("Message sent!");
-                socket.send(message);
-            };
-        },
-        logLevel: 2
-    };
-
     server.pack.register([
         {
             plugin: require("good"),
             options: goodOptions
-        },
-        {
-            plugin: require("hapi-socket"),
-            options: ioOptions
         }
     ], function(err) {
         if (err) { throw err; }
