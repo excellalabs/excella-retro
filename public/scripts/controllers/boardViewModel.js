@@ -52,8 +52,13 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
             $scope.participants = participants;
         });
 
+        $scope.startFeedbackGathering = function(){
+            $scope.board.phase = 'feedback-started';
+        };
+
         var socket = io();
 
+        // TODO: append guid or use pools
         socket.on('joined', function(participants){
             $scope.participants = participants;
             $scope.$apply();

@@ -64,6 +64,11 @@ module.exports = function(server) {
             method: 'PUT',
             path: '/board/{id}/join',
             config: controller.board.joinBoard
+        },
+        {
+            method: 'POST',
+            path: '/board/{id}/feedback',
+            config: controller.board.addFeedback
         }
     ];
     return routeTable;

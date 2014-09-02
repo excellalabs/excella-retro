@@ -16,7 +16,7 @@ module.exports = {
     create: function(user, boardName, scrumMasterKey, callback){
         "use strict";
         var boardId = helpers.guid();
-        var board = { id: boardId, title: boardName, phase: 'initial', scrumMaster: user, scrumMasterKey: scrumMasterKey, participants: [ user ] };
+        var board = { id: boardId, title: boardName, phase: 'initial', scrumMaster: user, scrumMasterKey: scrumMasterKey, participants: [ user ], feedback: [], themes: [] };
         saveBoard(boardId, board, callback);
     },
     get: function(boardId, callback){
@@ -41,6 +41,15 @@ module.exports = {
             board.participants.push(user);
             saveBoard(boardId, board, function(err, board) {
                 callback(err, board.participants);
+            });
+        });
+    },
+    addFeedback: function(boardId, feedback, callback) {
+        "use strict";
+        this.get(boardId, function(err, board) {
+            board.feedback.push(feedback);
+            saveBoard(boardId, board, function(err, board) {
+                callback(err, feedback);
             });
         });
     }

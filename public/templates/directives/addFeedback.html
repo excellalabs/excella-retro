@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-md6">
+        <form role="form">
+            <error-field model="validation"></error-field>
+            <div class="form-group">
+                <label for="feedback">Add Feedback</label>
+                <input class="form-control" id="feedback" placeholder="Be concise" ng-model="feedback">
+            </div>
+            <a class="btn btn-primary" ng-click="sendFeedback()">Send feedback</a>
+        </form>
+    </div>
+    <div class="col-md6">
+        <div>Your Feedback</div>
+        <ul>
+            <li ng-repeat="f in userFeedback">{{f}}</li>
+        </ul>
+    </div>
+</div>

@@ -47,6 +47,15 @@ app.factory('boardService', ['$http', '$q', 'userProvider',
                     });
                     return deferred.promise;
                 },
+                sendFeedback: function (boardId, feedback) {
+                    var deferred = $q.defer();
+                    $http.post(boardUrl + '/' + boardId + '/feedback', {feedback: feedback}).then(function (ctx) {
+                        deferred.resolve(ctx.data);
+                    }, function (ctx) {
+                        deferred.reject(ctx.data);
+                    });
+                    return deferred.promise;
+                },
                 getJoinBoardUrl: function (boardId) {
                     return window.location.origin + '/#/board/' + boardId + '/join';
                 },
