@@ -1,3 +1,6 @@
+/* global require, angular, module, exports */
+/* jslint browser: true */
+
 require('../../bower_components/angular/angular');
 var helpers = require('../../../shared/helpers');
 
@@ -5,6 +8,7 @@ var user = '', scrumMasterKey = null;
 
 var app = angular.module('remoteRetro.userProvider', [])
     .factory('userProvider', [function(){
+        "use strict";
         return {
             setUser: function(newUser, isScrumMaster, validation){
                 if(!validation || typeof validation.push !== "function"){
@@ -38,13 +42,13 @@ var app = angular.module('remoteRetro.userProvider', [])
                 return user;
             },
             isUserScrumMaster: function(routeKey, boardsScrumMasterKey){
-                if(scrumMasterKey == null) {
+                if(scrumMasterKey === null || scrumMasterKey === undefined) {
                     scrumMasterKey = boardsScrumMasterKey;
                     app.value('scrumMasterKey', scrumMasterKey);
                 }
-                return scrumMasterKey == routeKey;
+                return scrumMasterKey === routeKey;
             }
-        }
+        };
     }])
     .value('user', user)
     .value('scrumMasterKey', scrumMasterKey);

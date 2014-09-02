@@ -1,15 +1,16 @@
-﻿var util = require('util');
+﻿/* jslint node: true */
+var util = require('util');
 
 function lengthValidator (minLength, maxLength) {
 
     return function(value) {
         var passes = !!(value && value.length);
         if (passes && minLength > 0) {
-            passes &= value.length >= minLength;
+            passes = value.length >= minLength;
         }
 
         if (passes && maxLength > 0) {
-            passes &= value.length <= maxLength;
+            passes = value.length <= maxLength;
         }
 
         return passes;
@@ -17,6 +18,7 @@ function lengthValidator (minLength, maxLength) {
 }
 
 function buildLengthValidator (fieldName, minLength, maxLength) {
+    "use strict";
     var message = '';
     if (maxLength > 0) {
         if (minLength > 0) {
@@ -31,6 +33,7 @@ function buildLengthValidator (fieldName, minLength, maxLength) {
 }
 
 function merge(model, fields){
+    "use strict";
     for(var name in fields){
         if(fields.hasOwnProperty(name)){
             model[name] = fields[name];

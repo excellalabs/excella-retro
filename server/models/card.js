@@ -1,4 +1,5 @@
-﻿var validators = require('./validators');
+﻿/* jslint node: true */
+var validators = require('./validators');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -17,7 +18,8 @@ CardSchema.statics = {
      * @api public
      */
     getAllForBoard: function(boardId, callback) {
-        if (boardId == undefined) {
+        "use strict";
+        if (boardId === null || boardId === undefined) {
             return callback("Invalid or missing board id");
         }
         if (!(boardId instanceof Schema.Types.ObjectId)) {
@@ -27,6 +29,6 @@ CardSchema.statics = {
         this.find(criteria) // apply search criteria
             .exec(callback); // make request and pass results to callback function
     }
-}
+};
 
 return mongoose.model('Card', CardSchema);

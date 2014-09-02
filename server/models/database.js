@@ -1,3 +1,4 @@
+/* jslint node: true */
 var level = require('level');
 
 var fileDirectory = process.env.CLOUD_DIR || './remoteRetroDb';

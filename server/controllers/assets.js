@@ -1,3 +1,4 @@
+/* jslint node: true */
 // This is the assets controller. Goal is to serve css, js, partials, images, or bower packages.
 module.exports = {
     images: {
@@ -40,4 +41,4 @@ module.exports = {
             name: 'bower'
         }
     }
-}
+};

@@ -1,4 +1,6 @@
+/* jslint node: true */
 module.exports = function(server) {
+    "use strict";
     // Options to pass into the 'Good' plugin
     var goodOptions = {
         subscribers: {
@@ -13,6 +15,6 @@ module.exports = function(server) {
             options: goodOptions
         }
     ], function(err) {
-        if (err) throw err;
+        if (err) { throw err; }
     });
 };
