@@ -1,13 +1,16 @@
+/* jshint ignore:start */
 require('../../bower_components/angular/angular');
 require('../../bower_components/angular-route/angular-route');
 require('../controllers/_module_init');
 require('../directives/_module_init');
 require('../services/boardService');
 require('../services/userProvider');
+/* jshint ignore:end */
 
+window.console.log("HYUP!");
 
-angular.element(document).ready(function() {
-
+window.angular.element(document).ready(function() {
+    "use strict";
 	var requires = [
         'remoteRetro.controllers',
         'remoteRetro.directives',
@@ -16,7 +19,7 @@ angular.element(document).ready(function() {
 		'ngRoute'
 	];
 
-	var app = angular.module('remoteRetro', requires);
+	var app = window.angular.module('remoteRetro', requires);
 
 	app.config(['$routeProvider', function($routeProvider) {
         $routeProvider
@@ -42,6 +45,6 @@ angular.element(document).ready(function() {
                 });
             }]);
 
-	angular.bootstrap(document, ['remoteRetro']);
+	window.angular.bootstrap(document, ['remoteRetro']);
 
 });
