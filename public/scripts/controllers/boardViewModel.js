@@ -1,8 +1,12 @@
+/* global require, angular, module, exports */
+/* jslint browser: true */
+
 var app = require('./_module_init.js');
 require('../../bower_components/angular/angular');
-var io = require('socket.io-client')
+var io = require('socket.io-client');
 
 app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', function($scope, $routeParams, userProvider, boardService, $location, $rootScope) {
+    "use strict";
     if(!$rootScope.boardId) {
         $location.path('#');
     }
@@ -11,11 +15,11 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
             $scope.board = board;
             setIsUserScrumMaster(board.scrumMaster, board.scrumMasterKey);
             $scope.participantMailToLink = function () {
-                return 'mailto:?subject=Join Retrospective: ' + $scope.board.title + '&body=' + escape('Please join my retrospective at:\n\n' + boardService.getJoinBoardUrl(board.id));
-            }
+                return 'mailto:?subject=Join Retrospective: ' + $scope.board.title + '&body=' + encodeURIComponent('Please join my retrospective at:\n\n' + boardService.getJoinBoardUrl(board.id));
+            };
             $scope.scrumMasterAccessLink = function () {
                 return boardService.getScrumMasterAccessUrl(board.id, board.scrumMasterKey);
-            }
+            };
             $scope.boardPhaseDisplayName = function () {
                 switch (board.phase) {
                     case 'initial':
@@ -25,13 +29,13 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
                     default:
                         return '.';
                 }
-            }
+            };
         });
 
-        function setIsUserScrumMaster(scrumMaster, boardsScrumMasterKey) {
+        var setIsUserScrumMaster = function (scrumMaster, boardsScrumMasterKey) {
             var user = userProvider.getUser();
 
-            if (!user || user == '') {
+            if (!user || user === '') {
                 user = scrumMaster;
             }
 
@@ -42,7 +46,7 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
             } else {
                 $scope.isScrumMaster = false;
             }
-        }
+        };
 
         boardService.getBoardParticipants($rootScope.boardId).then(function(participants){
             $scope.participants = participants;

@@ -1,8 +1,10 @@
+/* jslint node: true */
 /**
 * Dependencies.
 */
 module.exports = function(server) {
-   var controller = require('./controllers')(server);
+    "use strict";
+    var controller = require('./controllers')(server);
 
     // Array of routes for Hapi
     var routeTable = [
@@ -65,4 +67,4 @@ module.exports = function(server) {
         }
     ];
     return routeTable;
-}
+};

@@ -1,8 +1,10 @@
+/* jslint node: true */
 var board = require('../models/board');
 var Hapi = require('hapi');
 var SocketIO = require('socket.io');
 
 module.exports = function boardController(server){
+    "use strict";
     var io = SocketIO.listen(server.listener);
 
     var controller = {
@@ -71,6 +73,7 @@ module.exports = function boardController(server){
                 name: 'board'
             }
         }
-    }
+    };
+
     return controller;
 };

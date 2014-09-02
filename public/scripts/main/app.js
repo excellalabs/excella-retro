@@ -1,15 +1,14 @@
-/* jshint ignore:start */
+/* global require, angular */
+/* jslint browser: true */
+
 require('../../bower_components/angular/angular');
 require('../../bower_components/angular-route/angular-route');
 require('../controllers/_module_init');
 require('../directives/_module_init');
 require('../services/boardService');
 require('../services/userProvider');
-/* jshint ignore:end */
 
-window.console.log("HYUP!");
-
-window.angular.element(document).ready(function() {
+angular.element(document).ready(function() {
     "use strict";
 	var requires = [
         'remoteRetro.controllers',
@@ -45,6 +44,6 @@ window.angular.element(document).ready(function() {
                 });
             }]);
 
-	window.angular.bootstrap(document, ['remoteRetro']);
+	angular.bootstrap(document, ['remoteRetro']);
 
 });
