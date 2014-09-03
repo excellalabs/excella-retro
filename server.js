@@ -1,11 +1,13 @@
+/* jslint node: true */
 var Hapi = require('hapi');
 var server = Hapi.createServer('localhost', process.env.PORT || 3000);
 
 // Bootstrap Hapi Server Plugins, passes the server object to the plugins
+require('./server/config/socketSetup')(server);
 require('./server/config/plugins')(server);
 
 // Require the routes and pass the server object.
-var routes = require('./server/config/routes')(server);
+var routes = require('./server/config/routes');
 // Add the server routes
 server.route(routes);
 
