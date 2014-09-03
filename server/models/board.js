@@ -52,5 +52,20 @@ module.exports = {
                 callback(err, feedback);
             });
         });
+    },
+    addTheme: function(boardId, theme, callback) {
+        "use strict";
+        this.get(boardId, function(err, board) {
+            board.themes.push(theme);
+            saveBoard(boardId, board, function(err, board) {
+                callback(err, theme);
+            });
+        });
+    },
+    getThemes: function(boardId, callback) {
+        "use strict";
+        this.get(boardId, function(err, board) {
+            callback(err, board.themes);
+        });
     }
 };

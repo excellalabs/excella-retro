@@ -92,8 +92,41 @@ module.exports = function boardController(server){
                         var error = Hapi.error.badRequest('Cannot find board!');
                         error.output.statusCode = 404;
                         reply(error);
+                    } else {
+                        reply(feedback);
                     }
-                    reply(feedback);
+                });
+            },
+            app: {
+                name: 'board'
+            }
+        },
+        getThemes: {
+            handler: function (request, reply) {
+                board.getThemes(request.params.id, function (err, themes) {
+                    if (err) {
+                        var error = Hapi.error.badRequest('Cannot find board!');
+                        error.output.statusCode = 404;
+                        reply(error);
+                    } else {
+                        reply(themes);
+                    }
+                });
+            },
+            app: {
+                name: 'board'
+            }
+        },
+        addTheme: {
+            handler: function (request, reply) {
+                board.addTheme(request.params.id, request.payload.theme, function (err, theme) {
+                    if (err) {
+                        var error = Hapi.error.badRequest('Cannot find board!');
+                        error.output.statusCode = 404;
+                        reply(error);
+                    } else {
+                        reply(theme);
+                    }
                 });
             },
             app: {

@@ -69,6 +69,16 @@ module.exports = function(server) {
             method: 'POST',
             path: '/board/{id}/feedback',
             config: controller.board.addFeedback
+        },
+        {
+            method: 'GET',
+            path: '/board/{id}/theme',
+            config: controller.board.getThemes
+        },
+        {
+            method: 'POST',
+            path: '/board/{id}/theme',
+            config: controller.board.addTheme
         }
     ];
     return routeTable;
