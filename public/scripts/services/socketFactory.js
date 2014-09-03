@@ -29,6 +29,9 @@ var app = angular.module('remoteRetro.socketFactory', [])
     .factory('socket', ['$rootScope', 'unwrappedSocket', function($rootScope, socket){
         "use strict";
         var wrappedSocket = {};
+
+        wrappedSocket.bare = socket;
+
         wrappedSocket.onConnect = function(callback){
             socket.connectPromise.then(function(){
                 callback();
