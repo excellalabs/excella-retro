@@ -7,3 +7,5 @@ module.exports = angular.module('remoteRetro.directives', []);
 require('./errorField.js');
 require('./viewFeedback.js');
 require('./addFeedback.js');
+require('./addTheme.js');
+require('./viewThemes.js');
