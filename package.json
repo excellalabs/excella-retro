@@ -1,6 +1,6 @@
 {
   "name": "remote-retro-hapi",
-  "version": "0.0.1-1",
+  "version": "0.0.1-4",
   "description": "A tool to host retrospectives for Agile Scrum projects with remote members",
   "main": "server.js",
   "engines": {
