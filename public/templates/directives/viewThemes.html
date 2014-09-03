@@ -3,18 +3,18 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Themes</h3>
-                <span class="badge pull-right"></span>
+                <span class="badge pull-right">{{allowedVotes}}</span>
             </div>
             <div class="panel-body">
                 <div class="list-group">
                     <div class="list-group-item" ng-repeat="theme in themes track by $index">
                         <div class="input-group">
                             <span class="input-group-btn">
-                                <a class="btn btn-default"><span class="glyphicon glyphicon-chevron-down"/></a>
+                                <a class="btn btn-default" ng-click="downVote(theme.id)"><span class="glyphicon glyphicon-chevron-down"/></a>
                             </span>
-                            <span class="form-control">{{theme}}</span>
+                            <span class="form-control">{{theme.description}}<span class="badge pull-right">{{theme.votes}}</span></span>
                             <span class="input-group-btn">
-                                <a class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"/></a>
+                                <a class="btn btn-default" ng-click="upVote(theme.id)"><span class="glyphicon glyphicon-chevron-up"/></a>
                             </span>
                         </div>
                     </div>
