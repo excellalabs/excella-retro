@@ -19,7 +19,7 @@
                 <div>Scrum Master Tools</div>
                 <div>Invite Participants: <a ng-href="{{participantMailToLink()}}" title="Send email to participants">here</a></div>
                 <div>Scrum Master Access: <a ng-href="{{scrumMasterAccessLink()}}" title="Scrum Master Access Link">here</a></div>
-                <button type="button" class="btn btn-default" ng-if="board.phase == 'feedback-completed'">Add Theme</button>
+                <add-theme ng-if="board.phase == 'feedback-completed'" board-id="board.id"></add-theme>
                 <button type="button" class="btn btn-default" ng-if="board.phase == 'feedback-completed'">Start Theme Voting</button>
                 <button type="button" class="btn btn-default" ng-if="board.phase == 'initial'" ng-click="startFeedbackGathering()">Start Feedback Gathering</button>
                 <button type="button" class="btn btn-default" ng-if="board.phase == 'feedback-started'" ng-click="stopFeedbackGathering()">Stop Feedback Gathering</button>
@@ -38,7 +38,8 @@
         <div class="row">
             <div class="col-md12">
                 <div ng-if="board.phase == 'initial'">(please wait until Scrum Master initiates feedback gathering)</div>
-                <add-feedback ng-if="board.phase == 'feedback-started'" board-id="board.id"/>
+                <add-feedback ng-if="board.phase == 'feedback-started'" board-id="board.id"></add-feedback>
+                <view-themes ng-if="board.phase == 'feedback-completed'" themes="themes"></view-themes>
             </div>
         </div>
     </div>
