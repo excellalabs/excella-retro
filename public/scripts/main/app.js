@@ -8,10 +8,12 @@ require('../directives/_module_init');
 require('../services/boardService');
 require('../services/userProvider');
 require('../services/socketFactory');
+require('../services/helpersModule');
 
 angular.element(document).ready(function() {
     "use strict";
 	var requires = [
+        'remoteRetro.helpers',
         'remoteRetro.controllers',
         'remoteRetro.directives',
         'remoteRetro.userProvider',
