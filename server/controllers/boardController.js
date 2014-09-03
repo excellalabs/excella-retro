@@ -8,13 +8,13 @@ module.exports = function boardController(server){
     var io = SocketIO.listen(server.listener);
 
     io.sockets.on('connection', function(socket){
-        socket.on('room', function(room){
-            if(socket.currentRoom !== undefined){
-                if(socket.currentRoom === room){ return; }
-                socket.leave(socket.currentRoom);
+        socket.on('room', function(boardId){
+            if(socket.boardId !== undefined){
+                if(socket.boardId === boardId){ return; }
+                socket.leave(socket.boardId);
             }
-            socket.join(room);
-            socket.currentRoom = room;
+            socket.join(boardId);
+            socket.boardId = boardId;
         });
     });
 
@@ -60,6 +60,29 @@ module.exports = function boardController(server){
                         reply(error);
                     } else {
                         reply(board);
+                    }
+                });
+            },
+            app: {
+                name: 'board'
+            }
+        },
+        setBoardPhase: {
+            handler: function (request, reply) {
+                board.setPhase(request.params.id, request.payload.phase, request.payload.scrumMasterKey, function(err, board){
+                    if(err){
+                        var error;
+                        if(err === "scrum master key mismatch") {
+                            error = Hapi.error.badRequest('Cannot update board phase!');
+                            error.output.statusCode = 400;
+                        } else {
+                            error = Hapi.error.badRequest('Cannot find board!');
+                            error.output.statusCode = 404;
+                        }
+                        reply(error);
+                    } else {
+                        io.to(request.params.id).emit('boardPhase', board.phase);
+                        reply(true);
                     }
                 });
             },

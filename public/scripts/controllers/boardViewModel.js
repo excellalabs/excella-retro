@@ -53,6 +53,12 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
 
         $scope.startFeedbackGathering = function(){
             $scope.board.phase = 'feedback-started';
+            boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
+        };
+
+        $scope.stopFeedbackGathering = function(){
+            $scope.board.phase = 'feedback-completed';
+            boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
         };
 
         socket.onConnect(function(){
@@ -61,7 +67,10 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
 
         socket.offOn('joined', function(participants){
             $scope.participants = participants;
-            window.console.log('joined event occurred');
+        });
+
+        socket.offOn('boardPhase', function(phase){
+            $scope.board.phase = phase;
         });
     }
 }]);
