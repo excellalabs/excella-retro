@@ -1,8 +1,25 @@
-<div class="row">
-    <div class="col-md12">
-        <div>Themes</div>
-        <ul>
-            <li ng-repeat="theme in themes">{{theme}}</li>
-        </ul>
+<div class="col-md-12">
+    <div class="row-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Themes</h3>
+                <span class="badge pull-right"></span>
+            </div>
+            <div class="panel-body">
+                <div class="list-group">
+                    <div class="list-group-item" ng-repeat="theme in themes track by $index">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <a class="btn btn-default"><span class="glyphicon glyphicon-chevron-down"/></a>
+                            </span>
+                            <span class="form-control">{{theme}}</span>
+                            <span class="input-group-btn">
+                                <a class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"/></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

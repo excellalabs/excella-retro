@@ -8,5 +8,12 @@ module.exports = {
         }
 
         return _p8() + _p8(true) + _p8(true) + _p8();
+    },
+    dotVotesAllowed: function(noOfItemsVotedOn) {
+        if(noOfItemsVotedOn && noOfItemsVotedOn > 0) {
+            return (noOfItemsVotedOn / 3) + 1;
+        }
+
+        return 0;
     }
 };
