@@ -4,7 +4,7 @@
 var app = require('./_module_init.js');
 require('../../bower_components/angular/angular');
 
-app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', 'socket', function($scope, $routeParams, userProvider, boardService, $location, $rootScope, socket) {
+app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', 'wrappedSocket', function($scope, $routeParams, userProvider, boardService, $location, $rootScope, socket) {
     "use strict";
     if(!$rootScope.boardId) {
         $location.path('#');
@@ -55,15 +55,13 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
             $scope.board.phase = 'feedback-started';
         };
 
-        socket.connectPromise.then(function(){
+        socket.onConnect(function(){
             socket.emit('room', $rootScope.boardId);
         });
 
-        socket.off('joined');
-
-        socket.on('joined', function(participants){
+        socket.offOn('joined', function(participants){
             $scope.participants = participants;
-            $scope.$apply();
+            window.console.log('joined event occurred');
         });
     }
 }]);

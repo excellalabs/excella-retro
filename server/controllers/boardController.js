@@ -10,6 +10,7 @@ module.exports = function boardController(server){
     io.sockets.on('connection', function(socket){
         socket.on('room', function(room){
             if(socket.currentRoom !== undefined){
+                if(socket.currentRoom === room){ return; }
                 socket.leave(socket.currentRoom);
             }
             socket.join(room);
