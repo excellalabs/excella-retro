@@ -12,6 +12,13 @@ function saveBoard(boardId, board, callback) {
     });
 }
 
+function removePrivateFields(board){
+    // TODO: eventually, don't expose scrum master key but verify identity server-side
+    ////if(board && board.scrumMasterKey !== undefined){
+    ////    board.scrumMasterKey = undefined;
+    ////}
+}
+
 module.exports = {
     create: function(user, boardName, scrumMasterKey, callback){
         var boardId = helpers.guid();
@@ -41,6 +48,7 @@ module.exports = {
             board.phase = newPhase;
 
             saveBoard(boardId, board, function(err, savedBoard) {
+                removePrivateFields(savedBoard);
                 callback(err, savedBoard);
             });
         });
@@ -50,11 +58,7 @@ module.exports = {
             if (err) {
                 console.log('Get failed: ', err);
             }
-
-            // TODO: eventually, don't expose scrum master key but verify identity server-side
-            ////if(board && board.scrumMasterKey !== undefined){
-            ////    board.scrumMasterKey = undefined;
-            ////}
+            removePrivateFields(board);
             callback(err, board);
         });
     },
