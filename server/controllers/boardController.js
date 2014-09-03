@@ -68,7 +68,7 @@ module.exports = {
                     }
                     reply(error);
                 } else {
-                    io.to(request.params.id).emit('boardPhase', board.phase);
+                    io.to(board.id).emit('refreshBoard', board.id);
                     reply(true);
                 }
             });
