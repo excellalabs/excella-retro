@@ -2,14 +2,15 @@
     <div class="col-md-3" id="boardTools">
         <div class="row">
             <div class="col-md12">
-                {{user}}
+                <h4>{{board.title}} ({{boardPhaseDisplayName()}})</h4>
+                <h4>{{user}}</h4>
             </div>
         </div>
         <div class="row">
             <div class="col-md12">
                 <div>Participants On Board</div>
-                <ul ng-repeat="participant in participants">
-                    <li>{{participant}}</li>
+                <ul>
+                    <li ng-repeat="participant in participants">{{participant}}</li>
                 </ul>
             </div>
         </div>
@@ -18,9 +19,10 @@
                 <div>Scrum Master Tools</div>
                 <div>Invite Participants: <a ng-href="{{participantMailToLink()}}" title="Send email to participants">here</a></div>
                 <div>Scrum Master Access: <a ng-href="{{scrumMasterAccessLink()}}" title="Scrum Master Access Link">here</a></div>
-                <button type="button" class="btn btn-default" ng-if="board.phase == 'feedback-completed'">Add Theme</button>
+                <add-theme ng-if="board.phase == 'feedback-completed'" board-id="board.id"></add-theme>
                 <button type="button" class="btn btn-default" ng-if="board.phase == 'feedback-completed'">Start Theme Voting</button>
-                <button type="button" class="btn btn-default" ng-if="board.phase == 'initial'">Start Feedback Gathering</button>
+                <button type="button" class="btn btn-default" ng-if="board.phase == 'initial'" ng-click="startFeedbackGathering()">Start Feedback Gathering</button>
+                <button type="button" class="btn btn-default" ng-if="board.phase == 'feedback-started'" ng-click="stopFeedbackGathering()">Stop Feedback Gathering</button>
                 <div class="row">
                     <a class="btn btn-danger">CLOSE BOARD</a>
                 </div>
@@ -30,12 +32,18 @@
     <div class="col-md-9" id="board">
         <div class="row">
             <div class="col-md12">
-                <h3>{{board.title}} ({{boardPhaseDisplayName()}})</h3>
+
             </div>
         </div>
         <div class="row">
             <div class="col-md12">
-                <div>(please wait until Scrum Master initiates feedback gathering)</div>
+                <div ng-if="board.phase == 'initial'">(please wait until Scrum Master initiates feedback gathering)</div>
+                <add-feedback ng-if="board.phase == 'feedback-started'" board-id="board.id"></add-feedback>
+                <div ng-if="board.phase == 'feedback-completed'">
+                        Team Feedback
+                    <view-feedback feedback="board.feedback" />
+                </div>
+                <view-themes ng-if="board.phase == 'feedback-completed'" themes="themes"></view-themes>
             </div>
         </div>
     </div>

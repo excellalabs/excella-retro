@@ -9,7 +9,8 @@
   "scripts": {
     "postinstall": "bower install",
     "prestart": "gulp",
-    "start": "node server"
+    "start": "node server",
+    "stop": "taskkill /F /IM node.exe"
   },
   "repository": {
     "type": "git",

@@ -3,9 +3,8 @@
 
 var app = require('./_module_init.js');
 require('../../bower_components/angular/angular');
-var io = require('socket.io-client');
 
-app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', function($scope, $routeParams, userProvider, boardService, $location, $rootScope) {
+app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', 'socket', function($scope, $routeParams, userProvider, boardService, $location, $rootScope, socket) {
     "use strict";
     if(!$rootScope.boardId) {
         $location.path('#');
@@ -14,21 +13,36 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
         boardService.getBoard($rootScope.boardId).then(function (board) {
             $scope.board = board;
             setIsUserScrumMaster(board.scrumMaster, board.scrumMasterKey);
+
             $scope.participantMailToLink = function () {
-                return 'mailto:?subject=Join Retrospective: ' + $scope.board.title + '&body=' + encodeURIComponent('Please join my retrospective at:\n\n' + boardService.getJoinBoardUrl(board.id));
+                return 'mailto:?subject=Join Retrospective: ' + $scope.board.title + '&body=' + encodeURIComponent('Please join my retrospective at:\n\n' + boardService.getJoinBoardUrl($scope.board.id));
             };
+
             $scope.scrumMasterAccessLink = function () {
-                return boardService.getScrumMasterAccessUrl(board.id, board.scrumMasterKey);
+                return boardService.getScrumMasterAccessUrl($scope.board.id, $scope.board.scrumMasterKey);
             };
+
             $scope.boardPhaseDisplayName = function () {
-                switch (board.phase) {
+                switch ($scope.board.phase) {
                     case 'initial':
                         return 'Getting ready';
+                    case 'feedback-started':
+                        return 'Gathering feedback';
                     case 'feedback-completed':
                         return 'Creating themes';
                     default:
                         return '.';
                 }
+            };
+
+            $scope.startFeedbackGathering = function(){
+                $scope.board.phase = 'feedback-started';
+                boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
+            };
+
+            $scope.stopFeedbackGathering = function(){
+                $scope.board.phase = 'feedback-completed';
+                boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
             };
         });
 
@@ -52,11 +66,20 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
             $scope.participants = participants;
         });
 
-        var socket = io();
+        socket.onConnect(function(){
+            socket.emit('room', $rootScope.boardId);
+        });
 
-        socket.on('joined', function(participants){
+        socket.offOn('joined', function(participants){
             $scope.participants = participants;
-            $scope.$apply();
+        });
+
+        socket.offOn('theme-added', function(themes){
+            $scope.themes = themes;
+        });
+
+        socket.offOn('refreshBoard', function(board){
+            $scope.board = board;
         });
     }
 }]);

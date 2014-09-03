@@ -7,6 +7,7 @@ require('../controllers/_module_init');
 require('../directives/_module_init');
 require('../services/boardService');
 require('../services/userProvider');
+require('../services/socketFactory');
 
 angular.element(document).ready(function() {
     "use strict";
@@ -15,6 +16,7 @@ angular.element(document).ready(function() {
         'remoteRetro.directives',
         'remoteRetro.userProvider',
 		'remoteRetro.boardService',
+        'remoteRetro.socketFactory',
 		'ngRoute'
 	];
 
