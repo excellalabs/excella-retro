@@ -13,7 +13,7 @@ app.directive('addTheme', [function() {
             boardId: '=boardId'
         },
         controller: function($scope, boardService) {
-            $scope.addTheme = function() {
+            $scope.sendTheme = function() {
                 boardService.sendTheme($scope.boardId, $scope.theme).then(function(savedTheme) {
                 }, function(validation){
                     if(typeof validation !== "object"){

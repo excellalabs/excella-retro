@@ -128,14 +128,14 @@ module.exports = {
         },
         addTheme: {
             handler: function (request, reply) {
-                board.addTheme(request.params.id, request.payload.theme, function (err, theme) {
+                board.addTheme(request.params.id, request.payload.theme, function (err, themes) {
                     if (err) {
                         var error = Hapi.error.badRequest('Cannot find board!');
                         error.output.statusCode = 404;
                         reply(error);
                     } else {
-                        io.to(request.params.id).emit('theme-added', theme);
-                        reply(theme);
+                        io.to(request.params.id).emit('theme-added', themes);
+                        reply(request.payload.theme);
                     }
             });
         },

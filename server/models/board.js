@@ -87,7 +87,7 @@ module.exports = {
         this.get(boardId, function(err, board) {
             board.themes.push(theme);
             saveBoard(boardId, board, function(err, board) {
-                callback(err, theme);
+                callback(err, board.themes);
             });
         });
     },

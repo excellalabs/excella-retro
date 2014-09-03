@@ -74,6 +74,10 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
             $scope.participants = participants;
         });
 
+        socket.offOn('theme-added', function(themes){
+            $scope.themes = themes;
+        });
+
         socket.offOn('refreshBoard', function(board){
             $scope.board = board;
         });
