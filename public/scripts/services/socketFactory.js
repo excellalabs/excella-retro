@@ -15,7 +15,7 @@ var io = require('socket.io-client');
 // it also adds some functionality, such as onConnect, which uses the connectPromise, and offOn, which first un-registers, then re-registers callbacks
 
 var app = angular.module('remoteRetro.socketFactory', [])
-    .factory('socket', ['$q', function($q){
+    .factory('unwrappedSocket', ['$q', function($q){
         "use strict";
         var socket = io();
         var deferred = $q.defer();
@@ -26,7 +26,7 @@ var app = angular.module('remoteRetro.socketFactory', [])
         });
         return socket;
     }])
-    .factory('wrappedSocket', ['$rootScope', 'socket', function($rootScope, socket){
+    .factory('socket', ['$rootScope', 'unwrappedSocket', function($rootScope, socket){
         "use strict";
         var wrappedSocket = {};
         wrappedSocket.onConnect = function(callback){
