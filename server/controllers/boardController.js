@@ -98,7 +98,6 @@ module.exports = function boardController(server){
                         error.output.statusCode = 404;
                         reply(error);
                     } else {
-                        //TODO: append guid or use pools
                         io.to(request.params.id).emit('joined', participants);
                         reply(true);
                     }
@@ -148,6 +147,7 @@ module.exports = function boardController(server){
                         error.output.statusCode = 404;
                         reply(error);
                     } else {
+                        io.to(request.params.id).emit('theme-added', theme);
                         reply(theme);
                     }
                 });

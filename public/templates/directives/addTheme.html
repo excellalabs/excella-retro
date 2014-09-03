@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-md6">
+        <form role="form">
+            <error-field model="validation"></error-field>
+            <div class="form-group">
+                <label for="theme">Add Theme</label>
+                <input class="form-control" id="theme" placeholder="Summarize theme feedback" ng-model="theme">
+            </div>
+            <a class="btn btn-primary" ng-click="sendTheme()">Send theme</a>
+        </form>
+    </div>
+    <div class="col-md6">
+        <div>Themes</div>
+        <ul>
+            <li ng-repeat="f in userFeedback">{{f}}</li>
+        </ul>
+    </div>
+</div>
