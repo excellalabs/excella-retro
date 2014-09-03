@@ -38,8 +38,11 @@
         <div class="row">
             <div class="col-md12">
                 <div ng-if="board.phase == 'initial'">(please wait until Scrum Master initiates feedback gathering)</div>
-                <add-feedback ng-if="board.phase == 'feedback-started'" board-id="board.id"/>
-                <view-feedback ng-if="board.phase == 'feedback-completed'" feedback="board.feedback"/>
+                <add-feedback ng-if="board.phase == 'feedback-started'" board-id="board.id"></add-feedback>
+                <div ng-if="board.phase == 'feedback-completed'">
+                        All feedback:
+                    <view-feedback feedback="board.feedback" />
+                </div>
             </div>
         </div>
     </div>
