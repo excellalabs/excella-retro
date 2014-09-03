@@ -10,7 +10,7 @@ app.directive('viewThemes', [function() {
         restrict: 'E',
         templateUrl: 'templates/directives/viewThemes.html',
         scope: {
-            feedbackList: '=themes'
+            themes: '=themes'
         }
     };
 }]);
