@@ -66,6 +66,11 @@ module.exports = function(server) {
             config: controller.board.joinBoard
         },
         {
+            method: 'PUT',
+            path: '/board/{id}/phase',
+            config: controller.board.setBoardPhase
+        },
+        {
             method: 'POST',
             path: '/board/{id}/feedback',
             config: controller.board.addFeedback
