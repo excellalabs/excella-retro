@@ -110,8 +110,11 @@ module.exports = {
                         theme.votes += themeIdVoteCollection[themeId];
                     }
                 }
-                callback(err, board.themes);
-                release();
+
+                saveBoard(boardId, board, function(err, board) {
+                    callback(err, board.themes);
+                    release();
+                });
             });
         });
     }
