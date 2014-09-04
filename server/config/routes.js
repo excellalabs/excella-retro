@@ -74,15 +74,20 @@ module.exports = [
         method: 'POST',
         path: '/board/{id}/feedback',
         config: controller.board.addFeedback
-        },
-        {
-            method: 'GET',
-            path: '/board/{id}/theme',
-            config: controller.board.getThemes
-        },
-        {
-            method: 'POST',
-            path: '/board/{id}/theme',
-            config: controller.board.addTheme
+    },
+    {
+        method: 'GET',
+        path: '/board/{id}/theme',
+        config: controller.board.getThemes
+    },
+    {
+        method: 'POST',
+        path: '/board/{id}/theme',
+        config: controller.board.addTheme
+    },
+    {
+        method: 'PUT',
+        path: '/board/{id}/addVotes',
+        config: controller.board.addVotes
     }
 ];

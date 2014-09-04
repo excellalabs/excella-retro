@@ -10,7 +10,7 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
         $location.path('#');
     }
     else {
-
+        $scope.socketStatus = "Connecting...";
         var loadBoard = function() {
             boardService.getBoard($rootScope.boardId).then(function (board) {
                 $scope.board = board;
@@ -38,6 +38,10 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
                             return 'Gathering feedback';
                         case 'feedback-completed':
                             return 'Creating themes';
+                        case 'voting-started':
+                            return 'Cast your votes';
+                        case 'voting-ended':
+                            return 'Review prioritized themes';
                         default:
                             return '.';
                     }
@@ -54,6 +58,16 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
 
                 $scope.stopFeedbackGathering = function () {
                     $scope.board.phase = 'feedback-completed';
+                    boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
+                };
+
+                $scope.startThemeVoting = function () {
+                    $scope.board.phase = 'voting-started';
+                    boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
+                };
+
+                $scope.stopThemeVoting = function () {
+                    $scope.board.phase = 'voting-ended';
                     boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
                 };
             });
@@ -75,8 +89,35 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
             }
         };
 
-        socket.onConnect(function(){
+        socket.on('error', function (error) {
+            $scope.socketStatus = "Connection error :(";
+        });
+
+        socket.on('reconnecting', function (attemptNo) {
+            if(attemptNo % 2 === 0) {
+                $scope.socketStatus = "Trying to reconnect :|";
+            } else {
+                $scope.socketStatus = "Trying to reconnect :(";
+            }
+        });
+
+        socket.on('reconnect', function (attemptNo) {
+            $scope.socketStatus = "Connected :)";
             socket.emit('room', $rootScope.boardId);
+        });
+
+        socket.on('reconnect_failed', function () {
+            $scope.socketStatus = "Failed to reconnect :0";
+        });
+
+        socket.onConnect(function(){
+            $scope.socketStatus = "Connected :)";
+            socket.emit('room', $rootScope.boardId);
+
+            socket.on('disconnect.', function () {
+                $scope.socketStatus = "Disconnected :(";
+            });
+
         });
 
         socket.offOn('joined', function(participants){

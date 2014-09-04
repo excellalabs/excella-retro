@@ -13,25 +13,28 @@ app.directive('viewThemes', [function() {
         scope: {
             themes: '=themes'
         },
-        controller: function($scope, boardService) {
-            $scope.allowedVotes = helpers.dotVotesAllowed($scope.themes.length);
+        controller: function($scope, boardService, socket, _) {
+            var allowedVotes = 0;
 
-            var usedVotes = 0;
+            $scope.$watchCollection('themes', function() {
+                $scope.unusedVotes = allowedVotes = helpers.dotVotesAllowed($scope.themes.length);
+            });
+
+            $scope.canVote = false;
 
             function canUpVote() {
-                return usedVotes <= $scope.allowedVotes;
+                return $scope.canVote && $scope.unusedVotes > 0;
             }
 
             function canDownVote(themeVotes) {
-                return usedVotes > 0 && themeVotes > 0;
+                return $scope.canVote && $scope.unusedVotes <= allowedVotes && themeVotes > 0;
             }
 
             $scope.upVote = function(themeId) {
                 if(canUpVote()) {
                     var theme = _.findWhere($scope.themes, {id: themeId});
                     theme.votes++;
-                    usedVotes++;
-                    $scope.$apply();
+                    $scope.unusedVotes--;
                 }
             };
 
@@ -39,13 +42,13 @@ app.directive('viewThemes', [function() {
                 var theme = _.findWhere($scope.themes, {id: themeId});
                 if(canDownVote(theme.votes)) {
                     theme.votes--;
-                    usedVotes--;
-                    $scope.$apply();
+                    $scope.unusedVotes++;
                 }
             };
 
             $scope.sendTheme = function() {
                 boardService.sendTheme($scope.boardId, $scope.theme).then(function(savedTheme) {
+                    $scope.theme = savedTheme;
                 }, function(validation){
                     if(typeof validation !== "object"){
                         validation = [validation];
@@ -53,6 +56,25 @@ app.directive('viewThemes', [function() {
                     $scope.validation = validation;
                 });
             };
+
+            socket.offOn('begin-voting', function () {
+                $scope.canVote = true;
+            });
+
+            socket.offOn('collect-votes', function () {
+                $scope.canVote = false;
+
+                var themeIdVoteCollection = {};
+
+                _.each($scope.themes, function(theme) {
+                    if(theme.votes > 0) {
+                        themeIdVoteCollection[theme.id] = theme.votes;
+                    }
+                });
+
+                boardService.sendVotes($scope.boardId, themeIdVoteCollection);
+
+            });
         }
     };
 }]);

@@ -2,6 +2,7 @@
 "use strict";
 var db = require('./database');
 var helpers = require('../../shared/helpers.js');
+var _ = require('lodash');
 
 function saveBoard(boardId, board, callback) {
     db.put(boardId, board, function(err) {
@@ -85,7 +86,8 @@ module.exports = {
     },
     addTheme: function(boardId, theme, callback) {
         this.get(boardId, function(err, board) {
-            board.themes.push(theme);
+            var newTheme = { id: helpers.guid(), description: theme, votes: 0 };
+            board.themes.push(newTheme);
             saveBoard(boardId, board, function(err, board) {
                 callback(err, board.themes);
             });
@@ -93,6 +95,18 @@ module.exports = {
     },
     getThemes: function(boardId, callback) {
         this.get(boardId, function(err, board) {
+            callback(err, board.themes);
+        });
+    },
+    addVotes: function(boardId, themeIdVoteCollection, callback) {
+        this.get(boardId, function (err, board) {
+            for(var themeId in themeIdVoteCollection){
+                if(themeIdVoteCollection.hasOwnProperty(themeId)) {
+                    var theme = _.findWhere(board.themes, {id: themeId});
+                    theme.votes += themeIdVoteCollection[themeId];
+                }
+            }
+
             callback(err, board.themes);
         });
     }

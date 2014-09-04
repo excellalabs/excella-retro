@@ -68,7 +68,13 @@ module.exports = {
                     }
                     reply(error);
                 } else {
-                    io.to(board.id).emit('refreshBoard', board);
+                    if(request.payload.phase === 'voting-started') {
+                        io.to(request.params.id).emit('begin-voting', board);
+                    } else if(request.payload.phase === 'voting-ended') {
+                        io.to(request.params.id).emit('collect-votes', board);
+                    } else {
+                        io.to(board.id).emit('refreshBoard', board);
+                    }
                     reply(true);
                 }
             });
@@ -106,37 +112,54 @@ module.exports = {
                     }
                 });
             },
-            app: {
-                name: 'board'
-            }
+        app: {
+            name: 'board'
+        }
+    },
+    getThemes: {
+        handler: function (request, reply) {
+            board.getThemes(request.params.id, function (err, themes) {
+                if (err) {
+                    var error = Hapi.error.badRequest('Cannot find board!');
+                    error.output.statusCode = 404;
+                    reply(error);
+                } else {
+                    reply(themes);
+                }
+            });
         },
-        getThemes: {
-            handler: function (request, reply) {
-                board.getThemes(request.params.id, function (err, themes) {
-                    if (err) {
-                        var error = Hapi.error.badRequest('Cannot find board!');
-                        error.output.statusCode = 404;
-                        reply(error);
-                    } else {
-                        reply(themes);
-                    }
-                });
-            },
-            app: {
-                name: 'board'
-            }
+        app: {
+            name: 'board'
+        }
+    },
+    addTheme: {
+        handler: function (request, reply) {
+            board.addTheme(request.params.id, request.payload.theme, function (err, themes) {
+                if (err) {
+                    var error = Hapi.error.badRequest('Cannot find board!');
+                    error.output.statusCode = 404;
+                    reply(error);
+                } else {
+                    io.to(request.params.id).emit('theme-added', themes);
+                    reply(request.payload.theme);
+                }
+            });
         },
-        addTheme: {
-            handler: function (request, reply) {
-                board.addTheme(request.params.id, request.payload.theme, function (err, themes) {
-                    if (err) {
-                        var error = Hapi.error.badRequest('Cannot find board!');
-                        error.output.statusCode = 404;
-                        reply(error);
-                    } else {
-                        io.to(request.params.id).emit('theme-added', themes);
-                        reply(request.payload.theme);
-                    }
+        app: {
+            name: 'board'
+        }
+    },
+    addVotes: {
+        handler: function (request, reply) {
+            board.addVotes(request.params.id, request.payload.themeIdVoteCollection, function (err, themes) {
+                if (err) {
+                    var error = Hapi.error.badRequest('Cannot find board!');
+                    error.output.statusCode = 404;
+                    reply(error);
+                } else {
+                    io.to(request.params.id).emit('theme-added', themes);
+                    reply(true);
+                }
             });
         },
         app: {

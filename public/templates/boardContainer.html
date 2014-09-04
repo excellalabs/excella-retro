@@ -4,7 +4,8 @@
             <small>{{boardPhaseDisplayName()}}</small>
             <a type="button" class="btn btn-sm" ng-click="refresh()"><span
                     class="glyphicon glyphicon-refresh"></span></a></h3>
-        <h4>{{user}}</h4>
+        <h4>{{user}}
+            <small>{{socketStatus}}</small></h4>
     </div>
 </div>
 <div class="row-fluid">
@@ -42,12 +43,16 @@
                         <div class="row-fluid" ng-if="board.phase == 'feedback-completed'">
                                 <hr>
                                 <add-theme board-id="board.id"></add-theme>
+                            <hr>
+                            <button type="button" class="btn btn-default" ng-click="startThemeVoting()">
+                                Start
+                                Theme Voting
+                            </button>
                         </div>
-                        <div class="row-fluid" ng-if="board.phase == 'feedback-completed'">
+                        <div class="row-fluid" ng-if="board.phase == 'voting-started'">
                                 <hr>
-                                <button type="button" class="btn btn-default">
-                                    Start
-                                    Theme Voting
+                                <button type="button" class="btn btn-default" ng-click="stopThemeVoting()">
+                                    End Theme Voting
                                 </button>
                         </div>
                         <div class="row-fluid" ng-if="board.phase == 'initial'">
@@ -81,7 +86,7 @@
                 </div>
                 <add-feedback class="row-fluid" ng-if="board.phase == 'feedback-started'"
                               board-id="board.id"></add-feedback>
-                <div class="row-fluid" ng-if="board.phase == 'feedback-completed'">
+                <div class="row-fluid" ng-if="board.phase == 'feedback-completed' || board.phase.indexOf('voting') >= 0">
                     <div class="col-md-6">
                         <view-feedback class="row-fluid" feedback="board.feedback"/>
                     </div>
