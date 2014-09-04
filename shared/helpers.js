@@ -1,5 +1,7 @@
 /* jslint node: true */
+/* jslint browser: true */
 'use strict';
+
 module.exports = {
     guid: function () {
         function _p8(s) {
