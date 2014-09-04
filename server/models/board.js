@@ -2,6 +2,7 @@
 "use strict";
 var db = require('./database');
 var helpers = require('../../shared/helpers.js');
+var lock = require('../../shared/lock.js');
 var _ = require('lodash');
 
 function saveBoard(boardId, board, callback) {
@@ -99,15 +100,19 @@ module.exports = {
         });
     },
     addVotes: function(boardId, themeIdVoteCollection, callback) {
-        this.get(boardId, function (err, board) {
-            for(var themeId in themeIdVoteCollection){
-                if(themeIdVoteCollection.hasOwnProperty(themeId)) {
-                    var theme = _.findWhere(board.themes, {id: themeId});
-                    theme.votes += themeIdVoteCollection[themeId];
-                }
-            }
+        var that = this;
 
-            callback(err, board.themes);
+        lock(boardId, function(release) {
+            that.get(boardId, function (err, board) {
+                for (var themeId in themeIdVoteCollection) {
+                    if (themeIdVoteCollection.hasOwnProperty(themeId)) {
+                        var theme = _.findWhere(board.themes, {id: themeId});
+                        theme.votes += themeIdVoteCollection[themeId];
+                    }
+                }
+                callback(err, board.themes);
+                release();
+            });
         });
     }
 };

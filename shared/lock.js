@@ -28,7 +28,7 @@ function mapKey(key){
 
 function lock(key, callback){
     var mappedKey = mapKey(key);
-    if(!dictionary.hasOwnValue(mappedKey)){
+    if(!dictionary.hasOwnProperty(mappedKey)){
         dictionary[mappedKey] = [];
     }
 
