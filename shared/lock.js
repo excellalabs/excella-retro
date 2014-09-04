@@ -12,8 +12,9 @@ function nextTick(mappedKey){
             var list = dictionary[mappedKey];
             var callback = list.shift();
             if(callback !== undefined){
-                callback();
-                setTimeout(timeoutFunction, 0);
+                callback(function(){
+                    setTimeout(timeoutFunction, 0);
+                });
             }
         };
 
