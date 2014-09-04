@@ -17,6 +17,8 @@ app.directive('addFeedback', [function() {
             $scope.sendFeedback = function() {
                 boardService.sendFeedback($scope.boardId, $scope.feedback).then(function(savedFeedback) {
                     $scope.userFeedback.push(savedFeedback);
+                    $scope.sendFeedbackForm.$setPristine();
+                    $scope.feedback = '';
                 }, function(validation){
                     if(typeof validation !== "object"){
                         validation = [validation];

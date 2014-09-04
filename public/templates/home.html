@@ -1,6 +1,7 @@
+<nav-bar></nav-bar>
 <div class="row-fluid">
     <div class="col-md-6 col-md-offset-3">
-        <form role="form">
+        <form role="form" ng-submit="createBoard()">
             <error-field model="validation"></error-field>
             <div class="form-group">
                 <label for="scrumMasterName">Scrum Master Name</label>
@@ -10,7 +11,7 @@
                 <label for="boardName">Board Name</label>
                 <input class="form-control" id="boardName" placeholder="e.g. Project Phoenix - Sprint 6" ng-model="boardName">
             </div>
-            <a class="btn btn-primary" value="Create new board" ng-click="createBoard()">Create new board</a>
+            <button type="submit" class="btn btn-primary" value="Create new board">Create new board</button>
         </form>
     </div>
 </div>

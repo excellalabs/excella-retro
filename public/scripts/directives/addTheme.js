@@ -15,6 +15,8 @@ app.directive('addTheme', [function() {
         controller: function($scope, boardService) {
             $scope.sendTheme = function() {
                 boardService.sendTheme($scope.boardId, $scope.theme).then(function(savedTheme) {
+                    $scope.sendThemeForm.$setPristine();
+                    $scope.theme = '';
                 }, function(validation){
                     if(typeof validation !== "object"){
                         validation = [validation];

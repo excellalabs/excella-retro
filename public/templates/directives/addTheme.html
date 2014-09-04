@@ -1,8 +1,8 @@
-<form role="form">
+<form role="form" name="sendThemeForm" ng-submit="sendTheme()">
     <error-field model="validation"></error-field>
     <div class="form-group">
         <label for="theme">Add Theme</label>
         <input class="form-control" id="theme" placeholder="Summarize theme feedback" ng-model="theme">
     </div>
-    <a class="btn btn-primary" ng-click="sendTheme()">Send theme</a>
+    <button type="submit" class="btn btn-primary">Send theme</button>
 </form>

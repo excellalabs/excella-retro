@@ -1,11 +1,11 @@
 <div class="col-md-6">
-    <form role="form">
+    <form role="form" name="sendFeedbackForm" ng-submit="sendFeedback()">
         <error-field model="validation"></error-field>
         <div class="form-group">
             <label for="feedback">Add Feedback</label>
             <input class="form-control" id="feedback" placeholder="Be concise" ng-model="feedback">
         </div>
-        <a class="btn btn-primary" ng-click="sendFeedback()">Send feedback</a>
+        <button type="submit" class="btn btn-primary">Send feedback</button>
     </form>
 </div>
 <div class="col-md-6">

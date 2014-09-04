@@ -1,12 +1,13 @@
+<nav-bar></nav-bar>
 <div class="row-fluid">
     <div class="col-md-offset-3 col-md-6 col-md-offset-3">
-        <form role="form">
+        <form role="form" ng-click="joinBoard()">
             <error-field model="validation"></error-field>
             <div class="form-group">
                 <label for="userName">User Name</label>
                 <input class="form-control" id="userName" placeholder="Enter your name" ng-model="user">
             </div>
-            <a class="btn btn-primary" value="Join board" ng-click="joinBoard()">Join board</a>
+            <button type="submit" class="btn btn-primary" value="Join board">Join board</button>
         </form>
     </div>
 </div>
