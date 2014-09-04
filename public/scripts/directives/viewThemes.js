@@ -11,7 +11,8 @@ app.directive('viewThemes', [function() {
         restrict: 'E',
         templateUrl: 'templates/directives/viewThemes.html',
         scope: {
-            themes: '=themes'
+            themes: '=themes',
+            boardId: '=boardId'
         },
         controller: function($scope, boardService, socket, _) {
             var allowedVotes = 0;
