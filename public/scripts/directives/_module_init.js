@@ -11,3 +11,5 @@ require('./addTheme.js');
 require('./viewThemes.js');
 require('./navBar.js');
 require('./branding.js');
+require('./connectionStatus.js');
+require('./light.js');

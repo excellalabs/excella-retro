@@ -2,13 +2,14 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle collapsed" style="margin-left: 10px;" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
 
+            <connection-status show-on-connected="true" class="pull-right nav-inline" status="socketStatus"></connection-status>
             <span class="glyphicon glyphicon-user badge navbar-toggle user-badge">{{participants.length}}</span>
 
             <a class="navbar-brand">{{boardName || "Remote"}} Retro</a>
@@ -22,6 +23,7 @@
                         <li role="presentation" ng-repeat="participant in participants track by $index"><a role="menuitem">{{participant}}</a></li>
                     </ul>
                 </li>
+                <li></li>
             </ul>
         </div>
     </div>

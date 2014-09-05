@@ -30,8 +30,18 @@ hr {
 
 @media (max-width: 992px) {
     .no-padding {
-        padding: 0; !important
+        padding: 0 !important;
     }
+}
+
+.nav-inline {
+    margin-top: 14px;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.never-pad {
+    padding: 0 !important;
 }
 
 .no-overflow {

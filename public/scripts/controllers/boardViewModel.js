@@ -91,27 +91,27 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
         };
 
         socket.on('error', function (error) {
-            $scope.socketStatus = "failed";
+            $scope.socketStatus = 2;
         });
 
         socket.on('reconnecting', function (attemptNo) {
-            $scope.socketStatus = "connecting";
+            $scope.socketStatus = 1;
         });
 
         socket.on('reconnect', function (attemptNo) {
-            $scope.socketStatus = "connected";
+            $scope.socketStatus = 0;
             socket.emit('room', $rootScope.boardId, $scope.user);
         });
 
         socket.on('reconnect_failed', function () {
-            $scope.socketStatus = "failed";
+            $scope.socketStatus = 2;
         });
 
         socket.onConnect(function(){
-            $scope.socketStatus = "connected";
+            $scope.socketStatus = 0;
 
             socket.on('disconnect', function () {
-                $scope.socketStatus = "disconnected";
+                $scope.socketStatus = 2;
             });
 
         });
