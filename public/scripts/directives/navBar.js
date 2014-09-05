@@ -11,7 +11,11 @@ app.directive('navBar', [function() {
         templateUrl: 'templates/directives/navBar.html',
         scope: {
             user: '=user',
-            boardName: '=boardName'
+            boardName: '=boardName',
+            socketStatus: '=socketStatus',
+            participants: '=participants',
+            isScrumMaster: '=isScrumMaster'
+        }, controller: function($scope, boardService) {
         }
     };
 }]);

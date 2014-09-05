@@ -33,15 +33,15 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
                 $scope.boardPhaseDisplayName = function () {
                     switch ($scope.board.phase) {
                         case 'initial':
-                            return 'Getting ready';
+                            return 'Getting ready - Scrum Master will be initiating feedback gathering';
                         case 'feedback-started':
-                            return 'Gathering feedback';
+                            return 'Gathering feedback - Anonymously provide your feedback';
                         case 'feedback-completed':
-                            return 'Creating themes';
+                            return 'Creating themes - Scrum Master will be summarizing feedback as themes';
                         case 'voting-started':
-                            return 'Cast your votes';
+                            return 'Cast your votes - Anonymously cast your available votes ';
                         case 'voting-ended':
-                            return 'Review prioritized themes';
+                            return 'Review prioritized themes - Scrum Master will end the retrospective';
                         default:
                             return '.';
                     }
@@ -90,32 +90,28 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
         };
 
         socket.on('error', function (error) {
-            $scope.socketStatus = "Connection error :(";
+            $scope.socketStatus = "failed";
         });
 
         socket.on('reconnecting', function (attemptNo) {
-            if(attemptNo % 2 === 0) {
-                $scope.socketStatus = "Trying to reconnect :|";
-            } else {
-                $scope.socketStatus = "Trying to reconnect :(";
-            }
+            $scope.socketStatus = "connecting";
         });
 
         socket.on('reconnect', function (attemptNo) {
-            $scope.socketStatus = "Connected :)";
+            $scope.socketStatus = "connected";
             socket.emit('room', $rootScope.boardId);
         });
 
         socket.on('reconnect_failed', function () {
-            $scope.socketStatus = "Failed to reconnect :0";
+            $scope.socketStatus = "failed";
         });
 
         socket.onConnect(function(){
-            $scope.socketStatus = "Connected :)";
+            $scope.socketStatus = "connected";
             socket.emit('room', $rootScope.boardId);
 
             socket.on('disconnect.', function () {
-                $scope.socketStatus = "Disconnected :(";
+                $scope.socketStatus = "disconnected";
             });
 
         });

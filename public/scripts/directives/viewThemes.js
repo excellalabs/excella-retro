@@ -3,7 +3,6 @@
 
 var app = require('./_module_init.js');
 require('../../bower_components/angular/angular');
-var helpers = require('../../../shared/helpers');
 
 app.directive('viewThemes', [function() {
     "use strict";
@@ -14,7 +13,7 @@ app.directive('viewThemes', [function() {
             themes: '=themes',
             boardId: '=boardId'
         },
-        controller: function($scope, boardService, socket, _) {
+        controller: function($scope, boardService, socket, _, helpers) {
             var allowedVotes = 0;
 
             $scope.$watchCollection('themes', function() {

@@ -10,7 +10,8 @@ app.directive('viewFeedback', [function() {
         restrict: 'E',
         templateUrl: 'templates/directives/viewFeedback.html',
         scope: {
-            feedbackList: '=feedback'
+            feedbackList: '=feedback',
+            feedbackContext: '@feedbackContext'
         }
     };
 }]);

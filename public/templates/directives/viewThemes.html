@@ -1,24 +1,17 @@
-<div class="col-md-12">
-    <div class="row-fluid">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Themes<span class="badge pull-right" ng-if="canVote">{{unusedVotes}}</span></h3>
+<div class="panel panel-default">
+    <div class="panel-heading">Themes<span class="badge pull-right" ng-if="canVote">{{unusedVotes}}</span></div>
+    <div class="panel-body" ng-if="!themes || themes.length == 0">No theme</div>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="theme in themes track by $index">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <a class="btn btn-default" ng-click="downVote(theme.id)"><span ng-if="canVote" class="glyphicon glyphicon-thumbs-down"/><span ng-if="!canVote" class="glyphicon glyphicon-chevron-left disabled"/></a>
+                </span>
+                <span class="form-control">{{theme.description}}<span class="badge pull-right">{{theme.votes}}</span></span>
+                <span class="input-group-btn">
+                    <a class="btn btn-default" ng-click="upVote(theme.id)"><span ng-if="canVote" class="glyphicon glyphicon-thumbs-up"/><span ng-if="!canVote" class="glyphicon glyphicon-chevron-right disabled"/></a>
+                </span>
             </div>
-            <div class="panel-body">
-                <div class="list-group">
-                    <div class="list-group-item" ng-repeat="theme in themes track by $index">
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                <a class="btn btn-default" ng-click="downVote(theme.id)"><span class="glyphicon glyphicon-chevron-down"/></a>
-                            </span>
-                            <span class="form-control">{{theme.description}}<span class="badge pull-right">{{theme.votes}}</span></span>
-                            <span class="input-group-btn">
-                                <a class="btn btn-default" ng-click="upVote(theme.id)"><span class="glyphicon glyphicon-chevron-up"/></a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        </li>
+    </ul>
 </div>

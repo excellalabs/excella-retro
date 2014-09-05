@@ -3,6 +3,8 @@
 
 require('../../bower_components/angular/angular');
 require('../../bower_components/angular-route/angular-route');
+require('../../bower_components/angular-bootstrap/ui-bootstrap');
+require('../../bower_components/angular-bootstrap/ui-bootstrap-tpls');
 require('../controllers/_module_init');
 require('../directives/_module_init');
 require('../services/boardService');
@@ -19,7 +21,8 @@ angular.element(document).ready(function() {
         'remoteRetro.userProvider',
 		'remoteRetro.boardService',
         'remoteRetro.socketFactory',
-		'ngRoute'
+		'ngRoute',
+        'ui.bootstrap'
 	];
 
 	var app = window.angular.module('remoteRetro', requires);

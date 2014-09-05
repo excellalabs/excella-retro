@@ -1,13 +1,15 @@
-<div class="col-md-6">
+<div class="col-md-6 no-padding">
     <form role="form" name="sendFeedbackForm" ng-submit="sendFeedback()">
         <error-field model="validation"></error-field>
         <div class="form-group">
             <label for="feedback">Add Feedback</label>
             <input class="form-control" id="feedback" placeholder="Be concise" ng-model="feedback">
         </div>
-        <button type="submit" class="btn btn-primary">Send feedback</button>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Send feedback</button>
+            </div>
     </form>
 </div>
-<div class="col-md-6">
-    <view-feedback class="row-fluid" feedback="userFeedback" />
+<div class="col-md-6 no-padding">
+    <view-feedback class="row-fluid" feedback="userFeedback" feedback-context="Your"/>
 </div>

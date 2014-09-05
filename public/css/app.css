@@ -1,6 +1,6 @@
 .excella-logo {
     height: 50px;
-    margin-top: 20px;
+    margin-top: -20px;
     margin-left: 30px;
 }
 
@@ -8,8 +8,29 @@
     margin-top: 20px;
 }
 
+/* Top-fixed navbar requirement */
 body { padding-top: 70px; }
 
+/* Angular-Bootstrap needs it, so href='#' can be avoided */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+/* Hack to force hr to appear normal in Scrum Master tools panel */
 hr {
     width: 100%
 }
+
+.user-badge {
+    margin-top: 14px;
+    margin-right: 0px;
+}
+
+.end-retro {
+    text-align: center;
+}
+
+@media (max-width: 992px) {
+    .no-padding {
+        padding: 0; !important
+    }
+}
+

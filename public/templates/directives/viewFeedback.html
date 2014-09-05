@@ -1,14 +1,7 @@
-<div class="col-md-12">
-    <div class="row-fluid">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Feedback</h3>
-            </div>
-            <div class="panel-body">
-                <div class="list-group">
-                    <a class="list-group-item" ng-repeat="feedback in feedbackList track by $index">{{feedback}}</a>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="panel panel-default">
+    <div class="panel-heading">{{feedbackContext}} Feedback</div>
+    <div class="panel-body" ng-if="!feedbackList || feedbackList.length == 0">No feedback</div>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="feedback in feedbackList track by $index">{{feedback}}</li>
+    </ul>
 </div>
