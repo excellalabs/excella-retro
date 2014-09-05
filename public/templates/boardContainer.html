@@ -11,20 +11,22 @@
                 <h3 class="panel-title">Scrum Master Tools</h3>
             </div>
             <div class="panel-body">
-                <div class="row-fluid">Invite Participants: <a class="glyphicon glyphicon-envelope" ng-href="{{participantMailToLink()}}"
-                                                               title="Send email to participants"></a>
-                    <a class="glyphicon glyphicon-link"
-                       ng-href="{{participantJoinLink()}}"
-                            title="Copy link to send participants"></a>
+                <div class="row-fluid row-padding">
+                    <span>Invite Participants</span>
+                    <a class="btn btn-default glyphicon glyphicon-envelope" ng-href="{{participantMailToLink()}}"
+                       title="Send email to participants"></a>
+                    <a class="btn btn-default glyphicon glyphicon-link" target="_blank" ng-href="{{participantJoinLink()}}"
+                       title="Copy link to send participants"></a>
                 </div>
-                <div class="row-fluid">Scrum Master: <a class="glyphicon glyphicon-link" ng-href="{{scrumMasterAccessLink()}}"
-                                                               title="Copy link to access as Scrum Master"></a></div>
-                <div class="row-fluid">
-                    <div>End Retrospective: <a class="glyphicon glyphicon-off"></a></div>
+                <div class="row-fluid row-padding">
+                    <span>Scrum Master</span>
+                    <a style="left:23px" class="btn btn-warning glyphicon glyphicon-link" ng-href="{{scrumMasterAccessLink()}}"
+                       title="Copy link to access as Scrum Master"></a>
                 </div>
-
-
-
+                <div class="row-fluid row-padding">
+                    <span >End Retro</span>
+                    <a style="left:47px" class="btn btn-danger glyphicon glyphicon-off"></a>
+                </div>
                 <div class="row-fluid" ng-if="board.phase == 'feedback-completed'">
                         <hr>
                         <add-theme board-id="board.id"></add-theme>

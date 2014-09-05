@@ -41,3 +41,13 @@ hr {
     text-overflow: ellipsis;
     display: block;
 }
+
+.vertical-middle {
+    vertical-align: -webkit-baseline-middle;
+    #vertical-align: middle;
+}
+
+.row-padding {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
