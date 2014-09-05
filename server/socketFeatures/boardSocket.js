@@ -18,7 +18,6 @@ io.sockets.on('connection', function(socket){
 
             var joinNewBoard = function(){
                 board.joinBoard(boardId, name, function(err, participants){
-                    console.log(name + ' joined with ' + err);
                     if(err){
                         socket.emit('fail', 'room', err);
                         return;
@@ -49,11 +48,8 @@ io.sockets.on('connection', function(socket){
     });
 
     socket.on('disconnect', function(){
-        console.log(socket.name + ' left from ' + socket.boardId);
         if(socket.boardId !== undefined){
             board.leaveBoard(socket.boardId, socket.name, function(err, participants){
-                console.log(err);
-                console.log(participants);
                 io.to(socket.boardId).emit('joined', participants);
             });
             socket.leave(socket.boardId);
