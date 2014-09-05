@@ -17,6 +17,7 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
                 $scope.themes = board.themes;
                 $scope.participants = board.participants;
                 setIsUserScrumMaster(board.scrumMaster, board.scrumMasterKey);
+                boardService.joinBoard($scope.boardId, $scope.user);
 
                 $scope.participantMailToLink = function () {
                     return 'mailto:?subject=Join Retrospective: ' + $scope.board.title + '&body=' + encodeURIComponent('Please join my retrospective at:\n\n' + boardService.getJoinBoardUrl($scope.board.id));
@@ -103,7 +104,7 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
 
         socket.on('reconnect', function (attemptNo) {
             $scope.socketStatus = "Connected :)";
-            socket.emit('room', $rootScope.boardId);
+            socket.emit('room', $rootScope.boardId, $scope.user);
         });
 
         socket.on('reconnect_failed', function () {
@@ -112,9 +113,8 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
 
         socket.onConnect(function(){
             $scope.socketStatus = "Connected :)";
-            socket.emit('room', $rootScope.boardId);
 
-            socket.on('disconnect.', function () {
+            socket.on('disconnect', function () {
                 $scope.socketStatus = "Disconnected :(";
             });
 

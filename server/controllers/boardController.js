@@ -83,23 +83,6 @@ module.exports = {
             name: 'board'
         }
     },
-    joinBoard: {
-        handler: function (request, reply) {
-            board.joinBoard(request.params.id, request.payload.user, function (err, participants) {
-                if (err) {
-                    var error = Hapi.error.badRequest('Cannot find board!');
-                    error.output.statusCode = 404;
-                    reply(error);
-                } else {
-                    io.to(request.params.id).emit('joined', participants);
-                    reply(true);
-                }
-            });
-        },
-        app: {
-            name: 'board'
-        }
-    },
     addFeedback: {
         handler: function (request, reply) {
             board.addFeedback(request.params.id, request.payload.feedback, function (err, feedback) {

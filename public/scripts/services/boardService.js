@@ -5,8 +5,8 @@ require('../../bower_components/angular/angular');
 var _ = require('../../bower_components/lodash/dist/lodash');
 
 var app = angular.module('remoteRetro.boardService', []);
-app.factory('boardService', ['$http', '$q', 'userProvider',
-        function($http, $q, userProvider){
+app.factory('boardService', ['$http', '$q', 'userProvider', 'socket',
+        function($http, $q, userProvider, socket){
             "use strict";
             var boardUrl = '../board';
 
@@ -40,11 +40,21 @@ app.factory('boardService', ['$http', '$q', 'userProvider',
                 },
                 joinBoard: function (boardId, user) {
                     var deferred = $q.defer();
-                    $http.put(boardUrl + '/' + boardId + '/join', {user: user}).then(function (ctx) {
-                        deferred.resolve(ctx.data);
-                    }, function (ctx) {
-                        deferred.reject(ctx.data);
-                    });
+                    socket.emit('room', boardId, user);
+                    var successCallback = function(requestName, username){
+                        if(requestName !== 'room'){ return; }
+                        socket.off('success', successCallback);
+                        socket.off('fail', failureCallback);
+                        deferred.resolve(username);
+                    };
+                    var failureCallback = function(requestName, error){
+                        if(requestName !== 'room'){ return; }
+                        socket.off('success', successCallback);
+                        socket.off('fail', failureCallback);
+                        deferred.reject(error);
+                    };
+                    socket.on('success', successCallback);
+                    socket.off('fail', failureCallback);
                     return deferred.promise;
                 },
                 sendFeedback: function (boardId, feedback) {

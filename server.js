@@ -6,6 +6,8 @@ var server = Hapi.createServer('localhost', process.env.PORT || 3000);
 require('./server/config/socketSetup')(server);
 require('./server/config/plugins')(server);
 
+require('./server/socketFeatures/boardSocket');
+
 // Require the routes and pass the server object.
 var routes = require('./server/config/routes');
 // Add the server routes

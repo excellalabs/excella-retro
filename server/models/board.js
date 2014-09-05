@@ -24,7 +24,7 @@ function removePrivateFields(board){
 module.exports = {
     create: function(user, boardName, scrumMasterKey, callback){
         var boardId = helpers.guid();
-        var board = { id: boardId, title: boardName, phase: 'initial', scrumMaster: user, scrumMasterKey: scrumMasterKey, participants: [ user ], feedback: [], themes: [] };
+        var board = { id: boardId, title: boardName, phase: 'initial', scrumMaster: user, scrumMasterKey: scrumMasterKey, participants: [], feedback: [], themes: [] };
         saveBoard(boardId, board, callback);
     },
     isScrumMasterKeyCorrect: function(boardId, scrumMasterKey, callback){
@@ -71,7 +71,25 @@ module.exports = {
     },
     joinBoard: function(boardId, user, callback) {
         this.get(boardId, function(err, board) {
+            var index = board.participants.indexOf(user);
+            if(index >= 0){
+                callback("User is already on board", board.participants);
+                return;
+            }
             board.participants.push(user);
+            saveBoard(boardId, board, function(err, savedBoard) {
+                callback(err, savedBoard.participants);
+            });
+        });
+    },
+    leaveBoard: function(boardId, user, callback) {
+        this.get(boardId, function(err, board) {
+            var index = board.participants.indexOf(user);
+            if(index < 0){
+                callback("User isn't on board", board.participants);
+                return;
+            }
+            board.participants.splice(index, 1);
             saveBoard(boardId, board, function(err, savedBoard) {
                 callback(err, savedBoard.participants);
             });
