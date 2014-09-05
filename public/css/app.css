@@ -1,11 +1,10 @@
 .excella-logo {
     height: 50px;
-    margin-top: -20px;
-    margin-left: 30px;
 }
 
 .jsa {
-    margin-top: 20px;
+    font-weight: bold;
+    margin-top: 5px;
 }
 
 /* Top-fixed navbar requirement */
@@ -34,3 +33,10 @@ hr {
     }
 }
 
+.no-overflow {
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    display: block;
+}
