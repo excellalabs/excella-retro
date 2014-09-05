@@ -62,11 +62,6 @@ module.exports = [
     },
     {
         method: 'PUT',
-        path: '/board/{id}/join',
-        config: controller.board.joinBoard
-    },
-    {
-        method: 'PUT',
         path: '/board/{id}/phase',
         config: controller.board.setBoardPhase
     },
