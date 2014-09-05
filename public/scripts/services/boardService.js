@@ -54,7 +54,7 @@ app.factory('boardService', ['$http', '$q', 'userProvider', 'socket',
                         deferred.reject(error);
                     };
                     socket.on('success', successCallback);
-                    socket.off('fail', failureCallback);
+                    socket.on('fail', failureCallback);
                     return deferred.promise;
                 },
                 sendFeedback: function (boardId, feedback) {

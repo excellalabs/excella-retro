@@ -17,13 +17,13 @@ io.sockets.on('connection', function(socket){
             console.log(boardId + ', ' + name + ' :: ' + oldId + ', ' + oldName);
 
             var joinNewBoard = function(){
-                socket.name = name;
                 board.joinBoard(boardId, name, function(err, participants){
                     console.log(name + ' joined with ' + err);
                     if(err){
                         socket.emit('fail', 'room', err);
                         return;
                     }
+                    socket.name = name;
                     socket.emit('success', 'room', participants);
                     io.to(boardId).emit('joined', participants);
                     release();
