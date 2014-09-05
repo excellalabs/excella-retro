@@ -5,6 +5,7 @@
 .jsa {
     font-weight: bold;
     margin-top: 5px;
+    max-width: 80px;
 }
 
 /* Top-fixed navbar requirement */
