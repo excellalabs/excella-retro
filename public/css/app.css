@@ -19,9 +19,8 @@ hr {
     width: 100%
 }
 
-.user-badge {
-    margin-top: 0;
-    margin-right: 10px;
+.pad-left {
+    margin-left: 10px;
 }
 
 .end-retro {
@@ -34,11 +33,8 @@ hr {
     }
 }
 
-.nav-inline {
-    margin-top: 14px;
-    margin-left: 10px;
-    margin-right: 10px;
-    display: inline-block;
+.btn .badge.user-badge {
+    top: 1px;
 }
 
 .never-pad {
@@ -61,20 +57,4 @@ hr {
 .row-padding {
     padding-top: 5px;
     padding-bottom: 5px;
-}
-
-@media (max-width: 768px) {
-    .hide-micro {
-        display: none;
-    }
-}
-@media (max-width: 992px) {
-    .hide-small {
-        display: none;
-    }
-}
-@media (min-width: 1200px) {
-    .hide-medium {
-        display: none;
-    }
 }

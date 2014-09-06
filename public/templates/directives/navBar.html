@@ -1,36 +1,16 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <!--<button type="button" class="navbar-toggle collapsed" style="margin-left: 10px;" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>-->
-
-        <ul class="nav navbar-nav pull-right" ng-if="participants">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user badge user-badge">{{participants.length}}</span><span class="hide-small">Participants <span class="caret"></span></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li role="presentation" ng-repeat="participant in participants track by $index"><a role="menuitem">{{participant}}</a></li>
-                </ul>
-            </li>
-            <li></li>
-        </ul>
-        <connection-status class="pull-right nav-inline" status="socketStatus"></connection-status>
+        <div class="btn-group navbar-btn pull-right" ng-if="participants" dropdown is-open="status.isopen">
+            <button type="button" class="btn dropdown-toggle" ng-disabled="disabled">
+                <span class="glyphicon glyphicon-user badge user-badge">{{participants.length}}</span><span class="hidden-xs pad-left">Participants</span> <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li role="presentation" ng-repeat="participant in participants track by $index"><a role="menuitem">{{participant}}</a></li>
+            </ul>
+        </div>
+        <connection-status show-on-connected="false" class="pull-right navbar-text" status="socketStatus"></connection-status>
 
         <a class="navbar-brand">{{boardName || "Remote"}} Retro</a>
-        <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <p class="navbar-text navbar-right" ng-if="socketStatus == 'connected'">Signed in as {{user}}</p>
-            <ul class="nav navbar-nav" ng-if="participants">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">Participants <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li role="presentation" ng-repeat="participant in participants track by $index"><a role="menuitem">{{participant}}</a></li>
-                    </ul>
-                </li>
-                <li></li>
-            </ul>
-        </div>-->
     </div>
 </nav>
