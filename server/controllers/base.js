@@ -1,10 +1,13 @@
 /* jslint node: true */
+var path = require('path');
+
+var basePath = process.env.APP_DIR || ".";
 // This is the base controller. Used for base routes, such as the default index/root path, 404 error pages, and others.
 module.exports = {
     index: {
         handler: function(request, reply){
             "use strict";
-            reply.file('/public/index.html');
+            reply.file(path.join(basePath, '/public/index.html'));
         },
         app: {
             name: 'index'

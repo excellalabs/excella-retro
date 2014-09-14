@@ -1,9 +1,13 @@
 /* jslint node: true */
+var path = require('path');
+
+var basePath = process.env.APP_DIR || ".";
+
 // This is the assets controller. Goal is to serve css, js, partials, images, or bower packages.
 module.exports = {
     images: {
         handler: {
-            directory: { path: './public/images' }
+            directory: { path: path.join(basePath, '/public/images') }
         },
         app: {
             name: 'images'
@@ -11,7 +15,7 @@ module.exports = {
     },
     css: {
         handler: {
-            directory: { path: './public/css' }
+            directory: { path: path.join(basePath, '/public/css') }
         },
         app: {
             name: 'css'
@@ -19,7 +23,7 @@ module.exports = {
     },
     templates: {
         handler: {
-            directory: { path: './public/templates' }
+            directory: { path: path.join(basePath, '/public/templates') }
         },
         app: {
             name: 'templates'
@@ -27,7 +31,7 @@ module.exports = {
     },
     js: {
         handler: {
-            directory: { path: './public/js' }
+            directory: { path: path.join(basePath, '/public/js') }
         },
         app: {
             name: 'js'
@@ -35,7 +39,7 @@ module.exports = {
     },
     bower: {
         handler: {
-            directory: { path: './public/bower_components' }
+            directory: { path: path.join(basePath, '/public/bower_components') }
         },
         app: {
             name: 'bower'
