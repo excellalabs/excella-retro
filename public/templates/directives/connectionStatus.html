@@ -1,5 +1,5 @@
 <span ng-if="showOnConnected || status !== 0">
     <span ng-if="status == 2"><light color="#c9302c"></light> Disconnected</span>
-    <span ng-if="status == 1"><light color="#f0ad4e"></light> Reconnecting...</span>
+    <span ng-if="status == 1"><spinner size="15" color="#f0ad4e"></spinner> Reconnecting...</span>
     <span ng-if="status == 0"><light color="#5cb85c"></light> Connected!</span>
 </span>

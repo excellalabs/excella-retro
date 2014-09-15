@@ -61,3 +61,27 @@ hr {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+@-webkit-keyframes fade {
+    0%   {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+/* Standard syntax */
+@keyframes fade {
+    0%   {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+spinner div div div {
+    -webkit-animation: fade 5s; /* Chrome, Safari, Opera */
+    /* Chrome, Safari, Opera */
+    -webkit-animation-name: fade;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-play-state: running;
+    /* Standard syntax */
+    animation-name: fade;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+}

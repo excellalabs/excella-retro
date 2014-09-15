@@ -1,0 +1,30 @@
+
+<div style="
+    position: relative;
+    width: {{fullSize}}px;
+    height: {{fullSize}}px;
+    display:inline-block;
+">
+    <div ng-repeat="index in armList" style="
+        width:{{100 * scale}}%;
+        top: {{top + fixPosition}}px;
+        left: {{fixPosition}}px;
+        height: {{thicknessPixels}}px;
+        position: absolute;
+        transform: rotate(-{{360 * index / count + 90}}deg);
+    ">
+        <div style="
+            height: 100%;
+            width: 30%;
+            position: absolute;
+            left: 70%;
+            background: {{color}};
+            border-radius: {{size}}px;
+            -webkit-animation-delay: -{{interval * index / count}}s;
+            animation-delay: -{{interval * index / count}}s;
+            -webkit-animation-duration: {{interval}}s;
+            animation-duration: {{interval}}s;
+        ">
+        </div>
+    </div>
+</div>

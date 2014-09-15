@@ -13,3 +13,4 @@ require('./navBar.js');
 require('./branding.js');
 require('./connectionStatus.js');
 require('./light.js');
+require('./spinner.js');
