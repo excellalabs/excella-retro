@@ -1,8 +1,13 @@
 /* jslint node: true */
 var level = require('level');
+var path = require('path');
 
-var fileDirectory = process.env.CLOUD_DIR || './remoteRetroDb';
+var basePath = process.env.APP_DIR || ".";
 
-var db = level(fileDirectory, { valueEncoding: 'json'});
+var dbPath = path.join(basePath, '/remoteRetroDb');
+
+console.log('Database path: ' + dbPath);
+
+var db = level(dbPath, { valueEncoding: 'json'});
 
 module.exports = db;

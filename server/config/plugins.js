@@ -2,12 +2,14 @@
 module.exports = function(server) {
     "use strict";
 
-    var goodPath = 'tmp/logs/';
+    var path = require('path');
 
-    if(process.env.TEMP_DIR) {
-        var path = require('path');
-        goodPath = path.join(process.env.TEMP_DIR, goodPath);
-    }
+    var basePath = process.env.TEMP_DIR || ".";
+
+    var goodPath = path.join(basePath, '/tmp/logs/');
+
+    console.log('Good log path: ' + goodPath);
+
     // Options to pass into the 'Good' plugin
     var goodOptions = {
         subscribers: {

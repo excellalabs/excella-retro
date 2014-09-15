@@ -1,7 +1,9 @@
 /* jslint node: true */
 var path = require('path');
 
-var basePath = process.env.APP_DIR || ".";
+var basePath = ".";
+
+console.log('App dir: ' + basePath);
 
 // This is the assets controller. Goal is to serve css, js, partials, images, or bower packages.
 module.exports = {
