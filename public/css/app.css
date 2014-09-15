@@ -85,3 +85,12 @@ spinner div div div {
     animation-iteration-count: infinite;
     animation-play-state: running;
 }
+
+.dragContainer {
+    touch-action: none;
+}
+
+.draggable {
+    display: inline-block;
+    -ms-scroll-chaining: none;
+}
