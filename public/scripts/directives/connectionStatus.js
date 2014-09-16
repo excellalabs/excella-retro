@@ -9,14 +9,13 @@ app.directive('connectionStatus', [function() {
     return {
         restrict: 'E',
         templateUrl: 'templates/directives/connectionStatus.html',
-        replace: true,
         scope: {
-            status: '=status',
+            status: '=',
             showOnConnected: '@'
         },
-        controller: ['$scope', function($scope){
-            $scope.showOnConnected = !!$scope.showOnConnected && $scope.showOnConnected !== 'false';
-        }]
+        link: function(scope){
+            scope.showOnConnected = !!scope.showOnConnected && scope.showOnConnected !== 'false';
+        }
     };
 }]);
 
