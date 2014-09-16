@@ -14,4 +14,6 @@ require('./branding.js');
 require('./connectionStatus.js');
 require('./light.js');
 require('./spinner.js');
+require('./dragContainer.js');
 require('./draggable.js');
+require('./dropArea.js');

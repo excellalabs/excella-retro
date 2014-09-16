@@ -83,7 +83,7 @@ spinner div div div {
     animation-play-state: running;
 }
 
-.dragContainer {
+.dragArea, .dropArea {
     touch-action: none;
 }
 

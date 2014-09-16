@@ -45,6 +45,9 @@ angular.element(document).ready(function() {
                 templateUrl: '/templates/boardContainer.html',
                 controller: 'BoardController'
             })
+            .when('/dragDropTest', {
+                templateUrl: '/templates/dragDropTest.html'
+            })
             .otherwise( 
                 {
                     redirectTo: '/'
