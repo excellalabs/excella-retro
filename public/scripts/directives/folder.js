@@ -11,6 +11,7 @@ app.directive('folder', [function() {
         templateUrl: 'templates/directives/folder.html',
         scope: {
             list: '=',
+            name: '=',
             ignoreColor: '&',
             ignoreAnimation: '&'
         },
@@ -18,13 +19,25 @@ app.directive('folder', [function() {
             $scope.ignoreColor = $scope.ignoreColor() || false;
             $scope.ignoreAnimation = $scope.ignoreAnimation() || false;
             $scope.colorAnimationClass = $scope.ignoreColor ? '' : 'animated-add-color';
+            $scope.nameIsSet = false;
 
             var folderController = this;
             var folderHolderController = $element.controller('folderHolder');
 
+            if($scope.list.length > 1){
+                $scope.nameIsSet = true;
+                $scope.name = $scope.list[0];
+            } else {
+                $scope.name = '';
+            }
+
             $scope.enterFunction = function(event, options){
                 if(folderController === options.draggable.element.controller('folder')) { return; }
                 window.console.log('entered', event, options);
+
+                if(!$scope.nameIsSet){
+                    $scope.name = 'New Theme';
+                }
 
                 if(!$scope.ignoreAnimation) {
                     options.dropArea.element.addClass('folder-drag-hover');
@@ -38,6 +51,9 @@ app.directive('folder', [function() {
             $scope.leaveFunction = function(event, options){
                 if(folderController === options.draggable.element.controller('folder')) { return; }
                 window.console.log('exited', event, options);
+                if(!$scope.nameIsSet){
+                    $scope.name = '';
+                }
 
                 if(!$scope.ignoreAnimation) {
                     options.dropArea.element.removeClass('folder-drag-hover');
@@ -51,6 +67,11 @@ app.directive('folder', [function() {
             $scope.dropFunction = function(event, options){
                 if(folderController === options.draggable.element.controller('folder')) { return; }
                 window.console.log('dropped', event, options);
+
+                if(!$scope.nameIsSet){
+                    $scope.nameIsSet = true;
+                    $scope.name = $scope.list[0];
+                }
 
                 if(!$scope.ignoreAnimation) {
                     options.dropArea.element.removeClass('folder-drag-hover');
@@ -91,6 +112,9 @@ app.directive('folder', [function() {
                     } else {
                         $element.remove();
                     }
+                } else if($scope.list.length === 1){
+                    $scope.nameIsSet = false;
+                    $scope.name = '';
                 }
 
                 return index;

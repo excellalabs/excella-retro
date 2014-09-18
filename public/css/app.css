@@ -156,3 +156,43 @@ spinner div div div {
     -webkit-animation: addColor 0.5s;
     animation: addColor 0.5s;
 }
+
+folder .panel-heading {
+    height: 42px;
+    -webkit-transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
+    -moz-transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
+    -ms-transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
+    -o-transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
+    transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
+}
+
+folder .panel-heading.height-zero {
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-top: none;
+    border-bottom: none;
+}
+
+folder .panel-heading input {
+    border: none;
+    color: inherit;
+    background: none;
+    outline: none;
+    width: 100%;
+    border-radius: 4px;
+    padding-left: 4px;
+    margin-left: -4px;
+}
+
+folder .panel-heading input::selection {
+    background: #ffffff;
+    color: #ffffff;
+}
+
+folder .panel-heading input:focus {
+    background: #ffffff;
+    color: #000000;
+}

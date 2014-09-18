@@ -8,7 +8,7 @@ app.directive('folderHolder', [function() {
 
     return {
         restrict: 'E',
-        template: '<div class="dragContainer"><folder ignore-color="ignoreColor" ignore-animation="ignoreAnimation" ng-repeat="list in lists" list="list"></folder></div>',
+        template: '<div class="dragContainer"><folder ignore-color="ignoreColor" ignore-animation="ignoreAnimation" ng-repeat="item in lists" name="item.name" list="item"></folder></div>',
         scope: {
             lists: '=',
             onChange: '=',
@@ -19,10 +19,22 @@ app.directive('folderHolder', [function() {
             $scope.ignoreColor = $scope.ignoreColor() || false;
             $scope.ignoreAnimation = $scope.ignoreAnimation() || false;
 
+            var splice = [].splice;
+            var push = [].push;
             for(var i=0; i<$scope.lists.length; i++){
-                if(!($scope.lists[i] instanceof Array)){
-                    $scope.lists[i] = [$scope.lists[i]];
+                var list = $scope.lists[i];
+                var newList = {};
+                var index = 0;
+                for(var name in list){
+                    if(list.hasOwnProperty(name)){
+                        newList[index] = list[name];
+                        index++;
+                    }
                 }
+                Object.defineProperty(newList, 'length', { value: index, writable: true });
+                newList.splice = splice;
+                newList.push = push;
+                $scope.lists[i] = newList;
             }
 
             this.dragLeave = function(event, draggable){
