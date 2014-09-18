@@ -6,6 +6,7 @@ var gulp        = require('gulp');
 var browserify  = require('gulp-browserify');
 var less        = require('gulp-less');
 var sourcemaps  = require('gulp-sourcemaps');
+var colorMaps   = require('./less/gulpLessColorMaps');
 
 
 var isProduction = false;
@@ -24,10 +25,7 @@ gulp.task('less', function(){
     gulp.src('./less/app.less')
         .pipe(sourcemaps.init())
         .pipe(less({
-            modifyVars: {
-                // here we can modify the colors baked into bootstrap
-                //'@brand-primary': '#FF0000'
-            }
+            //modifyVars: colorMaps
         }))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/css'));
