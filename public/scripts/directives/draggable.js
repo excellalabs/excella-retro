@@ -30,25 +30,31 @@ app.directive('draggable', ['$rootScope', function($rootScope) {
                             if(newDropArea) { newDropArea.controller.dragEnter(event, eventOptions); }
                             targetDropArea = newDropArea;
                         }
-                        target.style.transition = '';
-                        target.style.zIndex = 1000;
-                        target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
-                        target.setAttribute('data-x', x);
-                        target.setAttribute('data-y', y);
+                        element.css({
+                            'transition': '',
+                            'z-index': 1000,
+                            'transform': 'translate(' + x + 'px, ' + y + 'px)'
+                        });
+                        element.attr('data-x', x);
+                        element.attr('data-y', y);
+                        element.addClass('transparent');
                     });
                 },
                 onend: function (event) {
                     $rootScope.$apply(function(){
-                        event.target.style.zIndex = 0;
-                        event.target.style.webkitTransform = event.target.style.transform = '';
-                        event.target.setAttribute('data-x', 0);
-                        event.target.setAttribute('data-y', 0);
+                        element.css({
+                            'z-index': 0,
+                            'transform': ''
+                        });
+                        element.attr('data-x', 0);
+                        element.attr('data-y', 0);
+                        element.removeClass('transparent');
                         if(targetDropArea){
                             targetDropArea.controller.drop(event, eventOptions);
                         }
                         if(targetDropArea.controller === element.controller('dropArea')) {
-                            event.target.style.transition = 'transform 0.3s cubic-bezier(.33,1,.66,1), ' +
-                                'z-index 0.3s cubic-bezier(.33,1,.66,1)';
+                            element.css('transition','transform 0.3s cubic-bezier(.33,1,.66,1), ' +
+                                'z-index 0.3s cubic-bezier(.33,1,.66,1)');
                         }
                     });
                 }

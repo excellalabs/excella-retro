@@ -123,4 +123,24 @@ app.directive('folder', [function() {
     };
 }]);
 
+app.directive('folderHeading', [function() {
+    "use strict";
+
+    return {
+        restrict: 'E',
+        require: '^folder',
+        template: '<input type="text" ng-model="name" /><span class="glyphicon glyphicon-pencil form-control-feedback"></span>',
+        scope: {
+            name: '=',
+            nameIsSet: '='
+        },
+        controller: ['$scope', '$element', function($scope, $element){
+            $element.css('display', 'block');
+            $element.on('click', function(){
+                $element.find('input').focus();
+            });
+        }]
+    };
+}]);
+
 module.exports = app;

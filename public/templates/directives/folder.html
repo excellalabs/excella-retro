@@ -1,5 +1,5 @@
 <div class="panel panel-primary dropArea" on-drop="dropFunction" on-drag-enter="enterFunction" on-drag-leave="leaveFunction">
-    <div class="panel-heading {{name || nameIsSet ? '' : 'height-zero'}}"><input type="text" ng-model="name" /><span class="glyphicon glyphicon-ok form-control-feedback"></span></div>
+    <folder-heading class="panel-heading {{name || nameIsSet ? '' : 'height-zero'}}" name="name" name-is-set="nameIsSet"></folder-heading>
     <ul class="list-group">
         <li class="list-group-item draggable {{ colorAnimationClass }}" ng-repeat="(index, item) in list track by index" data-index="{{index}}" data-value="{{item}}">{{item}}</li>
     </ul>

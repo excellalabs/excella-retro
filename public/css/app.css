@@ -157,7 +157,9 @@ spinner div div div {
     animation: addColor 0.5s;
 }
 
-folder .panel-heading {
+folder-heading {
+    display: block;
+    position: relative;
     height: 42px;
     -webkit-transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
     -moz-transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
@@ -166,7 +168,11 @@ folder .panel-heading {
     transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
 }
 
-folder .panel-heading.height-zero {
+folder-heading .glyphicon {
+    top: 4px;
+}
+
+folderl-heading.height-zero {
     height: 0;
     padding-top: 0;
     padding-bottom: 0;
@@ -176,23 +182,32 @@ folder .panel-heading.height-zero {
     border-bottom: none;
 }
 
-folder .panel-heading input {
+folder-heading.height-zero .glyphicon {
+    display: none;
+}
+
+folder-heading input {
     border: none;
     color: inherit;
     background: none;
     outline: none;
-    width: 100%;
+    width: 80%;
     border-radius: 4px;
     padding-left: 4px;
     margin-left: -4px;
 }
 
-folder .panel-heading input::selection {
-    background: #ffffff;
+folder-heading input::selection {
+    background: #428bca;
     color: #ffffff;
 }
 
-folder .panel-heading input:focus {
-    background: #ffffff;
+folder-heading input:focus {
+    background: #d9edf7;
     color: #000000;
+    box-shadow: 0 0 4px 0 #428bca inset;
+}
+
+.transparent {
+    opacity: 0.7;
 }
