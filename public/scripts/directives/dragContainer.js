@@ -22,12 +22,17 @@ app.directive('dragContainer', [function() {
             };
 
             this.getDropAreaContaining = function(x, y){
-                return _.find($scope.dropAreaList, function(dropArea){
+                var dropArea = _.find($scope.dropAreaList, function(dropArea){
                     return _.find(dropArea.element, function(el){
                         var elementRect = el.getBoundingClientRect();
                         return elementRect.top <= y && y < elementRect.bottom && elementRect.left <= x && x < elementRect.right;
                     });
                 });
+                if(dropArea) { return dropArea; }
+
+                var folderHolderController = $element.controller('folderHolder');
+                if(folderHolderController) { return { element: $element, controller: folderHolderController }; }
+                return undefined;
             };
         }]
     };

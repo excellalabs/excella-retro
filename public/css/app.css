@@ -117,3 +117,42 @@ spinner div div div {
     -webkit-animation: shimmy 0.5s infinite alternate;
     animation: shimmy 0.5s infinite alternate;
 }
+
+@-ms-keyframes addColor {
+    0%   {
+        color: #3c763d;
+        background: #dff0d8;
+    }
+    100% {
+        color: inherit;
+        background: #ffffff;
+    }
+}
+
+@-webkit-keyframes addColor {
+    0%   {
+        color: #3c763d;
+        background: #dff0d8;
+    }
+    100% {
+        color: inherit;
+        background: #ffffff;
+    }
+}
+
+@keyframes addColor {
+    0%   {
+        color: #3c763d;
+        background: #dff0d8;
+    }
+    100% {
+        color: inherit;
+        background: #ffffff;
+    }
+}
+
+.animated-add-color {
+    -ms-animation: addColor 0.5s;
+    -webkit-animation: addColor 0.5s;
+    animation: addColor 0.5s;
+}

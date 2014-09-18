@@ -10,28 +10,55 @@ app.directive('folder', [function() {
         restrict: 'E',
         templateUrl: 'templates/directives/folder.html',
         scope: {
-            list: '='
+            list: '=',
+            ignoreColor: '&',
+            ignoreAnimation: '&'
         },
         controller: ['$scope', '$element', function($scope, $element){
+            $scope.ignoreColor = $scope.ignoreColor() || false;
+            $scope.ignoreAnimation = $scope.ignoreAnimation() || false;
+            $scope.colorAnimationClass = $scope.ignoreColor ? '' : 'animated-add-color';
+
             var folderController = this;
             var folderHolderController = $element.controller('folderHolder');
 
             $scope.enterFunction = function(event, options){
                 if(folderController === options.draggable.element.controller('folder')) { return; }
                 window.console.log('entered', event, options);
-                options.dropArea.element.addClass('folder-drag-hover');
+
+                if(!$scope.ignoreAnimation) {
+                    options.dropArea.element.addClass('folder-drag-hover');
+                }
+
+                if(!$scope.ignoreColor) {
+                    options.draggable.element.addClass('list-group-item-info');
+                }
             };
 
             $scope.leaveFunction = function(event, options){
                 if(folderController === options.draggable.element.controller('folder')) { return; }
                 window.console.log('exited', event, options);
-                options.dropArea.element.removeClass('folder-drag-hover');
+
+                if(!$scope.ignoreAnimation) {
+                    options.dropArea.element.removeClass('folder-drag-hover');
+                }
+
+                if(!$scope.ignoreColor) {
+                    options.draggable.element.removeClass('list-group-item-info');
+                }
             };
 
             $scope.dropFunction = function(event, options){
                 if(folderController === options.draggable.element.controller('folder')) { return; }
                 window.console.log('dropped', event, options);
-                options.dropArea.element.removeClass('folder-drag-hover');
+
+                if(!$scope.ignoreAnimation) {
+                    options.dropArea.element.removeClass('folder-drag-hover');
+                }
+
+                if(!$scope.ignoreColor) {
+                    options.draggable.element.removeClass('list-group-item-info');
+                }
 
                 var otherFolder = options.draggable.element.controller('folder');
                 if(!otherFolder){ return; }
@@ -39,12 +66,18 @@ app.directive('folder', [function() {
                 var value = options.draggable.element.attr('data-value');
                 if(value === '' || value === undefined || value === null) { return; }
 
+                var index = options.draggable.element.attr('data-index');
+                if(index === '' || index === undefined || index === null) { return; }
+
                 $scope.list.push(value);
-                otherFolder.remove(value);
+                otherFolder.removeAt(index);
             };
 
             this.remove = function(value){
-                var index = $scope.list.indexOf(value);
+                return this.removeAt($scope.list.indexOf(value));
+            };
+
+            this.removeAt = function(index){
                 if(index >= 0){
                     $scope.list.splice(index, 1);
                 }

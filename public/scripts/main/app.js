@@ -49,6 +49,10 @@ angular.element(document).ready(function() {
                 templateUrl: '/templates/dragDropTest.html',
                 controller: ['$scope', function($scope){
                     $scope.test = [['hello', 'there'], 'world'];
+                    $scope.add = function(value){
+                        $scope.addForm.$setPristine();
+                        $scope.test.push([value]);
+                    };
                 }]
             })
             .otherwise( 

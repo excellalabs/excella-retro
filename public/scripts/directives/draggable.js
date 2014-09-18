@@ -40,21 +40,15 @@ app.directive('draggable', ['$rootScope', function($rootScope) {
                 onend: function (event) {
                     $rootScope.$apply(function(){
                         event.target.style.zIndex = 0;
-                        event.target.style.transition = 'transform 0.3s cubic-bezier(.33,1,.66,1), ' +
-                            'z-index 0.3s cubic-bezier(.33,1,.66,1)';
                         event.target.style.webkitTransform = event.target.style.transform = '';
                         event.target.setAttribute('data-x', 0);
                         event.target.setAttribute('data-y', 0);
-                        var folderController = element.controller('folder');
-                        var folderHolderController = element.controller('folderHolder');
                         if(targetDropArea){
                             targetDropArea.controller.drop(event, eventOptions);
-                        } else if(folderController && folderHolderController) {
-                            var value = element.attr('data-value');
-                            if(value !== '' && value !== undefined && value !== null) {
-                                folderController.remove(value);
-                                folderHolderController.addFolder(value);
-                            }
+                        }
+                        if(targetDropArea.controller === element.controller('dropArea')) {
+                            event.target.style.transition = 'transform 0.3s cubic-bezier(.33,1,.66,1), ' +
+                                'z-index 0.3s cubic-bezier(.33,1,.66,1)';
                         }
                     });
                 }
