@@ -1,0 +1,54 @@
+@import '../public/bower_components/bootstrap/less/bootstrap';
+@import 'base';
+@import 'spinner';
+@import 'folders';
+
+.jsa {
+  font-weight: bold;
+  margin-top: 5px;
+  max-width: 80px;
+}
+
+/* Angular-Bootstrap needs it, so href='#' can be avoided */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.end-retro {
+  text-align: center;
+}
+
+@media (max-width: 992px) {
+  .no-padding {
+    padding: 0 !important;
+  }
+}
+
+.btn .badge.user-badge {
+  top: 1px;
+}
+
+.never-pad {
+  padding: 0 !important;
+}
+
+.no-overflow {
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.vertical-middle {
+  vertical-align: -webkit-baseline-middle;
+  /* vertical-align: middle; */
+}
+
+.row-padding {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.transparent {
+  opacity: 0.7;
+}
+

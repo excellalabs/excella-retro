@@ -137,7 +137,7 @@ app.directive('folderHeading', [function() {
         controller: ['$scope', '$element', function($scope, $element){
             $element.css('display', 'block');
             $element.on('click', function(){
-                $element.find('input').focus();
+                $element.find('input')[0].focus();
             });
         }]
     };

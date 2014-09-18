@@ -18,7 +18,7 @@
             width: 30%;
             position: absolute;
             left: 70%;
-            background: {{color}};
+            {{color ? 'background:'+color+';' : ''}}
             border-radius: {{size}}px;
             -webkit-animation-delay: -{{interval * index / count}}s;
             animation-delay: -{{interval * index / count}}s;

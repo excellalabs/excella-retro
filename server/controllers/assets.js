@@ -23,6 +23,14 @@ module.exports = {
             name: 'css'
         }
     },
+    fonts: {
+        handler: {
+            directory: { path: path.join(basePath, '/public/fonts') }
+        },
+        app: {
+            name: 'fonts'
+        }
+    },
     templates: {
         handler: {
             directory: { path: path.join(basePath, '/public/templates') }

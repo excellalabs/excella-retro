@@ -23,7 +23,6 @@ app.directive('spinner', [function() {
             $scope.thickness = $scope.thickness() || 10;
             $scope.fullSize = $scope.size() || 100;
             $scope.interval = $scope.interval() || 1;
-            $scope.color = $scope.color || '#FF0000';
 
             $scope.size = $scope.fullSize * $scope.scale;
             $scope.fixPosition = ($scope.fullSize - $scope.size) / 2;

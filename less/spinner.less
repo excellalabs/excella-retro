@@ -1,0 +1,30 @@
+@-ms-keyframes fade {
+  0%   {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@-webkit-keyframes fade {
+  0%   {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@keyframes fade {
+  0%   {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+spinner div div div {
+  background: @brand-warning;
+  -ms-animation-name: fade;
+  -ms-animation-timing-function: linear;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-play-state: running;
+  -webkit-animation-name: fade;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-play-state: running;
+  animation-name: fade;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+}

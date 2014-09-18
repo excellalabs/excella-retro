@@ -31,6 +31,11 @@ module.exports = [
     },
     {
         method: 'GET',
+        path: '/fonts/{path*}',
+        config: controller.assets.fonts
+    },
+    {
+        method: 'GET',
         path: '/templates/{path*}',
         config: controller.assets.templates
     },

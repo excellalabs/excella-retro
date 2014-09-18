@@ -1,0 +1,104 @@
+folder-heading {
+  display: block;
+  position: relative;
+  height: 42px;
+  -webkit-transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
+  -moz-transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
+  -ms-transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
+  -o-transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
+  transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
+  cursor: pointer;
+
+  .glyphicon {
+    top: 4px;
+  }
+
+  input {
+    border: none;
+    color: inherit;
+    background: none;
+    outline: none;
+    width: 80%;
+    border-radius: 4px;
+    padding-left: 4px;
+    margin-left: -4px;
+    cursor: pointer;
+
+    &::selection {
+      background: @panel-primary-text;
+      color: @panel-primary-heading-bg;
+    }
+
+    &:focus {
+      background: @panel-info-heading-bg;
+      color: @close-color;
+      box-shadow: 0 0 4px 0 @panel-primary-heading-bg inset;
+      cursor: text;
+    }
+  }
+
+  &.height-zero {
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-top: none;
+    border-bottom: none;
+
+    .glyphicon {
+      display: none;
+    }
+  }
+}
+
+.dragArea, .dropArea {
+  touch-action: none;
+}
+
+.draggable {
+  -ms-scroll-chaining: none;
+}
+
+@-ms-keyframes addColor {
+  0%   {
+    color: @panel-success-text;
+    background: @panel-success-heading-bg;
+  }
+  100% {
+    color: inherit;
+    background: @panel-bg;
+  }
+}
+
+@-webkit-keyframes addColor {
+  0%   {
+    color: @panel-success-text;
+    background: @panel-success-heading-bg;
+  }
+  100% {
+    color: inherit;
+    background: @panel-bg;
+  }
+}
+
+@keyframes addColor {
+  0%   {
+    color: @panel-success-text;
+    background: @panel-success-heading-bg;
+  }
+  100% {
+    color: inherit;
+    background: @panel-bg;
+  }
+}
+
+.animated-add-color {
+  -ms-animation: addColor 0.5s;
+  -webkit-animation: addColor 0.5s;
+  animation: addColor 0.5s;
+}
+
+.folder-drag-hover {
+  /* ? */
+}
