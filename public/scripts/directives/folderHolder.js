@@ -10,21 +10,10 @@ app.directive('folderHolder', [function() {
         restrict: 'E',
         template: '<div class="dragContainer"><folder ng-repeat="list in lists" list="list"></folder></div>',
         scope: {
-            lists: '&'
+            lists: '=',
+            onChange: '='
         },
         controller: ['$scope', '$element', function($scope, $element){
-            $scope.lists = $scope.lists();
-
-            if(!($scope.lists instanceof Array)){
-                var oldLists = $scope.lists;
-                $scope.lists = [];
-                for(var name in oldLists){
-                    if(oldLists.propertyIsEnumerable(name)){
-                        $scope.lists.push(oldLists[name]);
-                    }
-                }
-            }
-
             for(var i=0; i<$scope.lists.length; i++){
                 if(!($scope.lists[i] instanceof Array)){
                     $scope.lists[i] = [$scope.lists[i]];
@@ -46,6 +35,12 @@ app.directive('folderHolder', [function() {
                 }
 
                 $scope.lists.push(value);
+            };
+
+            this.changed = function(){
+                if(typeof $scope.onChange === 'function'){
+                    $scope.onChange();
+                }
             };
         }]
     };

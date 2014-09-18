@@ -12,15 +12,11 @@ app.directive('dropArea', [function() {
         require: '^dragContainer',
         restrict: 'C',
         scope: {
-            onDrop: '&',
-            onDragEnter: '&',
-            onDragLeave: '&'
+            onDrop: '=',
+            onDragEnter: '=',
+            onDragLeave: '='
         },
         controller: ['$scope', '$element', function($scope, $element){
-            $scope.onDrop = $scope.onDrop();
-            $scope.onDragEnter = $scope.onDragEnter();
-            $scope.onDragLeave = $scope.onDragLeave();
-
             this.drop = function(event, draggable){
                 if(typeof $scope.onDrop === "function"){
                     var options = {

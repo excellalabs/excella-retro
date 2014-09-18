@@ -10,11 +10,11 @@ app.directive('folder', [function() {
         restrict: 'E',
         templateUrl: 'templates/directives/folder.html',
         scope: {
-            list: '&'
+            list: '='
         },
         controller: ['$scope', '$element', function($scope, $element){
             var folderController = this;
-            $scope.list = $scope.list() || [];
+            var folderHolderController = $element.controller('folderHolder');
 
             $scope.enterFunction = function(event, options){
                 if(folderController === options.draggable.element.controller('folder')) { return; }
@@ -48,8 +48,9 @@ app.directive('folder', [function() {
                 if(index >= 0){
                     $scope.list.splice(index, 1);
                 }
-
-                var folderHolderController = $element.controller('folderHolder');
+                if(folderHolderController){
+                    folderHolderController.changed();
+                }
 
                 if($scope.list.length === 0) {
                     if (folderHolderController) {

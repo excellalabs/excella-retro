@@ -12,9 +12,6 @@ app.directive('draggable', ['$rootScope', function($rootScope) {
     return {
         require: '^dragContainer',
         restrict: 'C',
-        controller: ['$scope', function($scope){
-
-        }],
         link: function(scope, element, attrs, dragContainerCtrl){
             var htmlElement = element[0];
             var targetDropArea = null;

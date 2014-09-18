@@ -46,7 +46,10 @@ angular.element(document).ready(function() {
                 controller: 'BoardController'
             })
             .when('/dragDropTest', {
-                templateUrl: '/templates/dragDropTest.html'
+                templateUrl: '/templates/dragDropTest.html',
+                controller: ['$scope', function($scope){
+                    $scope.test = [['hello', 'there'], 'world'];
+                }]
             })
             .otherwise( 
                 {
