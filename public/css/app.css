@@ -9,7 +9,7 @@
 }
 
 /* Top-fixed navbar requirement */
-body { padding-top: 70px; }
+body { padding-top: 20px; }
 
 /* Angular-Bootstrap needs it, so href='#' can be avoided */
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
@@ -58,25 +58,31 @@ hr {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
+@-ms-keyframes fade {
+    0%   {opacity: 1;}
+    100% {opacity: 0;}
+}
+
 @-webkit-keyframes fade {
     0%   {opacity: 1;}
     100% {opacity: 0;}
 }
 
-/* Standard syntax */
 @keyframes fade {
     0%   {opacity: 1;}
     100% {opacity: 0;}
 }
 
 spinner div div div {
-    -webkit-animation: fade 5s; /* Chrome, Safari, Opera */
-    /* Chrome, Safari, Opera */
+    -ms-animation-name: fade;
+    -ms-animation-timing-function: linear;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-play-state: running;
     -webkit-animation-name: fade;
     -webkit-animation-timing-function: linear;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-play-state: running;
-    /* Standard syntax */
     animation-name: fade;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -88,6 +94,26 @@ spinner div div div {
 }
 
 .draggable {
-    display: inline-block;
     -ms-scroll-chaining: none;
+}
+
+@-ms-keyframes shimmy {
+    0%   {-ms-transform: rotate(-1deg);}
+    100% {-ms-transform: rotate(1deg);}
+}
+
+@-webkit-keyframes shimmy {
+    0%   {-webkit-transform: rotate(-1deg);}
+    100% {-webkit-transform: rotate(1deg);}
+}
+
+@keyframes shimmy {
+    0%   {transform: rotate(-1deg);}
+    100% {transform: rotate(1deg);}
+}
+
+.folder-drag-hover {
+    -ms-animation: shimmy 0.5s infinite alternate;
+    -webkit-animation: shimmy 0.5s infinite alternate;
+    animation: shimmy 0.5s infinite alternate;
 }

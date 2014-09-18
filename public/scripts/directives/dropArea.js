@@ -12,22 +12,52 @@ app.directive('dropArea', [function() {
         require: '^dragContainer',
         restrict: 'C',
         scope: {
-            onDrop: '='
+            onDrop: '&',
+            onDragEnter: '&',
+            onDragLeave: '&'
         },
-        controller: ['$scope', function($scope){
-        }],
-        link: function(scope, element, attrs, dragContainerCtrl){
-            scope.drop = function(event, draggable){
-                if(typeof scope.onDrop === "function"){
+        controller: ['$scope', '$element', function($scope, $element){
+            $scope.onDrop = $scope.onDrop();
+            $scope.onDragEnter = $scope.onDragEnter();
+            $scope.onDragLeave = $scope.onDragLeave();
+
+            this.drop = function(event, draggable){
+                if(typeof $scope.onDrop === "function"){
                     var options = {
                         draggable: draggable,
-                        dropArea: { element: element, scope: scope }
+                        dropArea: { element: $element, scope: $scope }
                     };
-                    scope.onDrop(event, options);
+                    $scope.onDrop(event, options);
                     return true;
                 }
                 return false;
             };
+
+            this.dragEnter = function(event, draggable){
+                if(typeof $scope.onDragEnter === "function"){
+                    var options = {
+                        draggable: draggable,
+                        dropArea: { element: $element, scope: $scope }
+                    };
+                    $scope.onDragEnter(event, options);
+                    return true;
+                }
+                return false;
+            };
+
+            this.dragLeave = function(event, draggable){
+                if(typeof $scope.onDragLeave === "function"){
+                    var options = {
+                        draggable: draggable,
+                        dropArea: { element: $element, scope: $scope }
+                    };
+                    $scope.onDragLeave(event, options);
+                    return true;
+                }
+                return false;
+            };
+        }],
+        link: function(scope, element, attrs, dragContainerCtrl){
             dragContainerCtrl.registerDropArea(element, scope);
         }
     };

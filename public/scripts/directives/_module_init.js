@@ -17,3 +17,5 @@ require('./spinner.js');
 require('./dragContainer.js');
 require('./draggable.js');
 require('./dropArea.js');
+require('./folder.js');
+require('./folderHolder.js');

@@ -10,15 +10,15 @@ app.directive('dragContainer', [function() {
     "use strict";
     return {
         restrict: 'C',
-        controller: ['$scope', '_', function($scope, _){
+        controller: ['$scope', '$element', '_', function($scope, $element, _){
             $scope.draggableList = [];
             this.registerDraggable = function(element, scope){
-                $scope.draggableList.push({ element: element, scope: scope });
+                $scope.draggableList.push({ element: element, controller: element.controller('draggable') });
             };
 
             $scope.dropAreaList = [];
             this.registerDropArea = function(element, scope){
-                $scope.dropAreaList.push({ element: element, scope: scope });
+                $scope.dropAreaList.push({ element: element, controller: element.controller('dropArea') });
             };
 
             this.getDropAreaContaining = function(x, y){
