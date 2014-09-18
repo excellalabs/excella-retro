@@ -166,6 +166,7 @@ folder-heading {
     -ms-transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
     -o-transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
     transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
+    cursor: pointer;
 }
 
 folder-heading .glyphicon {
@@ -195,6 +196,7 @@ folder-heading input {
     border-radius: 4px;
     padding-left: 4px;
     margin-left: -4px;
+    cursor: pointer;
 }
 
 folder-heading input::selection {
@@ -206,6 +208,7 @@ folder-heading input:focus {
     background: #d9edf7;
     color: #000000;
     box-shadow: 0 0 4px 0 #428bca inset;
+    cursor: text;
 }
 
 .transparent {
