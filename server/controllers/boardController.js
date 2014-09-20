@@ -4,7 +4,7 @@
 var board = require('../models/board');
 var Hapi = require('hapi');
 var io = require('../config/socketSetup').instance;
-var constants = require('../../shared/constants/board');
+var constants = require('../../shared/constants/boardConstants');
 
 module.exports = {
     createBoard: {

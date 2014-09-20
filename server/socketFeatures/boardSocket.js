@@ -4,7 +4,7 @@
 var io = require('../config/socketSetup').instance;
 var board = require('../models/board');
 var lock = require('../../shared/lock');
-var constants = require('../../shared/constants/board');
+var constants = require('../../shared/constants/boardConstants');
 
 
 io.sockets.on('connection', function(socket){
@@ -14,9 +14,6 @@ io.sockets.on('connection', function(socket){
             var oldId = socket.boardId;
             var oldName = socket.name;
             socket.boardId = boardId;
-
-            console.log(boardId + ', ' + name + ' :: ' + oldId + ', ' + oldName);
-
             var joinNewBoard = function(){
                 board.joinBoard(boardId, name, function(err, participants){
                     if(err){

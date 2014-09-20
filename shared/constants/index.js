@@ -3,9 +3,9 @@
 
 var readonly = require('./readonly.js');
 
-exports = module.exports = {
+var values = {
     authError: 'authentication error',
-    board: require('./board')
+    board: require('./boardConstants')
 };
 
-readonly(exports);
+exports = module.exports = readonly(values);

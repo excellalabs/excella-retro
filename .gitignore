@@ -30,5 +30,6 @@ remoteRetroDb/*
 
 
 public/js/app.js
+public/css/app.css
 remote-retro-hapi.pem
 goodPath

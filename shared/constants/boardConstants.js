@@ -3,7 +3,7 @@
 
 var readonly = require('./readonly.js');
 
-exports = module.exports = {
+var values = {
     errors: {
         scrumMasterMismatch: 'scrum master key mismatch',
         userExists: "User is already on board",
@@ -38,4 +38,4 @@ exports = module.exports = {
     }
 };
 
-readonly(exports);
+exports = module.exports = readonly(values);

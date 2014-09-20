@@ -2,7 +2,7 @@
 /* jslint browser: true */
 
 require('../../bower_components/angular/angular');
-var constants = require('../../../shared/constants/board');
+var constants = require('../../../shared/constants/boardConstants');
 var _ = require('../../bower_components/lodash/dist/lodash');
 
 var app = angular.module('remoteRetro.boardService', []);

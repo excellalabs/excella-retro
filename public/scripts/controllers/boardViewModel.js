@@ -2,7 +2,7 @@
 /* jslint browser: true */
 
 var app = require('./_module_init.js');
-var constants = require('../../../shared/constants/board');
+var constants = require('../../../shared/constants/boardConstants');
 require('../../bower_components/angular/angular');
 
 app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', 'socket', function($scope, $routeParams, userProvider, boardService, $location, $rootScope, socket) {

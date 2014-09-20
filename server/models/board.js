@@ -1,7 +1,7 @@
 ﻿/* jslint node: true */
 "use strict";
 var db = require('./database');
-var constants = require('../../shared/constants/board');
+var constants = require('../../shared/constants/boardConstants');
 var helpers = require('../../shared/helpers.js');
 var lock = require('../../shared/lock.js');
 var _ = require('lodash');
