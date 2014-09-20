@@ -4,6 +4,7 @@
 var board = require('../models/board');
 var Hapi = require('hapi');
 var io = require('../config/socketSetup').instance;
+var constants = require('../constants/board');
 
 module.exports = {
     createBoard: {
@@ -143,6 +144,30 @@ module.exports = {
                     io.to(request.params.id).emit('theme-added', themes);
                     reply(true);
                 }
+            });
+        },
+        app: {
+            name: 'board'
+        }
+    },
+    deleteBoard: {
+        handler: function(request, reply){
+            board.delete(request.params.id, request.payload.scrumMasterKey, function(err){
+                if(err){
+                    var error;
+                    if(err === constants.scrumMasterError) {
+                        error = Hapi.error.badRequest('Cannot delete board!');
+                        error.output.statusCode = 400;
+                    } else {
+                        error = Hapi.error.badRequest('Cannot find board!');
+                        error.output.statusCode = 404;
+                    }
+                    reply(error);
+                } else {
+                    io.to(request.params.id).emit('board-closed', request.params.id);
+                    reply(true);
+                }
+
             });
         },
         app: {

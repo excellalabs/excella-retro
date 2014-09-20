@@ -1,6 +1,7 @@
 ﻿/* jslint node: true */
 "use strict";
 var db = require('./database');
+var constants = require('../constants/board');
 var helpers = require('../../shared/helpers.js');
 var lock = require('../../shared/lock.js');
 var _ = require('lodash');
@@ -27,6 +28,22 @@ module.exports = {
         var board = { id: boardId, title: helpers.toTitleCase(boardName), phase: 'initial', scrumMaster: user, scrumMasterKey: scrumMasterKey, participants: [], feedback: [], themes: [] };
         saveBoard(boardId, board, callback);
     },
+    delete: function(boardId, scrumMasterKey, callback){
+        db.get(boardId, function(err, board){
+            if (err) {
+                console.log('Lookup failed: ', err);
+                callback(err);
+                return;
+            }
+            if(board.scrumMasterKey !== scrumMasterKey){
+                callback(constants.scrumMasterError);
+                return;
+            }
+            db.destroy(boardId, function(err){
+                callback(err);
+            });
+        });
+    },
     isScrumMasterKeyCorrect: function(boardId, scrumMasterKey, callback){
         db.get(boardId, function(err, board) {
             if (err) {
@@ -43,7 +60,7 @@ module.exports = {
                 return;
             }
             if(!board || board.scrumMasterKey !== scrumMasterKey){
-                callback("scrum master key mismatch");
+                callback(constants.scrumMasterError);
                 return;
             }
 
