@@ -1,9 +1,7 @@
-/* global require, angular, module, exports */
+/* global require, module, exports */
 /* jslint browser: true */
 
 var app = require('./_module_init.js');
-require('../../bower_components/angular/angular');
-
 
 app.directive('errorField', [function() {
     "use strict";

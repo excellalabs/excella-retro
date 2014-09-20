@@ -16,7 +16,21 @@ gulp.task('scripts', function() {
   return gulp.src('public/scripts/main/app.js')
     .pipe(browserify({
       insertGlobals : true,
-      debug : !isProduction
+      debug : !isProduction,
+      shim:{
+          angular: {
+              path: 'public/bower_components/angular/angular.js',
+              exports: 'angular'
+          },
+          'angular-route': {
+              path: 'public/bower_components/angular-bootstrap/ui-bootstrap.js',
+              exports: null,
+              depends: {
+                  angular: 'angular'
+              }
+          }
+
+      }
     }))
     .pipe(gulp.dest('public/js'));
 });

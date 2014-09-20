@@ -1,7 +1,6 @@
-/* global require, angular, module, exports */
+/* global require, module, exports */
 /* jslint browser: true */
 
-require('../../bower_components/angular/angular');
 var helpers = require('../../../shared/helpers');
 
 var user = '', scrumMasterKey = null;

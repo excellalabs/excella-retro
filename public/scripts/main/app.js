@@ -1,6 +1,7 @@
 /* global require, angular */
 /* jslint browser: true */
 
+var angular = require('angular');
 require('../../bower_components/angular/angular');
 require('../../bower_components/angular-route/angular-route');
 require('../../bower_components/angular-bootstrap/ui-bootstrap');

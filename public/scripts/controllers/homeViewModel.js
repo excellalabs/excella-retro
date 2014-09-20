@@ -1,8 +1,7 @@
-/* global require, angular, module, exports */
+/* global require, module, exports */
 /* jslint browser: true */
 
 var app = require('./_module_init.js');
-require('../../bower_components/angular/angular');
 
 app.controller('HomeController', ['$scope', 'userProvider', 'boardService', '$location', '$rootScope', function($scope, userProvider, boardService, $location, $rootScope) {
     "use strict";

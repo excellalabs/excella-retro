@@ -1,7 +1,6 @@
-/* global require, angular, module, exports */
+/* global require, module, exports */
 /* jslint browser: true */
 
-require('../../bower_components/angular/angular');
 var io = require('socket.io-client');
 
 // socket.on('connect') only fires once when the connect event occurs, but socket.connectPromise will fire both:

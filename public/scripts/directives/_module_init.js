@@ -1,6 +1,7 @@
-/* global require, angular, module, exports */
+/* global require, module, exports */
 /* jslint browser: true */
 
+var angular = require('angular');
 module.exports = angular.module('remoteRetro.directives', []);
 
 // Define the list of directives:

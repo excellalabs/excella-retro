@@ -1,7 +1,6 @@
-/* global require, angular, module, exports */
+/* global require, module, exports */
 /* jslint browser: true */
 
-require('../../bower_components/angular/angular');
 var constants = require('../../../shared/constants/boardConstants');
 var _ = require('../../bower_components/lodash/dist/lodash');
 

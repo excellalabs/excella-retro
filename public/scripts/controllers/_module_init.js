@@ -1,6 +1,7 @@
-/* global require, angular, module, exports */
+/* global require, module, exports */
 /* jslint browser: true */
 
+var angular = require('angular');
 require('../services/boardService');
 require('../services/userProvider');
 
