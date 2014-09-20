@@ -4,14 +4,14 @@
 var board = require('../models/board');
 var Hapi = require('hapi');
 var io = require('../config/socketSetup').instance;
-var constants = require('../constants/board');
+var constants = require('../../shared/constants/board');
 
 module.exports = {
     createBoard: {
         handler: function (request, reply) {
             board.create(request.payload.user, request.payload.boardName, request.payload.scrumMasterKey, function (err, board) {
                 if (err) {
-                    var error = Hapi.error.badRequest('Cannot create board!');
+                    var error = Hapi.error.badRequest(constants.messages.cannotCreate);
                     error.output.statusCode = 400;
                     reply(error);
                 } else {
@@ -27,7 +27,7 @@ module.exports = {
         handler: function (request, reply) {
             board.get(request.params.id, function (err, board) {
                 if (err) {
-                    var error = Hapi.error.badRequest('Cannot find board!');
+                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
                     error.output.statusCode = 404;
                     reply(error);
                 } else {
@@ -43,7 +43,7 @@ module.exports = {
         handler: function (request, reply) {
             board.getBoardParticipants(request.params.id, function (err, board) {
                 if (err) {
-                    var error = Hapi.error.badRequest('Cannot find board!');
+                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
                     error.output.statusCode = 404;
                     reply(error);
                 } else {
@@ -60,21 +60,21 @@ module.exports = {
             board.setPhase(request.params.id, request.payload.phase, request.payload.scrumMasterKey, function(err, board){
                 if(err){
                     var error;
-                    if(err === "scrum master key mismatch") {
-                        error = Hapi.error.badRequest('Cannot update board phase!');
+                    if(err === constants.scrumMasterError) {
+                        error = Hapi.error.badRequest(constants.messages.cannotUpdatePhase);
                         error.output.statusCode = 400;
                     } else {
-                        error = Hapi.error.badRequest('Cannot find board!');
+                        error = Hapi.error.badRequest(constants.messages.cannotFind);
                         error.output.statusCode = 404;
                     }
                     reply(error);
                 } else {
-                    if(request.payload.phase === 'voting-started') {
-                        io.to(request.params.id).emit('begin-voting', board);
-                    } else if(request.payload.phase === 'voting-ended') {
-                        io.to(request.params.id).emit('collect-votes', board);
+                    if(request.payload.phase === constants.phases.votingStarted) {
+                        io.to(request.params.id).emit(constants.socketEmitters.beginVoting, board);
+                    } else if(request.payload.phase === constants.phases.votingEnded) {
+                        io.to(request.params.id).emit(constants.socketEmitters.collectVotes, board);
                     } else {
-                        io.to(board.id).emit('refreshBoard', board);
+                        io.to(board.id).emit(constants.socketEmitters.refreshBoard, board);
                     }
                     reply(true);
                 }
@@ -88,7 +88,7 @@ module.exports = {
         handler: function (request, reply) {
             board.addFeedback(request.params.id, request.payload.feedback, function (err, feedback) {
                 if (err) {
-                    var error = Hapi.error.badRequest('Cannot find board!');
+                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
                     error.output.statusCode = 404;
                     reply(error);
                     } else {
@@ -104,7 +104,7 @@ module.exports = {
         handler: function (request, reply) {
             board.getThemes(request.params.id, function (err, themes) {
                 if (err) {
-                    var error = Hapi.error.badRequest('Cannot find board!');
+                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
                     error.output.statusCode = 404;
                     reply(error);
                 } else {
@@ -120,11 +120,11 @@ module.exports = {
         handler: function (request, reply) {
             board.addTheme(request.params.id, request.payload.theme, function (err, themes) {
                 if (err) {
-                    var error = Hapi.error.badRequest('Cannot find board!');
+                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
                     error.output.statusCode = 404;
                     reply(error);
                 } else {
-                    io.to(request.params.id).emit('theme-added', themes);
+                    io.to(request.params.id).emit(constants.socketEmitters.themeAdded, themes);
                     reply(request.payload.theme);
                 }
             });
@@ -137,11 +137,11 @@ module.exports = {
         handler: function (request, reply) {
             board.addVotes(request.params.id, request.payload.themeIdVoteCollection, function (err, themes) {
                 if (err) {
-                    var error = Hapi.error.badRequest('Cannot find board!');
+                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
                     error.output.statusCode = 404;
                     reply(error);
                 } else {
-                    io.to(request.params.id).emit('theme-added', themes);
+                    io.to(request.params.id).emit(constants.socketEmitters.themeAdded, themes);
                     reply(true);
                 }
             });
@@ -156,15 +156,15 @@ module.exports = {
                 if(err){
                     var error;
                     if(err === constants.scrumMasterError) {
-                        error = Hapi.error.badRequest('Cannot delete board!');
+                        error = Hapi.error.badRequest(constants.messages.cannotDelete);
                         error.output.statusCode = 400;
                     } else {
-                        error = Hapi.error.badRequest('Cannot find board!');
+                        error = Hapi.error.badRequest(constants.messages.cannotFind);
                         error.output.statusCode = 404;
                     }
                     reply(error);
                 } else {
-                    io.to(request.params.id).emit('board-closed', request.params.id);
+                    io.to(request.params.id).emit(constants.socketEmitters.boardClosed, request.params.id);
                     reply(true);
                 }
 

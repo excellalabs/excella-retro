@@ -2,6 +2,7 @@
 /* jslint browser: true */
 
 require('../../bower_components/angular/angular');
+var constants = require('../../../shared/constants/board');
 var _ = require('../../bower_components/lodash/dist/lodash');
 
 var app = angular.module('remoteRetro.boardService', []);
@@ -40,21 +41,21 @@ app.factory('boardService', ['$http', '$q', 'userProvider', 'socket',
                 },
                 joinBoard: function (boardId, user) {
                     var deferred = $q.defer();
-                    socket.emit('room', boardId, user);
+                    socket.emit(constants.socketEmitters.joinBoard, boardId, user);
                     var successCallback = function(requestName, username){
-                        if(requestName !== 'room'){ return; }
-                        socket.off('success', successCallback);
-                        socket.off('fail', failureCallback);
+                        if(requestName !== constants.socketEmitters.joinBoard){ return; }
+                        socket.off(constants.socketEmitters.joinSuccess, successCallback);
+                        socket.off(constants.socketEmitters.joinError, failureCallback);
                         deferred.resolve(username);
                     };
                     var failureCallback = function(requestName, error){
-                        if(requestName !== 'room'){ return; }
-                        socket.off('success', successCallback);
-                        socket.off('fail', failureCallback);
+                        if(requestName !== constants.socketEmitters.joinBoard){ return; }
+                        socket.off(constants.socketEmitters.joinSuccess, successCallback);
+                        socket.off(constants.socketEmitters.joinError, failureCallback);
                         deferred.reject(error);
                     };
-                    socket.on('success', successCallback);
-                    socket.on('fail', failureCallback);
+                    socket.on(constants.socketEmitters.joinSuccess, successCallback);
+                    socket.on(constants.socketEmitters.joinError, failureCallback);
                     return deferred.promise;
                 },
                 sendFeedback: function (boardId, feedback) {

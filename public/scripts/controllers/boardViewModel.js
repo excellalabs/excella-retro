@@ -2,6 +2,7 @@
 /* jslint browser: true */
 
 var app = require('./_module_init.js');
+var constants = require('../../../shared/constants/board');
 require('../../bower_components/angular/angular');
 
 app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', 'socket', function($scope, $routeParams, userProvider, boardService, $location, $rootScope, socket) {
@@ -33,15 +34,15 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
 
                 $scope.boardPhaseDisplayName = function () {
                     switch ($scope.board.phase) {
-                        case 'initial':
+                        case constants.phases.initial:
                             return 'Getting ready - Scrum Master will be initiating feedback gathering';
-                        case 'feedback-started':
+                        case constants.phases.feedbackStarted:
                             return 'Gathering feedback - Anonymously provide your feedback';
-                        case 'feedback-completed':
+                        case constants.phases.feedbackCompleted:
                             return 'Creating themes - Scrum Master will be summarizing feedback as themes';
-                        case 'voting-started':
+                        case constants.phases.votingStarted:
                             return 'Cast your votes - Anonymously cast your available votes ';
-                        case 'voting-ended':
+                        case constants.phases.votingEnded:
                             return 'Review prioritized themes - Scrum Master will end the retrospective';
                         default:
                             return '.';
@@ -53,22 +54,22 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
                 };
 
                 $scope.startFeedbackGathering = function () {
-                    $scope.board.phase = 'feedback-started';
+                    $scope.board.phase = constants.phases.feedbackStarted;
                     boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
                 };
 
                 $scope.stopFeedbackGathering = function () {
-                    $scope.board.phase = 'feedback-completed';
+                    $scope.board.phase = constants.phases.feedbackCompleted;
                     boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
                 };
 
                 $scope.startThemeVoting = function () {
-                    $scope.board.phase = 'voting-started';
+                    $scope.board.phase = constants.phases.votingStarted;
                     boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
                 };
 
                 $scope.stopThemeVoting = function () {
-                    $scope.board.phase = 'voting-ended';
+                    $scope.board.phase = constants.phases.votingEnded;
                     boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
                 };
             });
@@ -116,15 +117,15 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
 
         });
 
-        socket.offOn('joined', function(participants){
+        socket.offOn(constants.socketEmitters.joined, function(participants){
             $scope.participants = participants;
         });
 
-        socket.offOn('theme-added', function(themes){
+        socket.offOn(constants.socketEmitters.themeAdded, function(themes){
             $scope.themes = themes;
         });
 
-        socket.offOn('refreshBoard', function(board){
+        socket.offOn(constants.socketEmitters.refreshBoard, function(board){
             $scope.board = board;
         });
 

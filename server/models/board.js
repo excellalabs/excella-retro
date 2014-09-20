@@ -1,7 +1,7 @@
 ﻿/* jslint node: true */
 "use strict";
 var db = require('./database');
-var constants = require('../constants/board');
+var constants = require('../../shared/constants/board');
 var helpers = require('../../shared/helpers.js');
 var lock = require('../../shared/lock.js');
 var _ = require('lodash');
@@ -25,7 +25,7 @@ function removePrivateFields(board){
 module.exports = {
     create: function(user, boardName, scrumMasterKey, callback){
         var boardId = helpers.guid();
-        var board = { id: boardId, title: helpers.toTitleCase(boardName), phase: 'initial', scrumMaster: user, scrumMasterKey: scrumMasterKey, participants: [], feedback: [], themes: [] };
+        var board = { id: boardId, title: helpers.toTitleCase(boardName), phase: constants.phases.initial, scrumMaster: user, scrumMasterKey: scrumMasterKey, participants: [], feedback: [], themes: [] };
         saveBoard(boardId, board, callback);
     },
     delete: function(boardId, scrumMasterKey, callback){
@@ -36,7 +36,7 @@ module.exports = {
                 return;
             }
             if(board.scrumMasterKey !== scrumMasterKey){
-                callback(constants.scrumMasterError);
+                callback(constants.errors.scrumMasterMismatch);
                 return;
             }
             db.destroy(boardId, function(err){
@@ -60,7 +60,7 @@ module.exports = {
                 return;
             }
             if(!board || board.scrumMasterKey !== scrumMasterKey){
-                callback(constants.scrumMasterError);
+                callback(constants.errors.scrumMasterMismatch);
                 return;
             }
 
@@ -90,7 +90,7 @@ module.exports = {
         this.get(boardId, function(err, board) {
             var index = board.participants.indexOf(user);
             if(index >= 0){
-                callback("User is already on board", board.participants);
+                callback(constants.errors.userExists, board.participants);
                 return;
             }
             board.participants.push(user);
@@ -103,7 +103,7 @@ module.exports = {
         this.get(boardId, function(err, board) {
             var index = board.participants.indexOf(user);
             if(index < 0){
-                callback("User isn't on board", board.participants);
+                callback(constants.errors.userDoesNotExist, board.participants);
                 return;
             }
             board.participants.splice(index, 1);
