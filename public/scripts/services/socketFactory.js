@@ -1,4 +1,4 @@
-/* global require, module, exports */
+/* global require, angular, module, exports */
 /* jslint browser: true */
 
 var io = require('socket.io-client');

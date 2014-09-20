@@ -2,7 +2,6 @@
 /* jslint browser: true */
 
 var app = require('./_module_init.js');
-var interact = require('../../bower_components/interact/interact');
 
 
 app.directive('dropArea', [function() {

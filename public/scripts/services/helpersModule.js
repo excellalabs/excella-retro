@@ -1,8 +1,9 @@
 /* global require, module, exports */
 /* jslint browser: true */
 
+var angular = require('angular');
 var helpers = require('../../../shared/helpers');
-var _ = require('../../bower_components/lodash/dist/lodash');
+var _ = require('lodash');
 
 var user = '', scrumMasterKey = null;
 

@@ -1,12 +1,13 @@
 /* global require, module, exports */
 /* jslint browser: true */
 
+var angular = require('angular');
 var constants = require('../../../shared/constants/boardConstants');
-var _ = require('../../bower_components/lodash/dist/lodash');
+require('./helpersModule');
 
-var app = angular.module('remoteRetro.boardService', []);
-app.factory('boardService', ['$http', '$q', 'userProvider', 'socket',
-        function($http, $q, userProvider, socket){
+var app = angular.module('remoteRetro.boardService', ['remoteRetro.helpers']);
+app.factory('boardService', ['$http', '$q', 'userProvider', 'socket', '_',
+        function($http, $q, userProvider, socket, _){
             "use strict";
             var boardUrl = '../board';
 

@@ -22,12 +22,35 @@ gulp.task('scripts', function() {
               path: 'public/bower_components/angular/angular.js',
               exports: 'angular'
           },
-          'angular-route': {
+          'ui-bootstrap': {
               path: 'public/bower_components/angular-bootstrap/ui-bootstrap.js',
               exports: null,
               depends: {
                   angular: 'angular'
               }
+          },
+          'ui-bootstrap-tpls': {
+              path: 'public/bower_components/angular-bootstrap/ui-bootstrap-tpls',
+              exports: null,
+              depends: {
+                  angular: 'angular',
+                  'ui-bootstrap': null
+              }
+          },
+          'interact': {
+              path: 'public/bower_components/interact/interact.js',
+              exports: 'interact'
+          },
+          'angular-route': {
+              path: 'public/bower_components/angular-route/angular-route',
+              exports: null,
+              depends: {
+                  angular: 'angular'
+              }
+          },
+          lodash: {
+              path: 'public/bower_components/lodash/dist/lodash',
+              exports: '_'
           }
 
       }

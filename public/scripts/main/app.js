@@ -1,11 +1,10 @@
-/* global require, angular */
+/* global require, module, exports */
 /* jslint browser: true */
 
 var angular = require('angular');
-require('../../bower_components/angular/angular');
-require('../../bower_components/angular-route/angular-route');
-require('../../bower_components/angular-bootstrap/ui-bootstrap');
-require('../../bower_components/angular-bootstrap/ui-bootstrap-tpls');
+require('angular-route');
+require('ui-bootstrap');
+require('ui-bootstrap-tpls');
 require('../controllers/_module_init');
 require('../directives/_module_init');
 require('../services/boardService');
