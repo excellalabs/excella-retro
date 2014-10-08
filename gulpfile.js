@@ -18,9 +18,23 @@ gulp.task('scripts', function() {
       insertGlobals : true,
       debug : !isProduction,
       shim:{
+          jquery: {
+              path: 'public/bower_components/jquery/dist/jquery.js',
+              exports: '$'
+          },
           angular: {
               path: 'public/bower_components/angular/angular.js',
-              exports: 'angular'
+              exports: 'angular',
+              depends: {
+                  jquery: 'jQuery'
+              }
+          },
+          bootstrap: {
+              path: 'public/bower_components/bootstrap/dist/js/bootstrap.js',
+              exports: null,
+              depends: {
+                  jquery: 'jQuery'
+              }
           },
           'ui-bootstrap': {
               path: 'public/bower_components/angular-bootstrap/ui-bootstrap.js',
@@ -51,6 +65,14 @@ gulp.task('scripts', function() {
           lodash: {
               path: 'public/bower_components/lodash/dist/lodash',
               exports: '_'
+          },
+          'bootstrap-wizard': {
+              path: 'public/bower_components/bootstrap-wizard/jquery.bootstrap.wizard.js',
+              exports: null,
+              depends: {
+                  jquery: 'jQuery',
+                  bootstrap: 'bootstrap'
+              }
           }
 
       }

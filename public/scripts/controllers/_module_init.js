@@ -12,4 +12,5 @@ require('./homeViewModel.js');
 require('./boardViewModel.js');
 require('./joinViewModel.js');
 require('./scrumMasterViewModel.js');
+require('./retroWizardViewModel.js');
 

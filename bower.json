@@ -30,6 +30,8 @@
     "angular-resource": "~1.2.23",
     "angular-mocks": "~1.2.23",
     "angular-bootstrap": "~0.11.0",
-    "interact": "~1.0.25"
+    "interact": "~1.0.25",
+    "bootstrap-wizard": "~1.0.0",
+    "jquery": "~2.1.1"
   }
 }
