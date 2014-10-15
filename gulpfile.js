@@ -74,7 +74,6 @@ gulp.task('scripts', function() {
                   bootstrap: 'bootstrap'
               }
           }
-
       }
     }))
     .pipe(gulp.dest('public/js'));

@@ -84,9 +84,9 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
             $scope.user = user;
 
             if ($rootScope.scrumMasterKey) {
-                $scope.isScrumMaster = userProvider.isUserScrumMaster($rootScope.scrumMasterKey, boardsScrumMasterKey);
+                $rootScope.isScrumMaster = userProvider.isUserScrumMaster($rootScope.scrumMasterKey, boardsScrumMasterKey);
             } else {
-                $scope.isScrumMaster = false;
+                $rootScope.isScrumMaster = false;
             }
         };
 

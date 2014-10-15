@@ -6,7 +6,10 @@ app.directive('whatWentWell', [function() {
     return {
         restrict: 'E',
         templateUrl: 'templates/directives/whatWentWell.html',
-        controller: function($scope, boardService) {
+        scope: {
+            boardId: '=boardId'
+        },
+        controller: ['$scope', 'boardService', function($scope, boardService) {
             $scope.feedbackList = [];
             $scope.phases = constants.board.phases;
 
@@ -22,7 +25,7 @@ app.directive('whatWentWell', [function() {
                     $scope.validation = validation;
                 });
             };
-        }
+        }]
     };
 }]);
 

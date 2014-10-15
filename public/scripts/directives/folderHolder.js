@@ -8,12 +8,13 @@ app.directive('folderHolder', [function() {
 
     return {
         restrict: 'E',
-        template: '<div class="dragContainer"><folder ignore-color="ignoreColor" ignore-animation="ignoreAnimation" ng-repeat="item in lists" name="item.name" list="item"></folder></div>',
+        template: '<div class="dragContainer"><folder ignore-color="ignoreColor" ignore-animation="ignoreAnimation" ignore-drag="readonly" ng-repeat="item in lists" name="item.name" list="item"></folder></div>',
         scope: {
-            lists: '=',
-            onChange: '=',
-            ignoreColor: '&',
-            ignoreAnimation: '&'
+            lists: '=lists',
+            onChange: '=onChange',
+            ignoreColor: '&ignoreColor',
+            ignoreAnimation: '&ignoreAnimation',
+            readonly: '=readonly'
         },
         controller: ['$scope', '$element', function($scope, $element){
             $scope.ignoreColor = $scope.ignoreColor() || false;
