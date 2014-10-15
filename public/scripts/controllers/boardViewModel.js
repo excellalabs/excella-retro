@@ -6,6 +6,7 @@ var constants = require('../../../shared/constants/boardConstants');
 
 app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', 'socket', function($scope, $routeParams, userProvider, boardService, $location, $rootScope, socket) {
     "use strict";
+    $scope.phases = constants.phases;
     if(!$rootScope.boardId) {
         $location.path('#');
     }

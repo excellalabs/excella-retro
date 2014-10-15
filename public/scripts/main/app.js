@@ -45,6 +45,10 @@ angular.element(document).ready(function() {
                 templateUrl: '/templates/boardContainer.html',
                 controller: 'BoardController'
             })
+            .when('/retro', {
+                templateUrl: '/templates/retroWizard.html',
+                controller: 'BoardController'
+            })
             .when('/wizard', {
                templateUrl: '/templates/retroWizard.html',
                 controller: 'RetroWizardViewModel'

@@ -1,3 +1,6 @@
+/* global require, module, exports */
+/* jslint browser: true */
+
 var app = require('./../_module_init.js');
 var constants = require('../../../../shared/constants/boardConstants');
 
@@ -5,7 +8,10 @@ app.directive('whatWentWell', [function() {
     "use strict";
     return {
         restrict: 'E',
-        templateUrl: 'templates/directives/whatWentWell.html',
+        templateUrl: 'templates/directives/phases/whatWentWell.html',
+        scope: {
+            boardId: '=boardId'
+        },
         controller: function($scope, boardService) {
             $scope.feedbackList = [];
             $scope.phases = constants.board.phases;
