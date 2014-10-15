@@ -22,7 +22,18 @@ var values = {
         feedbackStarted: 'feedback-started',
         feedbackCompleted: 'feedback-completed',
         votingStarted: 'voting-started',
-        votingEnded: 'voting-ended'
+        votingEnded: 'voting-ended',
+        /* new phases */
+        wellInitial: 'well-initial',
+        wellFeedbackStarted: 'well-feedback-started',
+        wellFeedbackCompleted: 'well-feedback-completed',
+        improveInitial: 'improve-initial',
+        improveFeedbackStarted: 'improve-feedback-started',
+        improveFeedbackCompleted: 'improve-feedback-completed',
+        actionInitial: 'action-initial',
+        actionVotingStarted: 'action-voting-started',
+        actionVotingEnded: 'action-voting-ended',
+        summary: 'summary'
     },
 
     socketEmitters: {
