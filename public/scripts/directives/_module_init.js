@@ -24,6 +24,4 @@ require('./phases/actionItems.js');
 require('./phases/summary.js');
 require('./phases/whatNeedsImprovement.js');
 require('./phases/whatWentWell.js');
-require('./rcStep.js');
-require('./rcWizard.js');
-require('./rcSubmit.js');
+require('./subphases/identifyThemes.js');
