@@ -1,6 +1,6 @@
 <div class="panel panel-primary dropArea" on-drop="dropFunction" on-drag-enter="enterFunction" on-drag-leave="leaveFunction">
     <folder-heading class="panel-heading {{name || nameIsSet ? '' : 'height-zero'}}" name="name" name-is-set="nameIsSet"></folder-heading>
     <ul class="list-group">
-        <li class="list-group-item draggable {{ colorAnimationClass }}" ng-repeat="(index, item) in list track by index" data-index="{{index}}" data-value="{{item}}">{{item}}</li>
+        <li class="list-group-item {{ draggableClass }} {{ colorAnimationClass }}" ng-repeat="(index, item) in list track by index" data-index="{{index}}" data-value="{{item}}">{{item}}</li>
     </ul>
 </div>

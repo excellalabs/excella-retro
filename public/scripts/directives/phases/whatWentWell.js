@@ -8,11 +8,11 @@ app.directive('whatWentWell', [function() {
     "use strict";
     return {
         restrict: 'E',
-        templateUrl: 'templates/directives/phases/whatWentWell.html',
+        templateUrl: 'templates/directives/whatWentWell.html',
         scope: {
             boardId: '=boardId'
         },
-        controller: function($scope, boardService) {
+        controller: ['$scope', 'boardService', function($scope, boardService) {
             $scope.feedbackList = [];
             $scope.phases = constants.board.phases;
 
@@ -28,7 +28,7 @@ app.directive('whatWentWell', [function() {
                     $scope.validation = validation;
                 });
             };
-        }
+        }]
     };
 }]);
 

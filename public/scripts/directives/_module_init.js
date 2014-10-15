@@ -25,3 +25,4 @@ require('./phases/summary.js');
 require('./phases/whatNeedsImprovement.js');
 require('./phases/whatWentWell.js');
 require('./scrumMasterTools.js');
+require('./subphases/identifyThemes.js');

@@ -10,15 +10,17 @@ app.directive('folder', [function() {
         restrict: 'E',
         templateUrl: 'templates/directives/folder.html',
         scope: {
-            list: '=',
-            name: '=',
-            ignoreColor: '&',
-            ignoreAnimation: '&'
+            list: '=list',
+            name: '=name',
+            ignoreColor: '&ignoreColor',
+            ignoreAnimation: '&ignoreAnimation',
+            ignoreDrag: '=ignoreDrag'
         },
         controller: ['$scope', '$element', function($scope, $element){
             $scope.ignoreColor = $scope.ignoreColor() || false;
             $scope.ignoreAnimation = $scope.ignoreAnimation() || false;
             $scope.colorAnimationClass = $scope.ignoreColor ? '' : 'animated-add-color';
+            $scope.draggableClass = $scope.ignoreDrag ? '' : 'draggable';
             $scope.nameIsSet = false;
 
             var folderController = this;
