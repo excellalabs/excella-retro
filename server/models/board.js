@@ -120,6 +120,14 @@ module.exports = {
             });
         });
     },
+    setThemes: function(boardId, themes, callback) {
+        this.get(boardId, function(err, board) {
+            board.themes = themes;
+            saveBoard(boardId, board, function(err, board) {
+                callback(err, board.themes);
+            });
+        });
+    },
     addTheme: function(boardId, theme, callback) {
         this.get(boardId, function(err, board) {
             var newTheme = { id: helpers.guid(), description: theme, votes: 0 };

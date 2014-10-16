@@ -43,7 +43,7 @@ var values = {
         joined: 'joined',
         beginVoting: 'begin-voting',
         collectVotes: 'collect-votes',
-        themeAdded: 'theme-added',
+        themesEdited: 'themes-edited',
         boardClosed: 'board-closed',
         refreshBoard: 'refresh-board'
     }

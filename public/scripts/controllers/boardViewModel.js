@@ -126,7 +126,7 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
             $scope.participants = participants;
         });
 
-        socket.offOn(constants.socketEmitters.themeAdded, function(themes){
+        socket.offOn(constants.socketEmitters.themesEdited, function(themes){
             $scope.themes = themes;
         });
 
