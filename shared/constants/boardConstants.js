@@ -14,15 +14,15 @@ var values = {
         cannotCreate: 'Cannot create board!',
         cannotFind: 'Cannot find board!',
         cannotDelete: 'Cannot delete board!',
-        cannotUpdatePhase: 'Cannot update board phase!',
+        cannotUpdatePhase: 'Cannot update board phase!'
     },
 
     phases: {
-        initial: 'initial',
-        feedbackStarted: 'feedback-started',
-        feedbackCompleted: 'feedback-completed',
-        votingStarted: 'voting-started',
-        votingEnded: 'voting-ended',
+        initial: 'well-initial',
+        feedbackStarted: 'well-feedback-started',
+        feedbackCompleted: 'well-feedback-completed',
+        votingStarted: 'action-voting-started',
+        votingEnded: 'action-voting-ended',
         /* new phases */
         wellInitial: 'well-initial',
         wellFeedbackStarted: 'well-feedback-started',

@@ -4,7 +4,7 @@
 var app = require('./_module_init.js');
 var constants = require('../../../shared/constants/boardConstants');
 
-app.directive('scrumMasterTools', [function() {
+app.directive('scrumMasterTools', ['$rootScope', function($rootScope) {
     "use strict";
     return {
         restrict: 'E',
@@ -13,7 +13,7 @@ app.directive('scrumMasterTools', [function() {
             board: '='
         },
         controller: function($scope, boardService) {
-            $scope.phases = constants.board.phases;
+            $scope.phases = constants.phases;
 
             $scope.startFeedbackGathering = function () {
                 $scope.board.phase = constants.phases.feedbackStarted;

@@ -22,7 +22,7 @@
                     <span >End Retro</span>
                     <a style="left:47px" class="btn btn-danger glyphicon glyphicon-off"></a>
                 </div>
-                <div class="row-fluid" ng-if="board.phase == 'feedback-completed'">
+                <div class="row-fluid" ng-if="board.phase == 'well-feedback-completed'">
                     <hr>
                     <add-theme board-id="board.id"></add-theme>
                     <hr>
@@ -31,19 +31,19 @@
                         Theme Voting
                     </button>
                 </div>
-                <div class="row-fluid" ng-if="board.phase == 'voting-started'">
+                <div class="row-fluid" ng-if="board.phase == 'action-voting-started'">
                     <hr>
                     <button type="button" class="btn btn-default" ng-click="stopThemeVoting()">
                         End Theme Voting
                     </button>
                 </div>
-                <div class="row-fluid" ng-if="board.phase == 'initial'">
+                <div class="row-fluid" ng-if="board.phase == 'well-initial'">
                     <hr>
                     <button type="button" class="btn btn-default"
                             ng-click="startFeedbackGathering()">Start Feedback Gathering
                     </button>
                 </div>
-                <div class="row-fluid" ng-if="board.phase == 'feedback-started'">
+                <div class="row-fluid" ng-if="board.phase == 'well-feedback-started'">
                     <hr>
                     <button type="button" class="btn btn-default"
                             ng-click="stopFeedbackGathering()">Stop Feedback Gathering

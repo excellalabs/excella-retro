@@ -5,6 +5,13 @@ var app = require('./_module_init.js');
 
 app.controller('HomeController', ['$scope', 'userProvider', 'boardService', '$location', '$rootScope', function($scope, userProvider, boardService, $location, $rootScope) {
     "use strict";
+
+    var boardPath = 'board';
+
+    if($location.$$path === '/new') {
+        boardPath = 'retro';
+    }
+
     $scope.createBoard = function(){
         var isScrumMaster = true;
 
@@ -19,7 +26,7 @@ app.controller('HomeController', ['$scope', 'userProvider', 'boardService', '$lo
 
         boardService.createBoard($scope.user, $scope.boardName, scrumMasterKey).then(function(board){
             $rootScope.boardId = board.id;
-            $location.path('board');
+            $location.path(boardPath);
         }, function(validation){
             if(typeof validation !== "object"){
                 validation = [validation];
