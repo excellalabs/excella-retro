@@ -1,5 +1,5 @@
 <div class="row-fluid">
-    <div class="col-md-3 no-padding" id="boardTools" ng-if="isScrumMaster">
+    <div class="col-md-3 no-padding" id="boardTools">
         <div class="panel panel-danger">
             <div class="panel-heading">
                 <h3 class="panel-title">Scrum Master Tools</h3>
@@ -8,14 +8,14 @@
                 <div class="row-fluid row-padding">
                     <span>Invite Participants</span>
                     <a class="btn btn-default glyphicon glyphicon-link" target="_blank"
-                       ng-href="{{participantJoinLink()}}"
+                       ng-href="{{participantJoinLink(board.id)}}"
                        title="Copy link to send participants"></a>
-                    <a class="btn btn-default glyphicon glyphicon-envelope" ng-href="{{participantMailToLink()}}"
+                    <a class="btn btn-default glyphicon glyphicon-envelope" ng-href="{{participantMailToLink(board.id, board.title)}}"
                        title="Send email to participants"></a>
                 </div>
                 <div class="row-fluid row-padding">
                     <span>Scrum Master</span>
-                    <a style="left:23px" class="btn btn-warning glyphicon glyphicon-link" ng-href="{{scrumMasterAccessLink()}}"
+                    <a style="left:23px" class="btn btn-warning glyphicon glyphicon-link" ng-href="{{scrumMasterAccessLink(board.id, board.scrumMasterKey)}}"
                        title="Copy link to access as Scrum Master"></a>
                 </div>
                 <div class="row-fluid row-padding">

@@ -1,8 +1,8 @@
 <nav-bar board-name="board.title" user="user" socket-status="socketStatus" participants="participants" is-scrum-master="isScrumMaster"></nav-bar>
 
-<scrum-master-tools ng-if="isScrumMaster"></scrum-master-tools>
+<scrum-master-tools ng-if="isScrumMaster" board="board"></scrum-master-tools>
 
-<what-went-well ng-if="board.phase == phases.wellInitial"></what-went-well>
-<what-needs-improvement ng-if="board.phase == phases.improveInitial"></what-needs-improvement>
-<action-items ng-if="board.phase == phases.actionInitial"></action-items>
-<summary ng-if="board.phase == phases.summary"></summary>
+<what-went-well ng-if="board.phase.indexOf('well') == 0" board="board"></what-went-well>
+<what-needs-improvement ng-if="board.phase.indexOf('improve') == 0" board="board"></what-needs-improvement>
+<action-items ng-if="board.phase.indexOf('action') == 0" board="board"></action-items>
+<summary ng-if="board.phase.indexOf('summary') == 0" board="board"></summary>

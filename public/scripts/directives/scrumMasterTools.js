@@ -15,6 +15,18 @@ app.directive('scrumMasterTools', ['$rootScope', function($rootScope) {
         controller: function($scope, boardService) {
             $scope.phases = constants.phases;
 
+            $scope.participantMailToLink = function (boardId, boardTitle) {
+                return 'mailto:?subject=Join Retrospective: ' + boardTitle + '&body=' + encodeURIComponent('Please join my retrospective at:\n\n' + boardService.getJoinBoardUrl(boardId));
+            };
+
+            $scope.participantJoinLink = function (boardId) {
+                return boardService.getJoinBoardUrl(boardId);
+            };
+
+            $scope.scrumMasterAccessLink = function (boardId, scrumMasterKey) {
+                return boardService.getScrumMasterAccessUrl(boardId, scrumMasterKey);
+            };
+
             $scope.startFeedbackGathering = function () {
                 $scope.board.phase = constants.phases.feedbackStarted;
                 boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);

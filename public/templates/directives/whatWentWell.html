@@ -1,5 +1,6 @@
 <div class="row-fluid">
     <div class="col-md-12 no-padding" id="board">
+        <alert type="info">Once your Scrum Master initiates feedback gathering you may provide feedback on what went well this sprint.</alert>
         <add-feedback ng-if="board.phase == phases.wellFeedbackStarted"
                       board-id="board.id"></add-feedback>
         <div class="row-fluid" ng-if="board.phase == phases.wellFeedbackCompleted">

@@ -10,11 +10,11 @@ app.directive('whatWentWell', [function() {
         restrict: 'E',
         templateUrl: 'templates/directives/whatWentWell.html',
         scope: {
-            boardId: '=boardId'
+            board: '='
         },
         controller: ['$scope', 'boardService', function($scope, boardService) {
             $scope.feedbackList = [];
-            $scope.phases = constants.board.phases;
+            $scope.phases = constants.phases;
 
             $scope.sendFeedback = function() {
                 boardService.sendFeedback($scope.boardId, $scope.feedback).then(function(savedFeedback) {

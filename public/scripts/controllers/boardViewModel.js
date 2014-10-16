@@ -32,6 +32,7 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
                     return boardService.getScrumMasterAccessUrl($scope.board.id, $scope.board.scrumMasterKey);
                 };
 
+                // to be deleted
                 $scope.boardPhaseDisplayName = function () {
                     switch ($scope.board.phase) {
                         case constants.phases.initial:
@@ -53,21 +54,25 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
                     loadBoard();
                 };
 
+                // to be deleted
                 $scope.startFeedbackGathering = function () {
                     $scope.board.phase = constants.phases.feedbackStarted;
                     boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
                 };
 
+                // to be deleted
                 $scope.stopFeedbackGathering = function () {
                     $scope.board.phase = constants.phases.feedbackCompleted;
                     boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
                 };
 
+                // to be deleted
                 $scope.startThemeVoting = function () {
                     $scope.board.phase = constants.phases.votingStarted;
                     boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
                 };
 
+                // to be deleted
                 $scope.stopThemeVoting = function () {
                     $scope.board.phase = constants.phases.votingEnded;
                     boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
