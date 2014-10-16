@@ -10,9 +10,19 @@ app.directive('identifyThemes', [function() {
         restrict: 'E',
         templateUrl: 'templates/directives/identifyThemes.html',
         scope: {
-            themes: '=themes'
+            themes: '=themes',
+            boardId: '=boardId'
         },
-        controller: ['$scope', function($scope) {
+        controller: ['$scope', '$root', 'boardService', function($scope, boardService) {
+            $scope.changeThemes = function(){
+                boardService.changeThemes($scope.boardId, $scope.themes)
+                    .catch(function(validation){
+                        if(typeof validation !== "object"){
+                            validation = [validation];
+                        }
+                        $scope.validation = validation;
+                    });
+            };
         }]
     };
 }]);

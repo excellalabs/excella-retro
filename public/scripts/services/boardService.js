@@ -67,9 +67,9 @@ app.factory('boardService', ['$http', '$q', 'userProvider', 'socket', '_',
                     });
                     return deferred.promise;
                 },
-                sendTheme: function (boardId, theme) {
+                changeThemes: function(boardId, themes){
                     var deferred = $q.defer();
-                    $http.post(boardUrl + '/' + boardId + '/theme', {theme: theme}).then(function (ctx) {
+                    $http.post(boardUrl + '/' + boardId + '/themes', {themes: themes}).then(function (ctx) {
                         deferred.resolve(ctx.data);
                     }, function (ctx) {
                         deferred.reject(ctx.data);

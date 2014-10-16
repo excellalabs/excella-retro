@@ -124,7 +124,24 @@ module.exports = {
                     error.output.statusCode = 404;
                     reply(error);
                 } else {
-                    io.to(request.params.id).emit(constants.socketEmitters.themeAdded, themes);
+                    io.to(request.params.id).emit(constants.socketEmitters.themesEdited, themes);
+                    reply(request.payload.theme);
+                }
+            });
+        },
+        app: {
+            name: 'board'
+        }
+    },
+    changeThemes: {
+        handler: function (request, reply) {
+            board.setThemes(request.params.id, request.payload.themes, function (err, themes) {
+                if (err) {
+                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
+                    error.output.statusCode = 404;
+                    reply(error);
+                } else {
+                    io.to(request.params.id).emit(constants.socketEmitters.themesEdited, themes);
                     reply(request.payload.theme);
                 }
             });

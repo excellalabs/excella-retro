@@ -1,3 +1,2 @@
-/**
- * Created by doguhanuluca on 10/7/14.
- */
+/* global require, module, exports */
+/* jslint browser: true */
