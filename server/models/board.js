@@ -154,14 +154,8 @@ module.exports = {
         var that = this;
         this.get(boardId, function (err, board) {
             var themes = board.improveFeedback.map(function(item) { return item[0];});
-
-            themes.forEach(function(theme) {
-                that.addTheme(board.id, theme, function (err, theme) {
-
-                });
-            });
-
-            callback(err, themes);
+            var formattedThemes = themes.map(function(theme) { return { id: helpers.guid(), description: theme, votes: 0 }; });
+            that.setThemes(board.id, formattedThemes, callback);
         });
     },
     addTheme: function(boardId, theme, callback) {

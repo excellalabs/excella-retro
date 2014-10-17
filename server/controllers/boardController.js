@@ -57,13 +57,7 @@ module.exports = {
     },
     setBoardPhase: {
         handler: function (request, reply) {
-            if (request.payload.phase === constants.phases.improveFeedbackCompleted) {
-                board.createThemesFromImproveFeedback(request.params.id, function (err, themes) {
-                    io.to(request.params.id).emit(constants.socketEmitters.themesEdited, board);
-                });
-            }
-
-            board.setPhase(request.params.id, request.payload.phase, request.payload.scrumMasterKey, function(err, board){
+            board.setPhase(request.params.id, request.payload.phase, request.payload.scrumMasterKey, function(err, sboard){
                 if(err){
                     var error;
                     if(err === constants.scrumMasterError) {
@@ -76,15 +70,20 @@ module.exports = {
                     reply(error);
                 } else {
                     if(request.payload.phase === constants.phases.actionVotingStarted) {
-                        io.to(request.params.id).emit(constants.socketEmitters.beginVoting, board);
+                        io.to(request.params.id).emit(constants.socketEmitters.beginVoting, sboard);
+                        reply(true);
                     } else if(request.payload.phase === constants.phases.actionVotingEnded) {
-                        io.to(request.params.id).emit(constants.socketEmitters.collectVotes, board);
-                    } else if(request.payload.phase === constants.phases.actionVotingEnded) {
-                        io.to(request.params.id).emit(constants.socketEmitters.themesEdited, board);
+                        io.to(request.params.id).emit(constants.socketEmitters.collectVotes, sboard);
+                        reply(true);
+                    } else if(request.payload.phase === constants.phases.improveFeedbackCompleted) {
+                        board.createThemesFromImproveFeedback(request.params.id, function (err, ssboard) {
+                            io.to(request.params.id).emit(constants.socketEmitters.themesEdited, ssboard);
+                            reply(true);
+                        });
                     } else {
-                        io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, board);
+                        io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, sboard);
+                        reply(true);
                     }
-                    reply(true);
                 }
             });
         },
