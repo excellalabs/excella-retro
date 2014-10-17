@@ -72,7 +72,7 @@ module.exports = [
     },
     {
         method: 'POST',
-        path: '/board/{id}/feedback',
+        path: '/board/{id}/feedback/{type}',
         config: controller.board.addFeedback
     },
     {

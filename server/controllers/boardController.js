@@ -86,7 +86,7 @@ module.exports = {
     },
     addFeedback: {
         handler: function (request, reply) {
-            board.addFeedback(request.params.id, request.payload.feedback, function (err, feedback) {
+            board.addFeedback(request.params.id, request.params.type, request.payload.feedback, function (err, feedback) {
                 if (err) {
                     var error = Hapi.error.badRequest(constants.messages.cannotFind);
                     error.output.statusCode = 404;

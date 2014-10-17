@@ -9,12 +9,13 @@ app.directive('addFeedback', [function() {
         restrict: 'E',
         templateUrl: 'templates/directives/addFeedback.html',
         scope: {
-            boardId: '=boardId'
+            boardId: '=boardId',
+            type:'@'
         },
         controller: function($scope, boardService) {
             $scope.userFeedback = [];
             $scope.sendFeedback = function() {
-                boardService.sendFeedback($scope.boardId, [$scope.feedback]).then(function(savedFeedback) {
+                boardService.sendFeedback($scope.boardId, $scope.type, [$scope.feedback]).then(function(savedFeedback) {
                     $scope.userFeedback.push(savedFeedback);
                     $scope.sendFeedbackForm.$setPristine();
                     $scope.feedback = '';

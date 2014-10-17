@@ -25,7 +25,18 @@ function removePrivateFields(board){
 module.exports = {
     create: function(user, boardName, scrumMasterKey, callback){
         var boardId = helpers.guid();
-        var board = { id: boardId, title: helpers.toTitleCase(boardName), phase: constants.phases.initial, scrumMaster: user, scrumMasterKey: scrumMasterKey, participants: [], feedback: [], themes: [] };
+        var board = {
+            id: boardId,
+            title: helpers.toTitleCase(boardName),
+            phase: constants.phases.initial,
+            scrumMaster: user,
+            scrumMasterKey: scrumMasterKey,
+            participants: [],
+            wellFeedback: [],
+            improveFeedback: [],
+            actionItems: [],
+            themes: []
+        };
         saveBoard(boardId, board, callback);
     },
     delete: function(boardId, scrumMasterKey, callback){
@@ -112,9 +123,20 @@ module.exports = {
             });
         });
     },
-    addFeedback: function(boardId, feedback, callback) {
+    addFeedback: function(boardId, type, feedback, callback) {
         this.get(boardId, function(err, board) {
-            board.feedback.push(feedback);
+            switch(type) {
+                case 'well':
+                    board.wellFeedback.push(feedback);
+                    break;
+                case 'improve':
+                    board.improveFeedback.push(feedback);
+                    break;
+                case 'action':
+                    board.actionItems.push(feedback);
+                    break;
+            }
+
             saveBoard(boardId, board, function(err, savedBoard) {
                 callback(err, feedback);
             });

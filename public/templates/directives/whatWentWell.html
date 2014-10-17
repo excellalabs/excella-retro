@@ -2,9 +2,9 @@
     <div class="col-md-12 no-padding" id="board">
         <alert type="info">Once your Scrum Master initiates feedback gathering you may provide feedback on what went well this sprint.</alert>
         <add-feedback ng-if="board.phase == phases.wellFeedbackStarted"
-                      board-id="board.id"></add-feedback>
+                      board-id="board.id" type="well"></add-feedback>
         <div class="row-fluid" ng-if="board.phase == phases.wellFeedbackCompleted">
-            <folder-holder class="col-xs-11 col-sm-11 col-md-12 col-lg-12" lists="board.feedback"></folder-holder>
+            <folder-holder class="col-xs-11 col-sm-11 col-md-12 col-lg-12" lists="board.wellFeedback"></folder-holder>
         </div>
     </div>
 </div>

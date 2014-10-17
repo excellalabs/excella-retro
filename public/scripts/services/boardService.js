@@ -58,9 +58,9 @@ app.factory('boardService', ['$http', '$q', 'userProvider', 'socket', '_',
                     socket.on(constants.socketEmitters.joinError, failureCallback);
                     return deferred.promise;
                 },
-                sendFeedback: function (boardId, feedback) {
+                sendFeedback: function (boardId, type, feedback) {
                     var deferred = $q.defer();
-                    $http.post(boardUrl + '/' + boardId + '/feedback', {feedback: feedback}).then(function (ctx) {
+                    $http.post(boardUrl + '/' + boardId + '/feedback/' + type, {feedback: feedback}).then(function (ctx) {
                         deferred.resolve(ctx.data);
                     }, function (ctx) {
                         deferred.reject(ctx.data);
