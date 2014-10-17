@@ -57,6 +57,12 @@ module.exports = {
     },
     setBoardPhase: {
         handler: function (request, reply) {
+            if (request.payload.phase === constants.phases.improveFeedbackCompleted) {
+                board.createThemesFromImproveFeedback(request.params.id, function (err, themes) {
+                    io.to(request.params.id).emit(constants.socketEmitters.themesEdited, board);
+                });
+            }
+
             board.setPhase(request.params.id, request.payload.phase, request.payload.scrumMasterKey, function(err, board){
                 if(err){
                     var error;
@@ -69,12 +75,14 @@ module.exports = {
                     }
                     reply(error);
                 } else {
-                    if(request.payload.phase === constants.phases.votingStarted) {
+                    if(request.payload.phase === constants.phases.actionVotingStarted) {
                         io.to(request.params.id).emit(constants.socketEmitters.beginVoting, board);
-                    } else if(request.payload.phase === constants.phases.votingEnded) {
+                    } else if(request.payload.phase === constants.phases.actionVotingEnded) {
                         io.to(request.params.id).emit(constants.socketEmitters.collectVotes, board);
+                    } else if(request.payload.phase === constants.phases.actionVotingEnded) {
+                        io.to(request.params.id).emit(constants.socketEmitters.themesEdited, board);
                     } else {
-                        io.to(board.id).emit(constants.socketEmitters.refreshBoard, board);
+                        io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, board);
                     }
                     reply(true);
                 }

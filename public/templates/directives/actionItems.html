@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<div class="row-fluid">
+    <div class="col-md-12 no-padding" id="board">
+        <alert type="info">You'll be dot voting on the list of items below. You should use all your votes. You can add many votes on a single item or clear your votes to start again.</alert>
+        <view-themes ng-if="board.phase != phases.actionVotingEnded" board-id="board.id" themes="board.themes"></view-themes>
 
-</body>
-</html>
+        <div class="row-fluid" ng-if="board.phase == phases.actionVotingEnded">
+            <folder-holder class="col-xs-11 col-sm-11 col-md-12 col-lg-12" lists="board.actionItems"></folder-holder>
+        </div>
+    </div>
+</div>
