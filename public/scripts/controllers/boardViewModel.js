@@ -20,62 +20,8 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
                 setIsUserScrumMaster(board.scrumMaster, board.scrumMasterKey);
                 boardService.joinBoard($scope.boardId, $scope.user);
 
-                $scope.participantMailToLink = function () {
-                    return 'mailto:?subject=Join Retrospective: ' + $scope.board.title + '&body=' + encodeURIComponent('Please join my retrospective at:\n\n' + boardService.getJoinBoardUrl($scope.board.id));
-                };
-
-                $scope.participantJoinLink = function () {
-                    return boardService.getJoinBoardUrl($scope.board.id);
-                };
-
-                $scope.scrumMasterAccessLink = function () {
-                    return boardService.getScrumMasterAccessUrl($scope.board.id, $scope.board.scrumMasterKey);
-                };
-
-                // to be deleted
-                $scope.boardPhaseDisplayName = function () {
-                    switch ($scope.board.phase) {
-                        case constants.phases.initial:
-                            return 'Getting ready - Scrum Master will be initiating feedback gathering';
-                        case constants.phases.feedbackStarted:
-                            return 'Gathering feedback - Anonymously provide your feedback';
-                        case constants.phases.feedbackCompleted:
-                            return 'Creating themes - Scrum Master will be summarizing feedback as themes';
-                        case constants.phases.votingStarted:
-                            return 'Cast your votes - Anonymously cast your available votes ';
-                        case constants.phases.votingEnded:
-                            return 'Review prioritized themes - Scrum Master will end the retrospective';
-                        default:
-                            return '.';
-                    }
-                };
-
                 $scope.refresh = function() {
                     loadBoard();
-                };
-
-                // to be deleted
-                $scope.startFeedbackGathering = function () {
-                    $scope.board.phase = constants.phases.feedbackStarted;
-                    boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
-                };
-
-                // to be deleted
-                $scope.stopFeedbackGathering = function () {
-                    $scope.board.phase = constants.phases.feedbackCompleted;
-                    boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
-                };
-
-                // to be deleted
-                $scope.startThemeVoting = function () {
-                    $scope.board.phase = constants.phases.votingStarted;
-                    boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
-                };
-
-                // to be deleted
-                $scope.stopThemeVoting = function () {
-                    $scope.board.phase = constants.phases.votingEnded;
-                    boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
                 };
             });
         };

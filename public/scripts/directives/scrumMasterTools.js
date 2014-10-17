@@ -4,7 +4,7 @@
 var app = require('./_module_init.js');
 var constants = require('../../../shared/constants/boardConstants');
 
-app.directive('scrumMasterTools', ['$rootScope', function($rootScope) {
+app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
     "use strict";
     return {
         restrict: 'E',
@@ -14,6 +14,7 @@ app.directive('scrumMasterTools', ['$rootScope', function($rootScope) {
         },
         controller: function($scope, boardService) {
             $scope.phases = constants.phases;
+            $scope.actionText = constants.workflow[0].actionText;
 
             $scope.participantMailToLink = function (boardId, boardTitle) {
                 return 'mailto:?subject=Join Retrospective: ' + boardTitle + '&body=' + encodeURIComponent('Please join my retrospective at:\n\n' + boardService.getJoinBoardUrl(boardId));
@@ -27,24 +28,13 @@ app.directive('scrumMasterTools', ['$rootScope', function($rootScope) {
                 return boardService.getScrumMasterAccessUrl(boardId, scrumMasterKey);
             };
 
-            $scope.startFeedbackGathering = function () {
-                $scope.board.phase = constants.phases.feedbackStarted;
-                boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
-            };
-
-            $scope.stopFeedbackGathering = function () {
-                $scope.board.phase = constants.phases.feedbackCompleted;
-                boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
-            };
-
-            $scope.startThemeVoting = function () {
-                $scope.board.phase = constants.phases.votingStarted;
-                boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
-            };
-
-            $scope.stopThemeVoting = function () {
-                $scope.board.phase = constants.phases.votingEnded;
-                boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
+            $scope.goToNextPhase = function () {
+                var currIdx = _.findIndex(constants.workflow, {phase: $scope.board.phase });
+                if(currIdx + 1 < constants.workflow.length) {
+                    $scope.board.phase = constants.workflow[currIdx + 1].phase;
+                    $scope.actionText = constants.workflow[currIdx + 1].actionText;
+                    boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
+                }
             };
         }
     };

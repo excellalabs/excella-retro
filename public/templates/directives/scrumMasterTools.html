@@ -19,34 +19,13 @@
                        title="Copy link to access as Scrum Master"></a>
                 </div>
                 <div class="row-fluid row-padding">
-                    <span >End Retro</span>
+                    <span >Close Retro</span>
                     <a style="left:47px" class="btn btn-danger glyphicon glyphicon-off"></a>
                 </div>
-                <div class="row-fluid" ng-if="board.phase == 'well-feedback-completed'">
-                    <hr>
-                    <add-theme board-id="board.id"></add-theme>
-                    <hr>
-                    <button type="button" class="btn btn-default" ng-click="startThemeVoting()">
-                        Start
-                        Theme Voting
-                    </button>
-                </div>
-                <div class="row-fluid" ng-if="board.phase == 'action-voting-started'">
-                    <hr>
-                    <button type="button" class="btn btn-default" ng-click="stopThemeVoting()">
-                        End Theme Voting
-                    </button>
-                </div>
-                <div class="row-fluid" ng-if="board.phase == 'well-initial'">
+                <div class="row-fluid" ng-if="board.phase != phases.summary">
                     <hr>
                     <button type="button" class="btn btn-default"
-                            ng-click="startFeedbackGathering()">Start Feedback Gathering
-                    </button>
-                </div>
-                <div class="row-fluid" ng-if="board.phase == 'well-feedback-started'">
-                    <hr>
-                    <button type="button" class="btn btn-default"
-                            ng-click="stopFeedbackGathering()">Stop Feedback Gathering
+                            ng-click="goToNextPhase()">{{actionText}}
                     </button>
                 </div>
             </div>

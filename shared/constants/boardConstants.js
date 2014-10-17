@@ -49,4 +49,18 @@ var values = {
     }
 };
 
-exports = module.exports = readonly(values);
+values.workflow = [
+    { phase: values.phases.wellInitial, actionText: 'Start \"What Went Well\" Feedback Gathering'},
+    { phase: values.phases.wellFeedbackStarted, actionText: 'Stop \"What Went Well\" Feedback Gathering'},
+    { phase: values.phases.wellFeedbackCompleted, actionText: 'End \"What Went Well\" Phase'},
+    { phase: values.phases.improveInitial, actionText: 'Start \"What Needs Improvement\" Feedback Gathering'},
+    { phase: values.phases.improveFeedbackStarted, actionText: 'Stop \"What Needs Improvement\" Feedback Gathering'},
+    { phase: values.phases.improveFeedbackCompleted, actionText: 'End \"What Needs Improvement\" Phase'},
+    { phase: values.phases.actionInitial, actionText: 'Start Voting'},
+    { phase: values.phases.actionVotingStarted, actionText: 'Tally Votes'},
+    { phase: values.phases.actionVotingEnded, actionText: 'End Action Items Phase'},
+    { phase: values.phases.summary, actionText: 'Close Retrospective'}
+];
+
+//TODO: call readonly(values) which is currently broken
+exports = module.exports = values;
