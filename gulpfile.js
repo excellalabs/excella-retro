@@ -90,4 +90,10 @@ gulp.task('less', function(){
     gulp.src('./public/bower_components/bootstrap/dist/fonts/*.*').pipe(gulp.dest('./public/fonts'));
 });
 
+gulp.task('watch', function(){
+    gulp.watch('public/scripts/**/*.js', ['scripts']);
+    gulp.watch('less/**/*.less', ['less']);
+    gulp.watch('less/gulpLessColorMaps.js', ['less']);
+});
+
 gulp.task('default', ['scripts', 'less']);
