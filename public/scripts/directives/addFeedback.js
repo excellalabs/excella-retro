@@ -14,7 +14,7 @@ app.directive('addFeedback', [function() {
         controller: function($scope, boardService) {
             $scope.userFeedback = [];
             $scope.sendFeedback = function() {
-                boardService.sendFeedback($scope.boardId, $scope.feedback).then(function(savedFeedback) {
+                boardService.sendFeedback($scope.boardId, [$scope.feedback]).then(function(savedFeedback) {
                     $scope.userFeedback.push(savedFeedback);
                     $scope.sendFeedbackForm.$setPristine();
                     $scope.feedback = '';

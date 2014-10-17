@@ -13,7 +13,6 @@ app.directive('whatWentWell', [function() {
             board: '='
         },
         controller: ['$scope', 'boardService', function($scope, boardService) {
-            $scope.feedbackList = [];
             $scope.phases = constants.phases;
 
             $scope.sendFeedback = function() {

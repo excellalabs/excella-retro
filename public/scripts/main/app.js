@@ -33,10 +33,6 @@ angular.element(document).ready(function() {
                 templateUrl: '/templates/home.html', 
                 controller: 'HomeController'
             })
-            .when('/new', {
-                templateUrl: '/templates/home.html',
-                controller: 'HomeController'
-            })
             .when('/board/:id/join', {
                 templateUrl: '/templates/join.html',
                 controller: 'JoinController'
