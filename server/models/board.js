@@ -158,6 +158,13 @@ module.exports = {
             that.setThemes(board.id, formattedThemes, callback);
         });
     },
+    createActionItemsFromThemes: function(boardId, callback) {
+        this.get(boardId, function (err, board) {
+            var sortedThemes = _.sortBy(board.themes, function(theme) { return theme.votes; }).reverse();
+            board.actionItems = sortedThemes.map(function(theme) { return [theme.description + " (" + theme.votes + ")"];});
+            saveBoard(boardId, board, callback);
+        });
+    },
     addTheme: function(boardId, theme, callback) {
         this.get(boardId, function(err, board) {
             var newTheme = { id: helpers.guid(), description: theme, votes: 0 };

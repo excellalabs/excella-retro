@@ -69,20 +69,31 @@ module.exports = {
                     }
                     reply(error);
                 } else {
-                    if(request.payload.phase === constants.phases.actionVotingStarted) {
-                        io.to(request.params.id).emit(constants.socketEmitters.beginVoting, sboard);
-                        reply(true);
-                    } else if(request.payload.phase === constants.phases.actionVotingEnded) {
-                        io.to(request.params.id).emit(constants.socketEmitters.collectVotes, sboard);
-                        reply(true);
-                    } else if(request.payload.phase === constants.phases.improveFeedbackCompleted) {
-                        board.createThemesFromImproveFeedback(request.params.id, function (err, ssboard) {
-                            io.to(request.params.id).emit(constants.socketEmitters.themesEdited, ssboard);
+                    switch (request.payload.phase) {
+                        case constants.phases.actionVotingStarted:
+                            io.to(request.params.id).emit(constants.socketEmitters.beginVoting, sboard);
                             reply(true);
-                        });
-                    } else {
-                        io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, sboard);
-                        reply(true);
+                            break;
+                        case constants.phases.actionVotingEnded:
+                            io.to(request.params.id).emit(constants.socketEmitters.collectVotes, sboard);
+
+                            setTimeout(function() {
+                                board.createActionItemsFromThemes(request.params.id, function(err, ssboard) {
+                                    io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, ssboard);
+                                    reply(true);
+                                });
+                            }, 3000);
+                            break;
+                        case constants.phases.improveFeedbackCompleted:
+                            board.createThemesFromImproveFeedback(request.params.id, function (err, ssboard) {
+                                io.to(request.params.id).emit(constants.socketEmitters.themesEdited, ssboard);
+                                reply(true);
+                            });
+                            break;
+                        default:
+                            io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, sboard);
+                            reply(true);
+                            break;
                     }
                 }
             });
