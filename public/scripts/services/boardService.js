@@ -104,10 +104,10 @@ app.factory('boardService', ['$http', '$q', 'userProvider', 'socket', '_',
                     return deferred.promise;
                 },
                 getJoinBoardUrl: function (boardId) {
-                    return window.location.origin + '/#/board/' + boardId + '/join';
+                    return window.location.origin + '/#/retro/' + boardId + '/join';
                 },
                 getScrumMasterAccessUrl: function (boardId, scrumMasterKey) {
-                    return window.location.origin + '/#/board/' + boardId + '/' + scrumMasterKey;
+                    return window.location.origin + '/#/retro/' + boardId + '/' + scrumMasterKey;
                 },
                 save: function (board) {
                     var deferred = $q.defer();

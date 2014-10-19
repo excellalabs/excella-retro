@@ -33,17 +33,13 @@ angular.element(document).ready(function() {
                 templateUrl: '/templates/home.html', 
                 controller: 'HomeController'
             })
-            .when('/board/:id/join', {
+            .when('/retro/:id/join', {
                 templateUrl: '/templates/join.html',
                 controller: 'JoinController'
             })
-            .when('/board/:id/:scrumMasterKey', {
+            .when('/retro/:id/:scrumMasterKey', {
                 templateUrl: '/templates/joinAsScrumMaster.html',
                 controller: 'ScrumMasterController'
-            })
-            .when('/board', {
-                templateUrl: '/templates/boardContainer.html',
-                controller: 'BoardController'
             })
             .when('/retro', {
                 templateUrl: '/templates/retroWizard.html',

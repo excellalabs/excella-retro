@@ -19,7 +19,7 @@ app.controller('JoinController', ['$scope', 'userProvider', 'boardService', '$lo
         boardService.joinBoard($routeParams.id, $scope.user).then(function(success){
             if(success) {
                 $rootScope.boardId = $routeParams.id;
-                $location.path('board');
+                $location.path('retro');
             } else {
                 $scope.validation = ['Can\'t join the board'];
             }
