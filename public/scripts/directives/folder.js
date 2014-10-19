@@ -20,7 +20,6 @@ app.directive('folder', [function() {
             $scope.ignoreColor = $scope.ignoreColor() || false;
             $scope.ignoreAnimation = $scope.ignoreAnimation() || false;
             $scope.colorAnimationClass = $scope.ignoreColor ? '' : 'animated-add-color';
-            $scope.draggableClass = $scope.ignoreDrag ? '' : 'draggable';
             $scope.nameIsSet = false;
 
             var folderController = this;

@@ -67,6 +67,11 @@ module.exports = [
     },
     {
         method: 'PUT',
+        path: '/board/{id}/well',
+        config: controller.board.setWhatWentWell
+    },
+    {
+        method: 'PUT',
         path: '/board/{id}/phase',
         config: controller.board.setBoardPhase
     },

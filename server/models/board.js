@@ -83,6 +83,26 @@ module.exports = {
             });
         });
     },
+    setWhatWentWell: function(boardId, list, scrumMasterKey, callback){
+        db.get(boardId, function(err, board) {
+            if (err) {
+                console.log('Get failed: ', err);
+                callback(err);
+                return;
+            }
+            if(!board || board.scrumMasterKey !== scrumMasterKey){
+                callback(constants.errors.scrumMasterMismatch);
+                return;
+            }
+
+            board.wellFeedback = list;
+
+            saveBoard(boardId, board, function(err, savedBoard) {
+                removePrivateFields(savedBoard);
+                callback(err, savedBoard);
+            });
+        });
+    },
     get: function(boardId, callback){
         db.get(boardId, function(err, board) {
             if (err) {

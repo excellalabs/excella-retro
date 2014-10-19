@@ -15,6 +15,16 @@ app.directive('whatWentWell', [function() {
         controller: ['$scope', 'boardService', function($scope, boardService) {
             $scope.phases = constants.phases;
 
+            $scope.sendThemes = function(){
+                boardService.sendWhatWentWell($scope.board.id, $scope.board.wellFeedback, $scope).then(function(savedFeedback) {
+                }, function(validation){
+                    if(typeof validation !== "object"){
+                        validation = [validation];
+                    }
+                    $scope.validation = validation;
+                });
+            };
+
             $scope.sendFeedback = function() {
                 boardService.sendFeedback($scope.boardId, $scope.feedback).then(function(savedFeedback) {
                     $scope.userFeedback.push(savedFeedback);
