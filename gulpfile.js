@@ -83,7 +83,7 @@ gulp.task('less', function(){
     gulp.src('./less/app.less')
         .pipe(sourcemaps.init())
         .pipe(less({
-            //modifyVars: colorMaps
+            modifyVars: colorMaps
         }))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/css'));

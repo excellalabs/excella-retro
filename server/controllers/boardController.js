@@ -60,7 +60,7 @@ module.exports = {
             board.setPhase(request.params.id, request.payload.phase, request.payload.scrumMasterKey, function(err, sboard){
                 if(err){
                     var error;
-                    if(err === constants.scrumMasterError) {
+                    if(err === constants.errors.scrumMasterMismatch) {
                         error = Hapi.error.badRequest(constants.messages.cannotUpdatePhase);
                         error.output.statusCode = 400;
                     } else {
@@ -161,6 +161,29 @@ module.exports = {
                 } else {
                     io.to(request.params.id).emit(constants.socketEmitters.themesEdited, themes);
                     reply(request.payload.theme);
+                }
+            });
+        },
+        app: {
+            name: 'board'
+        }
+    },
+    setFeedback: {
+        handler: function (request, reply) {
+            board.setFeedback(request.params.id, request.params.type, request.payload.feedback, request.payload.scrumMasterKey, function (err, board) {
+                if (err) {
+                    var error;
+                    if(err === constants.errors.scrumMasterMismatch) {
+                        error = Hapi.error.badRequest(constants.messages.cannotUpdateFeedback);
+                        error.output.statusCode = 400;
+                    } else {
+                        error = Hapi.error.badRequest(constants.messages.cannotFind);
+                        error.output.statusCode = 404;
+                    }
+                    reply(error);
+                } else {
+                    io.to(request.params.id).emit(constants.socketEmitters.wellFeedbackEdited, board.wellFeedback);
+                    reply(board);
                 }
             });
         },
