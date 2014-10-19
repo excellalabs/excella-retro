@@ -168,9 +168,9 @@ module.exports = {
             name: 'board'
         }
     },
-    setWhatWentWell: {
+    setFeedback: {
         handler: function (request, reply) {
-            board.setWhatWentWell(request.params.id, request.payload.wellFeedback, request.payload.scrumMasterKey, function (err, board) {
+            board.setFeedback(request.params.id, request.params.type, request.payload.feedback, request.payload.scrumMasterKey, function (err, board) {
                 if (err) {
                     var error;
                     if(err === constants.errors.scrumMasterMismatch) {

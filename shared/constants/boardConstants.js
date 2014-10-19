@@ -10,6 +10,12 @@ var values = {
         userDoesNotExist: "User isn't on board"
     },
 
+    feedbackTypes: {
+        whatWentWell: 'well',
+        whatNeedsImprovement: 'improve',
+        actionItems: 'action'
+    },
+
     messages: {
         cannotCreate: 'Cannot create board!',
         cannotFind: 'Cannot find board!',

@@ -4,7 +4,7 @@
         <add-feedback ng-if="board.phase == phases.improveFeedbackStarted"
                       board-id="board.id" type="improve"></add-feedback>
         <div class="row-fluid" ng-if="board.phase == phases.improveFeedbackCompleted">
-            <folder-holder class="col-xs-11 col-sm-11 col-md-12 col-lg-12" lists="board.improveFeedback"></folder-holder>
+            <folder-holder class="col-xs-11 col-sm-11 col-md-12 col-lg-12" on-change="sendThemes" readonly="!isScrumMaster" lists="board.improveFeedback"></folder-holder>
         </div>
     </div>
 </div>

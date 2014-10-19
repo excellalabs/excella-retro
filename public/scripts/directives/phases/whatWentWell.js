@@ -17,7 +17,7 @@ app.directive('whatWentWell', [function() {
             $scope.isScrumMaster = $rootScope.isScrumMaster;
 
             $scope.sendThemes = function(){
-                boardService.sendWhatWentWell($scope.board.id, $scope.board.wellFeedback, $rootScope.scrumMasterKey).then(function(savedFeedback) {
+                boardService.updateFeedback($scope.board.id, constants.feedbackTypes.whatWentWell, $scope.board.wellFeedback, $rootScope.scrumMasterKey).then(function(savedFeedback) {
                 }, function(validation){
                     if(typeof validation !== "object"){
                         validation = [validation];

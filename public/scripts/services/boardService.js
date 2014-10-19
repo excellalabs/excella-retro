@@ -76,9 +76,9 @@ app.factory('boardService', ['$http', '$q', 'userProvider', 'socket', '_',
                     });
                     return deferred.promise;
                 },
-                sendWhatWentWell: function(boardId, wellFeedback, scrumMasterKey){
+                updateFeedback: function(boardId, type, wellFeedback, scrumMasterKey){
                     var deferred = $q.defer();
-                    $http.put(boardUrl + '/' + boardId + '/well', { wellFeedback: wellFeedback, scrumMasterKey: scrumMasterKey }).then(function (ctx) {
+                    $http.put(boardUrl + '/' + boardId + '/setFeedback/' + type, { feedback: wellFeedback, scrumMasterKey: scrumMasterKey }).then(function (ctx) {
                         deferred.resolve(ctx.data);
                     }, function (ctx) {
                         deferred.reject(ctx.data);
