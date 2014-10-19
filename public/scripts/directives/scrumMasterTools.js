@@ -12,7 +12,7 @@ app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
         scope: {
             board: '='
         },
-        controller: function($scope, boardService) {
+        controller: ['$scope', 'boardService', '$element', function($scope, boardService, $element) {
             $scope.phases = constants.phases;
             $scope.actionText = constants.workflow[0].actionText;
 
@@ -36,7 +36,7 @@ app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
                     boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
                 }
             };
-        }
+        }]
     };
 }]);
 
