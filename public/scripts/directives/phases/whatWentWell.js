@@ -12,11 +12,12 @@ app.directive('whatWentWell', [function() {
         scope: {
             board: '='
         },
-        controller: ['$scope', 'boardService', function($scope, boardService) {
+        controller: ['$scope', 'boardService', '$rootScope', function($scope, boardService, $rootScope) {
             $scope.phases = constants.phases;
+            $scope.isScrumMaster = $rootScope.isScrumMaster;
 
             $scope.sendThemes = function(){
-                boardService.sendWhatWentWell($scope.board.id, $scope.board.wellFeedback, $scope).then(function(savedFeedback) {
+                boardService.sendWhatWentWell($scope.board.id, $scope.board.wellFeedback, $rootScope.scrumMasterKey).then(function(savedFeedback) {
                 }, function(validation){
                     if(typeof validation !== "object"){
                         validation = [validation];
