@@ -4,7 +4,7 @@
 var app = require('./../_module_init.js');
 var constants = require('../../../../shared/constants/boardConstants');
 
-app.directive('actionItems', [function() {
+app.directive('actionItems', ['boardService', function(boardService) {
     "use strict";
     return {
         restrict: 'E',
@@ -23,6 +23,8 @@ app.directive('actionItems', [function() {
                       actionItemGroup[1] = [];
                   }
                   actionItemGroup[1].push(actionItem);
+
+                  boardService.updateFeedback($scope.board.id, constants.feedbackTypes.actionItems, $scope.board.actionItems, $rootScope.scrumMasterKey);
               }
 
               $scope.newActionItem = "";
