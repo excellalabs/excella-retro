@@ -1,5 +1,5 @@
 <div class="panel panel-primary dropArea" on-drop="dropFunction" on-drag-enter="enterFunction" on-drag-leave="leaveFunction">
-    <folder-heading class="panel-heading {{name || nameIsSet ? '' : 'height-zero'}} {{ ignoreDrag ? 'readonly' : '' }}" readonly="ignoreDrag" name="name" name-is-set="nameIsSet"></folder-heading>
+    <folder-heading class="panel-heading {{name || nameIsSet ? '' : 'height-zero'}} readonly" readonly="ignoreDrag" name="name" name-is-set="nameIsSet"></folder-heading>
     <ul class="list-group">
         <li class="list-group-item draggable {{ colorAnimationClass }}" ng-if="!ignoreDrag" ng-repeat="(index, item) in list track by index" data-index="{{index}}" data-value="{{item}}">{{item}}</li>
         <li class="list-group-item" ng-if="ignoreDrag" ng-repeat="(index, item) in list track by index">{{item}}</li>

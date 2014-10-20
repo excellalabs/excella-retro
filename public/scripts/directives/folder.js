@@ -136,7 +136,7 @@ app.directive('folderHeading', [function() {
     return {
         restrict: 'E',
         require: '^folder',
-        template: '<input type="text" ng-disabled="readonly" ng-model="name" /><span ng-hide="readonly" class="glyphicon glyphicon-pencil form-control-feedback"></span>',
+        template: '<input type="text" disabled="disabled" ng-model="name" /><!--<span ng-hide="readonly" class="glyphicon glyphicon-pencil form-control-feedback"></span>-->',
         scope: {
             name: '=',
             nameIsSet: '=',
