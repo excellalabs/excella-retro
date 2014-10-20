@@ -60,13 +60,13 @@ var values = {
 values.workflow = [
     { phase: values.phases.wellInitial, actionText: 'Start Feedback Gathering'},
     { phase: values.phases.wellFeedbackStarted, actionText: 'End Feedback Gathering'},
-    { phase: values.phases.wellFeedbackCompleted, actionText: 'Finish \"What Went Well\" Phase'},
+    { phase: values.phases.wellFeedbackCompleted, actionText: 'Finish \"What Went Well?\" Phase'},
     { phase: values.phases.improveInitial, actionText: 'Start Feedback Gathering'},
     { phase: values.phases.improveFeedbackStarted, actionText: 'End Feedback Gathering'},
-    { phase: values.phases.improveFeedbackCompleted, actionText: 'Finish \"What Needs Improvement\" Phase'},
+    { phase: values.phases.improveFeedbackCompleted, actionText: 'Finish \"What Needs To Be Improved?\" Phase'},
     { phase: values.phases.actionInitial, actionText: 'Start Dot Voting'},
     { phase: values.phases.actionVotingStarted, actionText: 'End Dot Voting'},
-    { phase: values.phases.actionVotingEnded, actionText: 'Finish Action Items Phase'},
+    { phase: values.phases.actionVotingEnded, actionText: 'Finish \"Action Items\" Phase'},
     { phase: values.phases.summary, actionText: 'Close Retrospective'}
 ];
 
