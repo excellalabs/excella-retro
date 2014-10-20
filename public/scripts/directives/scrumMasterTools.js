@@ -14,7 +14,7 @@ app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
         },
         controller: ['$scope', 'boardService', '$element', '$modal', '$location', function($scope, boardService, $element, $modal, $location) {
             $scope.phases = constants.phases;
-            var index = _.findIndex(constants.workflow, {phase: $scope.board.phase });
+            var index = $scope.board ? _.findIndex(constants.workflow, {phase: $scope.board.phase }) : 0;
             $scope.actionText = constants.workflow[index].actionText;
 
             $scope.participantMailToLink = function (boardId, boardTitle) {
