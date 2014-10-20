@@ -85,8 +85,8 @@ module.exports = {
                             }, 3000);
                             break;
                         case constants.phases.improveFeedbackCompleted:
-                            board.createThemesFromImproveFeedback(request.params.id, function (err, ssboard) {
-                                io.to(request.params.id).emit(constants.socketEmitters.themesEdited, ssboard);
+                            board.createThemesFromImproveFeedback(request.params.id, function (err, feedbackList) {
+                                io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, sboard);
                                 reply(true);
                             });
                             break;
