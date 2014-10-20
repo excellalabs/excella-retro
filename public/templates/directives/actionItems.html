@@ -1,6 +1,6 @@
 <div class="row-fluid">
     <div class="col-md-12 no-padding" id="board">
-        <alert type="info">You'll be dot voting on the list of items below. You should use all your votes. You can add many votes on a single item or clear your votes to start again.</alert>
+        <alert type="info"><strong>Prioritization & Action Items</strong> You'll be dot voting on the list of items below. Use all of your votes. You can add many votes on a single item or clear your votes and start again.</alert>
         <view-themes ng-if="board.phase != phases.actionVotingEnded" board-id="board.id" themes="board.themes"></view-themes>
 
         <div class="row-fluid" ng-if="board.phase == phases.actionVotingEnded">

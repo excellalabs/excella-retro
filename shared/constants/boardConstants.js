@@ -58,15 +58,15 @@ var values = {
 };
 
 values.workflow = [
-    { phase: values.phases.wellInitial, actionText: 'Start \"What Went Well\" Feedback Gathering'},
-    { phase: values.phases.wellFeedbackStarted, actionText: 'Stop \"What Went Well\" Feedback Gathering'},
-    { phase: values.phases.wellFeedbackCompleted, actionText: 'End \"What Went Well\" Phase'},
-    { phase: values.phases.improveInitial, actionText: 'Start \"What Needs Improvement\" Feedback Gathering'},
-    { phase: values.phases.improveFeedbackStarted, actionText: 'Stop \"What Needs Improvement\" Feedback Gathering'},
-    { phase: values.phases.improveFeedbackCompleted, actionText: 'End \"What Needs Improvement\" Phase'},
-    { phase: values.phases.actionInitial, actionText: 'Start Voting'},
-    { phase: values.phases.actionVotingStarted, actionText: 'Tally Votes'},
-    { phase: values.phases.actionVotingEnded, actionText: 'End Action Items Phase'},
+    { phase: values.phases.wellInitial, actionText: 'Start Feedback Gathering'},
+    { phase: values.phases.wellFeedbackStarted, actionText: 'End Feedback Gathering'},
+    { phase: values.phases.wellFeedbackCompleted, actionText: 'Finish \"What Went Well\" Phase'},
+    { phase: values.phases.improveInitial, actionText: 'Start Feedback Gathering'},
+    { phase: values.phases.improveFeedbackStarted, actionText: 'End Feedback Gathering'},
+    { phase: values.phases.improveFeedbackCompleted, actionText: 'Finish \"What Needs Improvement\" Phase'},
+    { phase: values.phases.actionInitial, actionText: 'Start Dot Voting'},
+    { phase: values.phases.actionVotingStarted, actionText: 'End Dot Voting'},
+    { phase: values.phases.actionVotingEnded, actionText: 'Finish Action Items Phase'},
     { phase: values.phases.summary, actionText: 'Close Retrospective'}
 ];
 

@@ -37,6 +37,10 @@ app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
                 }
             };
 
+            $scope.closeRetro = function () {
+
+            };
+
             var collapsible = $element.find(".collapse");
             var collapsor = $element.find('#collapsor');
 
@@ -44,9 +48,13 @@ app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
                 if(collapsible.hasClass("out")) {
                     collapsible.addClass("in");
                     collapsible.removeClass("out");
+                    collapsor.addClass("glyphicon-chevron-up");
+                    collapsor.removeClass("glyphicon-chevron-down");
                 } else {
                     collapsible.addClass("out");
                     collapsible.removeClass("in");
+                    collapsor.addClass("glyphicon-chevron-down");
+                    collapsor.removeClass("glyphicon-chevron-up");
                 }
             });
         }]
