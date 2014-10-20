@@ -190,7 +190,7 @@ module.exports = {
                             io.to(request.params.id).emit(constants.socketEmitters.improveFeedbackEdited, board.improveFeedback);
                             break;
                         case constants.feedbackTypes.actionItems:
-
+                            io.to(request.params.id).emit(constants.socketEmitters.actionItemsEdited, board.actionItems);
                             break;
                     }
                     reply(board);

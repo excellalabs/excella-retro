@@ -110,6 +110,10 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
             $scope.board.improveFeedback = improveFeedback;
         });
 
+        socket.offOn(constants.socketEmitters.actionItemsEdited, function(actionItems){
+            $scope.board.actionItems = actionItems;
+        });
+
         //Load the board
         loadBoard();
     }
