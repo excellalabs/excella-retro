@@ -14,6 +14,7 @@ app.directive('actionItems', ['boardService', '$rootScope', function(boardServic
         },
         controller: ['$scope', function($scope) {
             $scope.phases = constants.phases;
+            $scope.isScrumMaster = $rootScope.isScrumMaster;
 
             $scope.addActionItem = function(actionItemGroup) {
               var actionItem = $scope.newActionItem;

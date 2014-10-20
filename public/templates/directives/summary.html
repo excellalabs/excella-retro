@@ -4,12 +4,32 @@
 
         <div class="row-fluid">
             <h3>What Went Well?</h3>
-            <folder-holder class="col-xs-12" lists="board.wellFeedback" readonly="true"></folder-holder>
+            <!--<folder-holder class="col-xs-12" lists="board.wellFeedback" readonly="true"></folder-holder>-->
+            <ol class="list-group">
+                <li class="list-group-item" ng-repeat="actionItemGroup in board.wellFeedback track by $index">
+                    <div><strong>{{actionItemGroup[0]}}</strong></div>
+                    <ul>
+                        <li ng-repeat="actionItem in actionItemGroup track by $index" ng-show="!$first">
+                            {{actionItem}}
+                        </li>
+                    </ul>
+                </li>
+            </ol>
         </div>
 
         <div class="row-fluid">
             <h3>What Needs To Be Improved?</h3>
-            <folder-holder class="col-xs-12" lists="board.improveFeedback" readonly="true"></folder-holder>
+            <!--<folder-holder class="col-xs-12" lists="board.improveFeedback" readonly="true"></folder-holder>-->
+            <ol class="list-group">
+                <li class="list-group-item" ng-repeat="actionItemGroup in board.improveFeedback track by $index">
+                    <div><strong>{{actionItemGroup[0]}}</strong></div>
+                    <ul>
+                        <li ng-repeat="actionItem in actionItemGroup track by $index" ng-show="!$first">
+                            {{actionItem}}
+                        </li>
+                    </ul>
+                </li>
+            </ol>
         </div>
 
         <div class="row-fluid">
@@ -18,7 +38,7 @@
                 <li class="list-group-item" ng-repeat="actionItemGroup in board.actionItems track by $index">
                     <div><strong>{{actionItemGroup[0]}}</strong></div>
                     <ul>
-                        <li ng-repeat="actionItem in actionItemGroup[1]">
+                        <li ng-repeat="actionItem in actionItemGroup[1] track by $index">
                             {{actionItem}}
                         </li>
                     </ul>
