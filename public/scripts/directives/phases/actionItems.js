@@ -14,6 +14,19 @@ app.directive('actionItems', [function() {
         },
         controller: ['$scope', function($scope) {
             $scope.phases = constants.phases;
+
+            $scope.addActionItem = function(actionItemGroup, newActionItem) {
+              var actionItem = $scope.newActionItem;
+
+              if(actionItem && actionItem.length > 0) {
+                  if(!actionItemGroup[1]) {
+                      actionItemGroup[1] = [];
+                  }
+                  actionItemGroup[1].push(actionItem);
+              }
+
+              $scope.newActionItem = "";
+            };
         }]
     };
 }]);
