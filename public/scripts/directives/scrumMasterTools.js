@@ -36,7 +36,6 @@ app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
                     boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
                 }
             };
-<<<<<<< HEAD
 
             var collapsible = $element.find(".collapse");
             var collapsor = $element.find('#collapsor');
@@ -50,10 +49,7 @@ app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
                     collapsible.removeClass("in");
                 }
             });
-        }
-=======
         }]
->>>>>>> be4299795c475b1b2c7c2f08a30238bdbcd533ce
     };
 }]);
 
