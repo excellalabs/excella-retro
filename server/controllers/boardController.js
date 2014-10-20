@@ -84,9 +84,9 @@ module.exports = {
                                 });
                             }, 3000);
                             break;
-                        case constants.phases.improveFeedbackCompleted:
-                            board.createThemesFromImproveFeedback(request.params.id, function (err, feedbackList) {
-                                io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, sboard);
+                        case constants.phases.actionInitial:
+                            board.createThemesFromImproveFeedback(request.params.id, function (err, ssboard) {
+                                io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, ssboard);
                                 reply(true);
                             });
                             break;

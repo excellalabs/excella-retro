@@ -186,7 +186,7 @@ module.exports = {
         this.get(boardId, function(err, board) {
             board.themes = themes;
             saveBoard(boardId, board, function(err, board) {
-                callback(err, board.themes);
+                callback(err, board);
             });
         });
     },
