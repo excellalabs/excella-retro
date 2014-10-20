@@ -4,7 +4,7 @@
 var app = require('./../_module_init.js');
 var constants = require('../../../../shared/constants/boardConstants');
 
-app.directive('actionItems', ['boardService', function(boardService) {
+app.directive('actionItems', ['boardService', '$rootScope', function(boardService, $rootScope) {
     "use strict";
     return {
         restrict: 'E',
