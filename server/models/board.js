@@ -83,6 +83,36 @@ module.exports = {
             });
         });
     },
+    setFeedback: function(boardId, type, list, scrumMasterKey, callback){
+        db.get(boardId, function(err, board) {
+            if (err) {
+                console.log('Get failed: ', err);
+                callback(err);
+                return;
+            }
+            if(!board || board.scrumMasterKey !== scrumMasterKey){
+                callback(constants.errors.scrumMasterMismatch);
+                return;
+            }
+
+            switch(type) {
+                case constants.feedbackTypes.whatWentWell:
+                    board.wellFeedback = list;
+                    break;
+                case constants.feedbackTypes.whatNeedsImprovement:
+                    board.improveFeedback = list;
+                    break;
+                case constants.feedbackTypes.actionItems:
+                    board.actionItems = list;
+                    break;
+            }
+
+            saveBoard(boardId, board, function(err, savedBoard) {
+                removePrivateFields(savedBoard);
+                callback(err, savedBoard);
+            });
+        });
+    },
     get: function(boardId, callback){
         db.get(boardId, function(err, board) {
             if (err) {
@@ -126,13 +156,13 @@ module.exports = {
     addFeedback: function(boardId, type, feedback, callback) {
         this.get(boardId, function(err, board) {
             switch(type) {
-                case 'well':
+                case constants.feedbackTypes.whatWentWell:
                     board.wellFeedback.push(feedback);
                     break;
-                case 'improve':
+                case constants.feedbackTypes.whatNeedsImprovement:
                     board.improveFeedback.push(feedback);
                     break;
-                case 'action':
+                case constants.feedbackTypes.actionItems:
                     board.actionItems.push(feedback);
                     break;
             }

@@ -37,6 +37,7 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
 
             if ($rootScope.scrumMasterKey) {
                 $rootScope.isScrumMaster = userProvider.isUserScrumMaster($rootScope.scrumMasterKey, boardsScrumMasterKey);
+                userProvider.setScrumMasterKey($rootScope.scrumMasterKey);
             } else {
                 $rootScope.isScrumMaster = false;
             }
@@ -78,6 +79,10 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
 
         socket.offOn(constants.socketEmitters.refreshBoard, function(board){
             $scope.board = board;
+        });
+
+        socket.offOn(constants.socketEmitters.wellFeedbackEdited, function(wellFeedback){
+            $scope.board.wellFeedback = wellFeedback;
         });
 
         //Load the board

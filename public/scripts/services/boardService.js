@@ -76,9 +76,18 @@ app.factory('boardService', ['$http', '$q', 'userProvider', 'socket', '_',
                     });
                     return deferred.promise;
                 },
+                updateFeedback: function(boardId, type, wellFeedback, scrumMasterKey){
+                    var deferred = $q.defer();
+                    $http.put(boardUrl + '/' + boardId + '/setFeedback/' + type, { feedback: wellFeedback, scrumMasterKey: scrumMasterKey }).then(function (ctx) {
+                        deferred.resolve(ctx.data);
+                    }, function (ctx) {
+                        deferred.reject(ctx.data);
+                    });
+                    return deferred.promise;
+                },
                 sendVotes: function (boardId, themeIdVoteCollection) {
                     var deferred = $q.defer();
-                    $http.put(boardUrl + '/' + boardId + '/addVotes', {themeIdVoteCollection: themeIdVoteCollection}).then(function (ctx) {
+                    $http.put(boardUrl + '/' + boardId + '/addVotes', { themeIdVoteCollection: themeIdVoteCollection }).then(function (ctx) {
                         deferred.resolve(ctx.data);
                     }, function (ctx) {
                         deferred.reject(ctx.data);
@@ -95,10 +104,10 @@ app.factory('boardService', ['$http', '$q', 'userProvider', 'socket', '_',
                     return deferred.promise;
                 },
                 getJoinBoardUrl: function (boardId) {
-                    return window.location.origin + '/#/board/' + boardId + '/join';
+                    return window.location.origin + '/#/retro/' + boardId + '/join';
                 },
                 getScrumMasterAccessUrl: function (boardId, scrumMasterKey) {
-                    return window.location.origin + '/#/board/' + boardId + '/' + scrumMasterKey;
+                    return window.location.origin + '/#/retro/' + boardId + '/' + scrumMasterKey;
                 },
                 save: function (board) {
                     var deferred = $q.defer();

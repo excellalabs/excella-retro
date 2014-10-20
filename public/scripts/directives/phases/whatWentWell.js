@@ -12,8 +12,19 @@ app.directive('whatWentWell', [function() {
         scope: {
             board: '='
         },
-        controller: ['$scope', 'boardService', function($scope, boardService) {
+        controller: ['$scope', 'boardService', '$rootScope', function($scope, boardService, $rootScope) {
             $scope.phases = constants.phases;
+            $scope.isScrumMaster = $rootScope.isScrumMaster;
+
+            $scope.sendThemes = function(){
+                boardService.updateFeedback($scope.board.id, constants.feedbackTypes.whatWentWell, $scope.board.wellFeedback, $rootScope.scrumMasterKey).then(function(savedFeedback) {
+                }, function(validation){
+                    if(typeof validation !== "object"){
+                        validation = [validation];
+                    }
+                    $scope.validation = validation;
+                });
+            };
 
             $scope.sendFeedback = function() {
                 boardService.sendFeedback($scope.boardId, $scope.feedback).then(function(savedFeedback) {

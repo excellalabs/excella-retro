@@ -20,8 +20,12 @@ app.directive('folder', [function() {
             $scope.ignoreColor = $scope.ignoreColor() || false;
             $scope.ignoreAnimation = $scope.ignoreAnimation() || false;
             $scope.colorAnimationClass = $scope.ignoreColor ? '' : 'animated-add-color';
-            $scope.draggableClass = $scope.ignoreDrag ? '' : 'draggable';
             $scope.nameIsSet = false;
+
+
+            var push = Array.prototype.push;
+            var splice = Array.prototype.splice;
+            var indexOf = Array.prototype.indexOf;
 
             var folderController = this;
             var folderHolderController = $element.controller('folderHolder');
@@ -92,17 +96,18 @@ app.directive('folder', [function() {
                 var index = options.draggable.element.attr('data-index');
                 if(index === '' || index === undefined || index === null) { return; }
 
-                $scope.list.push(value);
+                push.call($scope.list, value);
                 otherFolder.removeAt(index);
             };
 
             this.remove = function(value){
-                return this.removeAt($scope.list.indexOf(value));
+                var index = indexOf.call($scope.list, value);
+                return this.removeAt(index);
             };
 
             this.removeAt = function(index){
                 if(index >= 0){
-                    $scope.list.splice(index, 1);
+                    splice.call($scope.list, index, 1);
                 }
                 if(folderHolderController){
                     folderHolderController.changed();

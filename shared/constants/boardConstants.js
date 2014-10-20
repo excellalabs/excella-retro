@@ -10,11 +10,18 @@ var values = {
         userDoesNotExist: "User isn't on board"
     },
 
+    feedbackTypes: {
+        whatWentWell: 'well',
+        whatNeedsImprovement: 'improve',
+        actionItems: 'action'
+    },
+
     messages: {
         cannotCreate: 'Cannot create board!',
         cannotFind: 'Cannot find board!',
         cannotDelete: 'Cannot delete board!',
-        cannotUpdatePhase: 'Cannot update board phase!'
+        cannotUpdatePhase: 'Cannot update board phase!',
+        cannotUpdateFeedback: 'Cannot update board feedback!'
     },
 
     phases: {
@@ -45,7 +52,8 @@ var values = {
         collectVotes: 'collect-votes',
         themesEdited: 'themes-edited',
         boardClosed: 'board-closed',
-        refreshBoard: 'refresh-board'
+        refreshBoard: 'refresh-board',
+        wellFeedbackEdited: 'well-feedback-edited'
     }
 };
 
