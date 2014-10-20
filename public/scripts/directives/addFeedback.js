@@ -17,7 +17,7 @@ app.directive('addFeedback', [function() {
 
             $scope.canSubmit = function() {
                 return !$scope.feedback || $scope.feedback.length === 0;
-            }
+            };
 
             $scope.sendFeedback = function() {
                 boardService.sendFeedback($scope.boardId, $scope.type, [$scope.feedback]).then(function(savedFeedback) {
