@@ -54,7 +54,8 @@ var values = {
         boardClosed: 'board-closed',
         refreshBoard: 'refresh-board',
         wellFeedbackEdited: 'well-feedback-edited',
-        improveFeedbackEdited: 'improve-feedback-edited'
+        improveFeedbackEdited: 'improve-feedback-edited',
+        actionItemsEdited: 'action-items-edited'
     }
 };
 
