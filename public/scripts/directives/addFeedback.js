@@ -14,6 +14,11 @@ app.directive('addFeedback', [function() {
         },
         controller: function($scope, boardService) {
             $scope.userFeedback = [];
+
+            $scope.canSubmit = function() {
+                return !$scope.feedback || $scope.feedback.length === 0;
+            }
+
             $scope.sendFeedback = function() {
                 boardService.sendFeedback($scope.boardId, $scope.type, [$scope.feedback]).then(function(savedFeedback) {
                     $scope.userFeedback.push(savedFeedback);

@@ -36,6 +36,19 @@ app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
                     boardService.putPhase($rootScope.boardId, $scope.board.phase, $rootScope.scrumMasterKey);
                 }
             };
+
+            var collapsible = $element.find(".collapse");
+            var collapsor = $element.find('#collapsor');
+
+            collapsor.click(function() {
+                if(collapsible.hasClass("out")) {
+                    collapsible.addClass("in");
+                    collapsible.removeClass("out");
+                } else {
+                    collapsible.addClass("out");
+                    collapsible.removeClass("in");
+                }
+            });
         }
     };
 }]);
