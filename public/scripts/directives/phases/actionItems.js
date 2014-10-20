@@ -15,7 +15,7 @@ app.directive('actionItems', [function() {
         controller: ['$scope', function($scope) {
             $scope.phases = constants.phases;
 
-            $scope.addActionItem = function(actionItemGroup, newActionItem) {
+            $scope.addActionItem = function(actionItemGroup) {
               var actionItem = $scope.newActionItem;
 
               if(actionItem && actionItem.length > 0) {
