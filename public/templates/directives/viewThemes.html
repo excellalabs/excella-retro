@@ -1,15 +1,15 @@
 <div class="panel panel-default">
-    <div class="panel-heading">Themes<span class="badge pull-right" ng-if="canVote">{{unusedVotes}}</span></div>
-    <div class="panel-body" ng-if="!themes || themes.length == 0">No theme</div>
+    <div class="panel-heading">Prioritize<span class="pull-right"><span class="badge" ng-if="canVote">Unused Votes: {{unusedVotes}} </span><a class="btn btn-sm btn-danger" ng-disabled="!canVote" ng-click="clearVotes()" style="margin-left: 5px; margin-top: -5px;">Clear <span class="glyphicon glyphicon-refresh"/></a></span></div>
+    <div class="panel-body" ng-if="!themes || themes.length == 0">No items</div>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="theme in themes track by $index">
             <div class="input-group">
                 <span class="input-group-btn">
-                    <a class="btn btn-default" ng-click="downVote(theme.id)"><span ng-if="canVote" class="glyphicon glyphicon-thumbs-down"/><span ng-if="!canVote" class="glyphicon glyphicon-chevron-left disabled"/></a>
+                    <span class="badge pull-right" style="margin-right: 5px;">{{theme.votes}}</span>
                 </span>
-                <span class="form-control">{{theme.description}}<span class="badge pull-right">{{theme.votes}}</span></span>
+                <span class="form-control">{{theme.description}}</span>
                 <span class="input-group-btn">
-                    <a class="btn btn-default" ng-click="upVote(theme.id)"><span ng-if="canVote" class="glyphicon glyphicon-thumbs-up"/><span ng-if="!canVote" class="glyphicon glyphicon-chevron-right disabled"/></a>
+                    <a class="btn btn-primary" ng-disabled="!canVote" ng-click="upVote(theme.id)"><span class="glyphicon glyphicon-plus"/></a>
                 </span>
             </div>
         </li>

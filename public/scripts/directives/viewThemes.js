@@ -19,6 +19,12 @@ app.directive('viewThemes', [function() {
                 $scope.unusedVotes = allowedVotes = helpers.dotVotesAllowed($scope.themes.length);
             });
 
+            $scope.clearVotes = function() {
+                $scope.unusedVotes = allowedVotes;
+
+                $scope.themes = $scope.themes.map(function(theme) { theme.votes = 0; return theme; });
+            };
+
             $scope.canVote = false;
 
             function canUpVote() {
