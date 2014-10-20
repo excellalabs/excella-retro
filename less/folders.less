@@ -7,7 +7,10 @@ folder-heading {
   -ms-transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
   -o-transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
   transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
-  cursor: pointer;
+
+  &:not(.readonly) {
+    cursor: pointer;
+  }
 
   .glyphicon {
     top: 4px;
@@ -97,6 +100,10 @@ folder-heading {
   -ms-animation: addColor 0.5s;
   -webkit-animation: addColor 0.5s;
   animation: addColor 0.5s;
+}
+
+folder li.list-group-item {
+  border-radius: 3px !important;
 }
 
 .folder-drag-hover {
