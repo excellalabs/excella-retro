@@ -3,7 +3,7 @@
 
 var app = require('./_module_init.js');
 
-app.controller('JoinController', ['$scope', 'userProvider', 'boardService', '$location', '$rootScope', '$routeParams', function($scope, userProvider, boardService, $location, $rootScope, $routeParams) {
+app.controller('JoinController', ['$scope', 'userProvider', 'boardService', '$location', '$rootScope', '$routeParams', '$modal', function($scope, userProvider, boardService, $location, $rootScope, $routeParams, $modal) {
     "use strict";
     $scope.joinBoard = function(){
         var isScrumMaster = false;
@@ -19,7 +19,20 @@ app.controller('JoinController', ['$scope', 'userProvider', 'boardService', '$lo
         boardService.joinBoard($routeParams.id, $scope.user).then(function(success){
             if(success) {
                 $rootScope.boardId = $routeParams.id;
-                $location.path('retro');
+                var modalInstance = $modal.open({
+                    templateUrl: 'templates/modal.html',
+                    controller: 'ModalInstanceController',
+                    size: 'sm',
+                    resolve: {
+                        title: function() { return "You've Joined a Retrospective"; },
+                        body: function() { return "Your Scrum Master will control the phases of this retrospective on your device. If you get disconnected, you may re-join the board by clicking on the invitation link you've received. Once the retrospective is closed, you will not have access to the data."; },
+                        hasCancel: function() { return false; }
+                    }
+                });
+
+                modalInstance.result.then(function (selectedItem) {
+                    $location.path('retro');
+                });
             } else {
                 $scope.validation = ['Can\'t join the board'];
             }

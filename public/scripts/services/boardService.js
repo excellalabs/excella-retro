@@ -58,6 +58,15 @@ app.factory('boardService', ['$http', '$q', 'userProvider', 'socket', '_',
                     socket.on(constants.socketEmitters.joinError, failureCallback);
                     return deferred.promise;
                 },
+                closeBoard: function(boardId, scrumMasterKey) {
+                    var deferred = $q.defer();
+                    $http.delete(boardUrl + '/' + boardId + '/' + scrumMasterKey).then(function (ctx) {
+                        deferred.resolve(ctx.data);
+                    }, function (ctx) {
+                        deferred.reject(ctx.data);
+                    });
+                    return deferred.promise;
+                },
                 sendFeedback: function (boardId, type, feedback) {
                     var deferred = $q.defer();
                     $http.post(boardUrl + '/' + boardId + '/feedback/' + type, {feedback: feedback}).then(function (ctx) {

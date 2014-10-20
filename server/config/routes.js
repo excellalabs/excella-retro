@@ -94,5 +94,10 @@ module.exports = [
         method: 'PUT',
         path: '/board/{id}/addVotes',
         config: controller.board.addVotes
+    },
+    {
+        method: 'DELETE',
+        path: '/board/{id}/{scrumMasterKey}',
+        config: controller.board.deleteBoard
     }
 ];
