@@ -14,7 +14,8 @@ app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
         },
         controller: ['$scope', 'boardService', '$element', '$modal', '$location', function($scope, boardService, $element, $modal, $location) {
             $scope.phases = constants.phases;
-            $scope.actionText = constants.workflow[0].actionText;
+            var index = _.findIndex(constants.workflow, {phase: $scope.board.phase });
+            $scope.actionText = constants.workflow[index].actionText;
 
             $scope.participantMailToLink = function (boardId, boardTitle) {
                 return 'mailto:?subject=Join Retrospective: ' + boardTitle + '&body=' + encodeURIComponent('Please join my retrospective at:\n\n' + boardService.getJoinBoardUrl(boardId));

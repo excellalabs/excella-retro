@@ -106,6 +106,10 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
             $scope.board.wellFeedback = wellFeedback;
         });
 
+        socket.offOn(constants.socketEmitters.improveFeedbackEdited, function(improveFeedback){
+            $scope.board.improveFeedback = improveFeedback;
+        });
+
         //Load the board
         loadBoard();
     }

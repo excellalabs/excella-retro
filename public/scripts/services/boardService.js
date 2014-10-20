@@ -85,9 +85,9 @@ app.factory('boardService', ['$http', '$q', 'userProvider', 'socket', '_',
                     });
                     return deferred.promise;
                 },
-                updateFeedback: function(boardId, type, wellFeedback, scrumMasterKey){
+                updateFeedback: function(boardId, type, feedback, scrumMasterKey){
                     var deferred = $q.defer();
-                    $http.put(boardUrl + '/' + boardId + '/setFeedback/' + type, { feedback: wellFeedback, scrumMasterKey: scrumMasterKey }).then(function (ctx) {
+                    $http.put(boardUrl + '/' + boardId + '/setFeedback/' + type, { feedback: feedback, scrumMasterKey: scrumMasterKey }).then(function (ctx) {
                         deferred.resolve(ctx.data);
                     }, function (ctx) {
                         deferred.reject(ctx.data);

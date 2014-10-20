@@ -53,7 +53,8 @@ var values = {
         themesEdited: 'themes-edited',
         boardClosed: 'board-closed',
         refreshBoard: 'refresh-board',
-        wellFeedbackEdited: 'well-feedback-edited'
+        wellFeedbackEdited: 'well-feedback-edited',
+        improveFeedbackEdited: 'improve-feedback-edited'
     }
 };
 

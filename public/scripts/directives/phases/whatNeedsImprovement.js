@@ -17,7 +17,7 @@ app.directive('whatNeedsImprovement', [function() {
             $scope.isScrumMaster = $rootScope.isScrumMaster;
 
             $scope.sendThemes = function(){
-                boardService.updateFeedback($scope.board.id, constants.feedbackTypes.whatNeedsImprovement, $scope.board.wellFeedback, $rootScope.scrumMasterKey).then(function(savedFeedback) {
+                boardService.updateFeedback($scope.board.id, constants.feedbackTypes.whatNeedsImprovement, $scope.board.improveFeedback, $rootScope.scrumMasterKey).then(function(savedFeedback) {
                 }, function(validation){
                     if(typeof validation !== "object"){
                         validation = [validation];

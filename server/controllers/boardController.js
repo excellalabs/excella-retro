@@ -182,7 +182,16 @@ module.exports = {
                     }
                     reply(error);
                 } else {
-                    io.to(request.params.id).emit(constants.socketEmitters.wellFeedbackEdited, board.wellFeedback);
+                    switch(request.params.type){
+                        case constants.feedbackTypes.whatWentWell:
+                            io.to(request.params.id).emit(constants.socketEmitters.wellFeedbackEdited, board.wellFeedback);
+                            break;
+                        case constants.feedbackTypes.whatNeedsImprovement:
+                            io.to(request.params.id).emit(constants.socketEmitters.improveFeedbackEdited, board.improveFeedback);
+                            break;
+                        case constants.feedbackTypes.actionItems:
+                            break;
+                    }
                     reply(board);
                 }
             });
