@@ -12,7 +12,7 @@ app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
         scope: {
             board: '='
         },
-        controller: ['$scope', 'boardService', '$element', function($scope, boardService, $element) {
+        controller: ['$scope', 'boardService', '$element', '$modal', '$location', function($scope, boardService, $element, $modal, $location) {
             $scope.phases = constants.phases;
             $scope.actionText = constants.workflow[0].actionText;
 
@@ -38,7 +38,23 @@ app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
             };
 
             $scope.closeRetro = function () {
+                var modalInstance = $modal.open({
+                    templateUrl: 'templates/modal.html',
+                    controller: 'ModalInstanceController',
+                    size: 'sm',
+                    resolve: {
+                        title: function() { return "Close Retrospective?"; },
+                        body: function() { return "This will permanently delete your retrospective. You will lose access to your data. Select OK to continue."; },
+                        hasCancel: function() { return true; }
+                    }
+                });
 
+                modalInstance.result.then(function (selectedItem) {
+                    if(selectedItem === "OK") {
+                        boardService.closeBoard($scope.board.id, $rootScope.scrumMasterKey, function() {
+                        });
+                    }
+                });
             };
 
             var collapsible = $element.find(".collapse");

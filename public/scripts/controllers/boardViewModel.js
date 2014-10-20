@@ -4,7 +4,7 @@
 var app = require('./_module_init.js');
 var constants = require('../../../shared/constants/boardConstants');
 
-app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', 'socket', function($scope, $routeParams, userProvider, boardService, $location, $rootScope, socket) {
+app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', 'socket', '$modal', function($scope, $routeParams, userProvider, boardService, $location, $rootScope, socket, $modal) {
     "use strict";
     $scope.phases = constants.phases;
     if(!$rootScope.boardId) {
@@ -75,6 +75,27 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
 
         socket.offOn(constants.socketEmitters.themesEdited, function(themes){
             $scope.themes = themes;
+        });
+
+        socket.offOn(constants.socketEmitters.boardClosed, function(){
+            $rootScope.boardId = null;
+            $rootScope.scrumMasterKey = null;
+            $scope.board = null;
+
+            var modalInstance = $modal.open({
+                templateUrl: 'templates/modal.html',
+                controller: 'ModalInstanceController',
+                size: 'sm',
+                resolve: {
+                    title: function() { return "Retrospective Has Been Closed"; },
+                    body: function() { return "Your Scrum Master has closed this retrospective. You no longer have access to its' contents."; },
+                    hasCancel: function() { return false; }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $location.path('#');
+            });
         });
 
         socket.offOn(constants.socketEmitters.refreshBoard, function(board){

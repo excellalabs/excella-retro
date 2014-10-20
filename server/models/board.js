@@ -50,7 +50,7 @@ module.exports = {
                 callback(constants.errors.scrumMasterMismatch);
                 return;
             }
-            db.destroy(boardId, function(err){
+            db.del(boardId, function(err){
                 callback(err);
             });
         });

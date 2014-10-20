@@ -210,10 +210,10 @@ module.exports = {
     },
     deleteBoard: {
         handler: function(request, reply){
-            board.delete(request.params.id, request.payload.scrumMasterKey, function(err){
+            board.delete(request.params.id, request.params.scrumMasterKey, function(err){
                 if(err){
                     var error;
-                    if(err === constants.scrumMasterError) {
+                    if(err === constants.errors.scrumMasterMismatch) {
                         error = Hapi.error.badRequest(constants.messages.cannotDelete);
                         error.output.statusCode = 400;
                     } else {
