@@ -129,6 +129,11 @@ module.exports = {
     },
     joinBoard: function(boardId, user, callback) {
         this.get(boardId, function(err, board) {
+            if(err) {
+                callback(err);
+                return;
+            }
+
             var index = board.participants.indexOf(user);
             if(index >= 0){
                 callback(constants.errors.userExists, board.participants);
@@ -142,6 +147,11 @@ module.exports = {
     },
     leaveBoard: function(boardId, user, callback) {
         this.get(boardId, function(err, board) {
+            if(err) {
+                callback(err);
+                return;
+            }
+
             var index = board.participants.indexOf(user);
             if(index < 0){
                 callback(constants.errors.userDoesNotExist, board.participants);
