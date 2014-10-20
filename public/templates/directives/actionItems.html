@@ -7,6 +7,7 @@
             <input class="form-control" id="actionItem" placeholder="Add below" ng-model="newActionItem">
         </div>
         <div class="row-fluid" ng-if="board.phase == phases.actionVotingEnded">
+            <progressbar ng-show="!board.actionItems || board.actionItems.length == 0" class="progress-striped active" max="100" value="100"><i>Tallying Votes...</i></progressbar>
             <ol class="list-group">
                 <li class="list-group-item" ng-repeat="actionItemGroup in board.actionItems track by $index">
                     <div><strong>{{actionItemGroup[0]}}</strong><a class="btn btn-sm btn-primary pull-right" style="margin-top: -5px;" ng-click="addActionItem(actionItemGroup)"><span class="glyphicon glyphicon-plus"/></a></div>
