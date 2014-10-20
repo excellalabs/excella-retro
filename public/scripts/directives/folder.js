@@ -30,13 +30,6 @@ app.directive('folder', [function() {
             var folderController = this;
             var folderHolderController = $element.controller('folderHolder');
 
-            if($scope.list.length > 1){
-                $scope.nameIsSet = true;
-                $scope.name = $scope.list[0];
-            } else {
-                $scope.name = '';
-            }
-
             $scope.enterFunction = function(event, options){
                 if(folderController === options.draggable.element.controller('folder')) { return; }
                 window.console.log('entered', event, options);
@@ -100,6 +93,12 @@ app.directive('folder', [function() {
                 otherFolder.removeAt(index);
             };
 
+            this.headerChanged = function(event, options){
+                if(folderHolderController){
+                    folderHolderController.changed();
+                }
+            };
+
             this.remove = function(value){
                 var index = indexOf.call($scope.list, value);
                 return this.removeAt(index);
@@ -108,9 +107,6 @@ app.directive('folder', [function() {
             this.removeAt = function(index){
                 if(index >= 0){
                     splice.call($scope.list, index, 1);
-                }
-                if(folderHolderController){
-                    folderHolderController.changed();
                 }
 
                 if($scope.list.length === 0) {
@@ -124,8 +120,23 @@ app.directive('folder', [function() {
                     $scope.name = '';
                 }
 
+                if(folderHolderController){
+                    folderHolderController.changed();
+                }
+
                 return index;
             };
+
+            if(!$scope.list){
+                return;
+            }
+
+            if($scope.list.length > 1 && !$scope.name){
+                $scope.nameIsSet = true;
+                $scope.name = $scope.list[0];
+            } else {
+                $scope.name = '';
+            }
         }]
     };
 }]);
@@ -146,6 +157,10 @@ app.directive('folderHeading', [function() {
             $element.css('display', 'block');
             $element.on('click', function(){
                 $element.find('input')[0].focus();
+            });
+            var folderCtrl = $element.controller('folder');
+            $element.find('input').on('change', function(ev){
+                folderCtrl.headerChanged(ev, { newHeader: ev.currentTarget.value });
             });
         }]
     };

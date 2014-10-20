@@ -8,7 +8,7 @@ app.directive('folderHolder', [function() {
 
     return {
         restrict: 'E',
-        template: '<div class="dragContainer"><folder ignore-color="ignoreColor" ignore-animation="ignoreAnimation" ignore-drag="readonly" ng-repeat="item in lists" name="item.name" list="item"></folder></div>',
+        template: '<div class="dragContainer"><folder ignore-color="ignoreColor" ignore-animation="ignoreAnimation" ignore-drag="readonly" ng-repeat="item in lists" name="item.name" list="item.list"></folder></div>',
         scope: {
             lists: '=lists',
             onChange: '=onChange',
@@ -16,7 +16,7 @@ app.directive('folderHolder', [function() {
             ignoreAnimation: '&ignoreAnimation',
             readonly: '=readonly'
         },
-        controller: ['$scope', '$element', function($scope, $element){
+        controller: ['$scope', '$element', '_', function($scope, $element, _){
             $scope.ignoreColor = $scope.ignoreColor() || false;
             $scope.ignoreAnimation = $scope.ignoreAnimation() || false;
 
@@ -24,18 +24,11 @@ app.directive('folderHolder', [function() {
             var push = [].push;
             for(var i=0; i<$scope.lists.length; i++){
                 var list = $scope.lists[i];
-                var newList = {};
-                var index = 0;
-                for(var name in list){
-                    if(list.hasOwnProperty(name)){
-                        newList[index] = list[name];
-                        index++;
-                    }
+                if(list instanceof Array){
+                    $scope.lists[i] = { list: list };
+                } else if(list instanceof String){
+                    $scope.lists[i] = { list: [list] };
                 }
-                Object.defineProperty(newList, 'length', { value: index, writable: true });
-                newList.splice = splice;
-                newList.push = push;
-                $scope.lists[i] = newList;
             }
 
             this.dragLeave = function(event, draggable){
@@ -65,14 +58,22 @@ app.directive('folderHolder', [function() {
                 var index = $scope.lists.indexOf(value);
                 if(index >= 0){
                     $scope.lists.splice(index, 1);
+                } else {
+                    index = _.findIndex($scope.lists, { list: value });
+                    if(index >= 0){
+                        $scope.lists.splice(index, 1);
+                    }
                 }
 
                 return index;
             };
 
             this.addFolder = function(value){
-                if(!(value instanceof Array)){
+                if(value instanceof String){
                     value = [value];
+                }
+                if(value instanceof Array){
+                    value = { list: value };
                 }
 
                 $scope.lists.push(value);
