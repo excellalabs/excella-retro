@@ -17,6 +17,9 @@ function ensureListExists(callback) {
 module.exports = {
     addFeedback: function(feedback, callback) {
         ensureListExists(function (err, list) {
+            if(!list) {
+                list = [];
+            }
             list.push(feedback);
             db.put(feedbackList, list, callback);
         });
