@@ -49,6 +49,12 @@ module.exports = [
         path: '/bower_components/{path*}',
         config: controller.assets.bower
     },
+    // Admin
+    {
+        method: 'POST',
+        path: '/feedback',
+        config: controller.admin.addFeedback
+    },
     // Board
     {
         method: 'POST',

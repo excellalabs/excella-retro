@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-    <div class="panel-heading">{{feedbackContext}} Feedback</div>
+    <div class="panel-heading"><strong>{{feedbackContext}} Feedback</strong></div>
     <div class="panel-body" ng-if="!feedbackList || feedbackList.length == 0">No feedback</div>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="feedback in feedbackList track by $index">{{feedback[0]}}</li>

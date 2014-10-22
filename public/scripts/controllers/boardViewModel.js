@@ -8,7 +8,7 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
     "use strict";
     $scope.phases = constants.phases;
     if(!$rootScope.boardId) {
-        $location.path('#');
+        $location.path('/closed');
     }
     else {
         $scope.socketStatus = "Connecting...";
@@ -23,8 +23,10 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
                 $scope.refresh = function() {
                     loadBoard();
                 };
+            }).catch(function() {
+                $location.path('/closed');
             });
-        };
+        }
 
         var setIsUserScrumMaster = function (scrumMaster, boardsScrumMasterKey) {
             var user = userProvider.getUser();
@@ -88,13 +90,13 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
                 size: 'sm',
                 resolve: {
                     title: function() { return "Retrospective Has Been Closed"; },
-                    body: function() { return "Your Scrum Master has closed this retrospective. You no longer have access to its' contents."; },
+                    body: function() { return "Your Scrum Master has closed this retrospective. You no longer have access to its contents."; },
                     hasCancel: function() { return false; }
                 }
             });
 
             modalInstance.result.then(function (selectedItem) {
-                $location.path('#');
+                $location.path('/closed');
             });
         });
 

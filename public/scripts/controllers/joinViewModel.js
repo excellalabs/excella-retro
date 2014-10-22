@@ -34,13 +34,10 @@ app.controller('JoinController', ['$scope', 'userProvider', 'boardService', '$lo
                     $location.path('retro');
                 });
             } else {
-                $scope.validation = ['Can\'t join the board'];
+                $scope.validation = ['Can\'t join the retrospective.'];
             }
-        }, function(validation){
-            if(typeof validation !== "object"){
-                validation = [validation];
-            }
-            $scope.validation = validation;
+        }).catch(function() {
+            $scope.validation = ['Can\'t join the retrospective.'];
         });
     };
 }]);

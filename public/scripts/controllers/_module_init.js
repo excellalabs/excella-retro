@@ -14,4 +14,5 @@ require('./joinViewModel.js');
 require('./scrumMasterViewModel.js');
 require('./retroWizardViewModel.js');
 require('./modalInstanceController.js');
+require('./closeViewModel.js');
 

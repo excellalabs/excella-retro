@@ -3,10 +3,11 @@
         <error-field model="validation"></error-field>
         <div class="form-group">
             <label for="feedback">Add Feedback</label>
-            <input class="form-control" id="feedback" placeholder="Be concise" ng-model="feedback">
+            <input class="form-control" id="feedback" placeholder="{{feedbackContext}}? Be concise." ng-model="feedback">
+            <span class="help-block">Your feedback will be sent anonymously.</span>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary" ng-disabled="canSubmit()">Send feedback</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="isSaving || canSubmit()">Send</button>
         </div>
     </form>
 </div>

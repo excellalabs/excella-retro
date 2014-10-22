@@ -3,5 +3,6 @@
 module.exports = {
     base: require('../controllers/base'),
     assets: require('../controllers/assets'),
-    board: require('../controllers/boardController')
+    board: require('../controllers/boardController'),
+    admin: require('../controllers/adminController')
 };

@@ -1,10 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<nav-bar></nav-bar>
+<div class="row-fluid">
+    <div class="jumbotron">
+        <h1>Thank you!</h1>
+        <p>You've just completed a retrospective using our app. We're continually improving this app and would love to receive your feedback below.</p>
+        <p>
+                <form role="form" name="sendFeedbackForm" ng-submit="sendFeedback()">
+                    <error-field model="validation"></error-field>
+                    <div class="form-group">
+                        <label for="feedback">Feedback</label>
+                        <input class="form-control" id="feedback" placeholder="What can we improve?" ng-model="feedback">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send feedback</button>
+                </form>
+        </p>
+    </div>
+</div>
+<div class="row-fluid text-center">
+    <h2>or</h2>
+</div>
+<div class="row-fluid text-center">
+    <h2><a href="#">Start a new retrospective</a></h2>
+</div>
+<branding></branding>

@@ -8,6 +8,7 @@ require('ui-bootstrap-tpls');
 require('../controllers/_module_init');
 require('../directives/_module_init');
 require('../services/boardService');
+require('../services/adminService');
 require('../services/userProvider');
 require('../services/socketFactory');
 require('../services/helpersModule');
@@ -20,6 +21,7 @@ angular.element(document).ready(function() {
         'remoteRetro.directives',
         'remoteRetro.userProvider',
 		'remoteRetro.boardService',
+		'remoteRetro.adminService',
         'remoteRetro.socketFactory',
 		'ngRoute',
         'ui.bootstrap'
@@ -45,19 +47,12 @@ angular.element(document).ready(function() {
                 templateUrl: '/templates/retroWizard.html',
                 controller: 'BoardController'
             })
-            .when('/wizard', {
-               templateUrl: '/templates/retroWizard.html',
-                controller: 'RetroWizardViewModel'
+            .when('/tos', {
+                templateUrl: '/templates/tos.html'
             })
-            .when('/dragDropTest', {
-                templateUrl: '/templates/dragDropTest.html',
-                controller: ['$scope', function($scope){
-                    $scope.test = [['hello', 'there'], ['world']];
-                    $scope.add = function(value){
-                        $scope.addForm.$setPristine();
-                        $scope.test.push([value]);
-                    };
-                }]
+            .when('/closed', {
+                templateUrl: '/templates/close.html',
+                controller: 'CloseViewModel'
             })
             .otherwise( 
                 {
