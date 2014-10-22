@@ -2,16 +2,16 @@
     <div class="col-md-12 no-padding" id="board">
         <alert type="info"><strong>Prioritization & Action Items</strong> You'll be dot voting on the list of items below. Use all of your votes. You can add many votes on a single item or clear your votes and start again.</alert>
         <view-themes ng-if="board.phase != phases.actionVotingEnded" board-id="board.id" themes="board.themes"></view-themes>
-        <div class="form-group row-fluid" ng-show="board.phase == phases.actionVotingEnded">
+        <div ng-show="isScrumMaster" class="form-group row-fluid" ng-show="board.phase == phases.actionVotingEnded">
             <label for="actionItem">New Action Item</label>
             <input class="form-control" id="actionItem" placeholder="Add below" ng-model="newActionItem">
-            <span ng-show="isScrumMaster" class="help-block">Type in your action item above and then associate it with a feedback item below by clicking the + button next to it.</span>
+            <span class="help-block">Type in your action item above and then associate it with a feedback item below by clicking the + button next to it.</span>
         </div>
         <div class="row-fluid" ng-if="board.phase == phases.actionVotingEnded">
             <progressbar ng-show="!board.actionItems || board.actionItems.length == 0" class="progress-striped active" max="100" value="100"><i>Tallying Votes...</i></progressbar>
             <ol class="list-group">
                 <li class="list-group-item" ng-repeat="actionItemGroup in board.actionItems track by $index">
-                    <div><strong>{{actionItemGroup[0]}}</strong><a class="btn btn-sm btn-primary pull-right" style="margin-top: -5px;" ng-click="addActionItem(actionItemGroup)"><span class="glyphicon glyphicon-plus"/></a></div>
+                    <div><strong>{{actionItemGroup[0]}}</strong><a ng-show="isScrumMaster" class="btn btn-sm btn-primary pull-right" style="margin-top: -5px;" ng-click="addActionItem(actionItemGroup)"><span class="glyphicon glyphicon-plus"/></a></div>
                     <ul>
                         <li ng-repeat="actionItem in actionItemGroup[1] track by $index">
                             {{actionItem}}
