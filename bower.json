@@ -32,6 +32,10 @@
     "angular-bootstrap": "~0.11.0",
     "interact": "~1.0.25",
     "bootstrap-wizard": "~1.0.0",
-    "jquery": "~2.1.1"
+    "jquery": "~2.1.1",
+    "building-blox.directives": "~0.1.0"
+  },
+  "resolutions": {
+    "angular": ">=1"
   }
 }
