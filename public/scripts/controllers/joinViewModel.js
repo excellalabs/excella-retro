@@ -25,7 +25,7 @@ app.controller('JoinController', ['$scope', 'userProvider', 'boardService', '$lo
                     size: 'sm',
                     resolve: {
                         title: function() { return "You've Joined a Retrospective"; },
-                        body: function() { return "Your Scrum Master will control the phases of this retrospective on your device. If you get disconnected, you may re-join the board by clicking on the invitation link you've received. Once the retrospective is closed, you will not have access to the data."; },
+                        body: function() { return "Your Facilitator will control the phases of this retrospective on your device. If you get disconnected, you may re-join the board by clicking on the invitation link you've received. Once the retrospective is closed, you will not have access to the data."; },
                         hasCancel: function() { return false; }
                     }
                 });

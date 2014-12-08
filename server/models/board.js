@@ -28,7 +28,7 @@ module.exports = {
         var board = {
             id: boardId,
             title: helpers.toTitleCase(boardName),
-            phase: constants.phases.initial,
+            phase: constants.phases.wellFeedbackStarted,
             scrumMaster: user,
             scrumMasterKey: scrumMasterKey,
             participants: [],

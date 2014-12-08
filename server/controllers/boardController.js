@@ -70,10 +70,6 @@ module.exports = {
                     reply(error);
                 } else {
                     switch (request.payload.phase) {
-                        case constants.phases.actionVotingStarted:
-                            io.to(request.params.id).emit(constants.socketEmitters.beginVoting, sboard);
-                            reply(true);
-                            break;
                         case constants.phases.actionVotingEnded:
                             io.to(request.params.id).emit(constants.socketEmitters.collectVotes, sboard);
 
@@ -84,9 +80,10 @@ module.exports = {
                                 });
                             }, 3000);
                             break;
-                        case constants.phases.actionInitial:
+                        case constants.phases.actionVotingStarted:
                             board.createThemesFromImproveFeedback(request.params.id, function (err, ssboard) {
-                                io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, ssboard);
+                                io.to(request.params.id).emit(constants.socketEmitters.beginVoting, ssboard);
+                                io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, ssboard); //TODO: do in one step
                                 reply(true);
                             });
                             break;

@@ -83,21 +83,7 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
             $rootScope.boardId = null;
             $rootScope.scrumMasterKey = null;
             $scope.board = null;
-
-            var modalInstance = $modal.open({
-                templateUrl: 'templates/modal.html',
-                controller: 'ModalInstanceController',
-                size: 'sm',
-                resolve: {
-                    title: function() { return "Retrospective Has Been Closed"; },
-                    body: function() { return "Your Scrum Master has closed this retrospective. You no longer have access to its contents."; },
-                    hasCancel: function() { return false; }
-                }
-            });
-
-            modalInstance.result.then(function (selectedItem) {
-                $location.path('/closed');
-            });
+            $location.path('/closed');
         });
 
         socket.offOn(constants.socketEmitters.refreshBoard, function(board){

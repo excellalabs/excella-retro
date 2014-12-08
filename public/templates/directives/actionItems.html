@@ -2,7 +2,7 @@
     <div class="col-md-12 no-padding" id="board">
         <alert type="info"><strong>Prioritization & Action Items</strong> You'll be dot voting on the list of items below. Use all of your votes. You can add many votes on a single item or clear your votes and start again.</alert>
         <view-themes ng-if="board.phase != phases.actionVotingEnded" board-id="board.id" themes="board.themes"></view-themes>
-        <div ng-show="isScrumMaster" class="form-group row-fluid" ng-show="board.phase == phases.actionVotingEnded">
+        <div ng-show="isScrumMaster && board.phase == phases.actionVotingEnded" class="form-group row-fluid">
             <label for="actionItem">New Action Item</label>
             <input class="form-control" id="actionItem" placeholder="Add below" ng-model="newActionItem">
             <span class="help-block">Type in your action item above and then associate it with a feedback item below by clicking the + button next to it.</span>

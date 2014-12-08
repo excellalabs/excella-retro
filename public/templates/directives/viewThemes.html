@@ -5,11 +5,11 @@
         <li class="list-group-item" ng-repeat="theme in themes track by $index">
             <div class="input-group">
                 <span class="input-group-btn">
-                    <span class="badge pull-right" style="margin-right: 5px;">{{theme.votes}}</span>
+                    <a class="btn btn-primary" ng-disabled="!canVote" ng-click="upVote(theme.id)"><span class="badge" style="margin-right: 5px;">{{theme.votes}}</span><span class="glyphicon glyphicon-thumbs-up"/></a>
                 </span>
                 <span class="form-control">{{theme.description}}</span>
                 <span class="input-group-btn">
-                    <a class="btn btn-primary" ng-disabled="!canVote" ng-click="upVote(theme.id)"><span class="glyphicon glyphicon-plus"/></a>
+
                 </span>
             </div>
         </li>
