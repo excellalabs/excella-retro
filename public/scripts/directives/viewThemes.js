@@ -62,7 +62,7 @@ app.directive('viewThemes', [function() {
                 });
             };
 
-            socket.offOn('begin-voting', function () {
+            socket.offOn('begin-voting', function (board) {
                 $scope.canVote = true;
             });
 
