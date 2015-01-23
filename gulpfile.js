@@ -6,6 +6,7 @@ var gulp        = require('gulp');
 var browserify  = require('gulp-browserify');
 var less        = require('gulp-less');
 var sourcemaps  = require('gulp-sourcemaps');
+var mocha       = require('gulp-mocha');
 var colorMaps   = require('./less/gulpLessColorMaps');
 
 
@@ -94,6 +95,11 @@ gulp.task('watch', function(){
     gulp.watch('public/scripts/**/*.js', ['scripts']);
     gulp.watch('less/**/*.less', ['less']);
     gulp.watch('less/gulpLessColorMaps.js', ['less']);
+});
+
+gulp.task('test', function (){
+    return gulp.src('./test/**/*.js', {read: false})
+        .pipe(mocha());
 });
 
 gulp.task('default', ['scripts', 'less']);

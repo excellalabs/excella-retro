@@ -3,16 +3,17 @@
 
 var app = require('./_module_init.js');
 
-app.directive('viewThemes', [function() {
+app.directive('viewThemes', [function(socket) {
     "use strict";
     return {
         restrict: 'E',
         templateUrl: 'templates/directives/viewThemes.html',
+        require: '^BoardController',
         scope: {
             themes: '=themes',
             boardId: '=boardId'
         },
-        controller: function($scope, boardService, socket, _, helpers) {
+        controller: function($scope, boardService, _, helpers) {
             var allowedVotes = 0;
 
             $scope.$watchCollection('themes', function() {
@@ -62,10 +63,6 @@ app.directive('viewThemes', [function() {
                 });
             };
 
-            socket.offOn('begin-voting', function (board) {
-                $scope.canVote = true;
-            });
-
             socket.offOn('collect-votes', function () {
                 $scope.canVote = false;
 
@@ -79,6 +76,14 @@ app.directive('viewThemes', [function() {
 
                 boardService.sendVotes($scope.boardId, themeIdVoteCollection);
 
+            });
+        },
+        link: function(scope, element, attrs, boardCtrl) {
+
+            socket.offOn('begin-voting', function () {
+                boardCtrl.refreshBoard(function(){
+                    scope.canVote = true;
+                });
             });
         }
     };
