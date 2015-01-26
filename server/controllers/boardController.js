@@ -9,7 +9,7 @@ var constants = require('../../shared/constants/boardConstants');
 module.exports = {
     createBoard: {
         handler: function (request, reply) {
-            board.create(request.params.user, request.params.boardName, request.params.scrumMasterKey, function (err, board) {
+            board.create(request.payload.user, request.payload.boardName, request.payload.scrumMasterKey, function (err, board) {
                 if (err) {
                     var error = Hapi.error.badRequest(constants.messages.cannotCreate);
                     error.output.statusCode = 400;
