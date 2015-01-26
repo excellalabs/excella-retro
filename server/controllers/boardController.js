@@ -82,12 +82,9 @@ module.exports = {
                             break;
                         case constants.phases.actionVotingStarted:
                             board.createThemesFromImproveFeedback(request.params.id, function (err, ssboard) {
-                                io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, ssboard);
-                                setTimeout(function() {
-                                    io.to(request.params.id).emit(constants.socketEmitters.beginVoting, ssboard);
-                                    //TODO: do in one step
-                                    reply(true);
-                                }, 1000);
+                                io.to(request.params.id).emit(constants.socketEmitters.beginVoting, ssboard);
+                                //TODO: do in one step
+                                reply(true);
                             });
                             break;
                         default:

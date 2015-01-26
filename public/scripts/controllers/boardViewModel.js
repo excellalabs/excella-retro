@@ -12,7 +12,7 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
     }
     else {
         $scope.socketStatus = "Connecting...";
-        var loadBoard = function() {
+        var loadBoard = function(cb) {
             boardService.getBoard($rootScope.boardId).then(function (board) {
                 $scope.board = board;
                 $scope.themes = board.themes;
@@ -23,6 +23,12 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
                 $scope.refresh = function() {
                     loadBoard();
                 };
+
+                // TODO: eventually make this promise-based, or find a better solution?
+                // shim for board refresh on viewThemes.js
+                if(cb){
+                    cb();
+                }
             }).catch(function() {
                 $location.path('/closed');
             });
@@ -101,6 +107,8 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
         socket.offOn(constants.socketEmitters.actionItemsEdited, function(actionItems){
             $scope.board.actionItems = actionItems;
         });
+
+        this.refreshBoard = loadBoard;
 
         //Load the board
         loadBoard();
