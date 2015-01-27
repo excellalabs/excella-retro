@@ -229,7 +229,9 @@ module.exports = {
                     }
                     reply(error);
                 } else {
-                    io.to(request.params.id).emit(constants.socketEmitters.boardClosed, request.params.id);
+                    if(!request.params.test) {
+                        io.to(request.params.id).emit(constants.socketEmitters.boardClosed, request.params.id);
+                    }
                     reply(true);
                 }
 
