@@ -13,28 +13,17 @@ var constants = require('../../../shared/constants/boardConstants');
 
 var boardModel = require('../../../server/models/board');
 var boardController = require('../../../server/controllers/boardController');
+
+//Test Global Variables
 var boardId;
-
-//Socket Connection Info
-var Hapi = require('hapi');
-var io = require('socket.io-client');
-var socketURL = 'http://localhost:3000';
-var options = {
-    transports: ['websocket'],
-    'force new connection': true
-};
-
-exports.request = function (server, requestobj, callback) {
-    server.inject(requestobj, function (res) {
-        if (res.payload) {
-            res.body = JSON.parse(res.payload);
-        }
-        callback(res);
-    });
-};
+var boardName = 'Board';
+var scrumMaster = 'scrumMaster';
+var scrumMasterKey = 'scrumMasterKey';
+var userA = 'userA';
+var userB = 'userB';
 
 describe('boardController', function () {
-    describe('getBoard', function () {
+    describe('#getBoard', function () {
         var oldGet = boardModel.get;
         var spyGet = chai.spy(function (id, cb) {
             cb(spyErr, spyValue);
@@ -107,22 +96,20 @@ describe('boardController', function () {
         });
     });
 
-    describe('createBoard', function () {
-        it('should create a board', function (done) {
+    describe('#Test Board', function () {
+        it('creation', function (done) {
             var request = {
-                //url: '/board',
-                //method: 'POST'
                 payload: {
-                    user: 'john',
-                    boardName: 'testBoard',
-                    scrumMasterKey: 'testKey'
+                    user: scrumMaster,
+                    boardName: boardName,
+                    scrumMasterKey: scrumMasterKey
                 }
             };
 
             var reply = function (responseValue) {
-                expect(responseValue).to.have.deep.property('title', 'testBoard');
-                expect(responseValue).to.have.deep.property('scrumMaster', 'john');
-                expect(responseValue).to.have.deep.property('scrumMasterKey', 'testKey');
+                expect(responseValue).to.have.deep.property('title', boardName);
+                expect(responseValue).to.have.deep.property('scrumMaster', scrumMaster);
+                expect(responseValue).to.have.deep.property('scrumMasterKey', scrumMasterKey);
                 boardId = responseValue.id;
                 done();
             };
@@ -130,7 +117,7 @@ describe('boardController', function () {
             boardController.createBoard.handler(request, reply);
         });
 
-        it('should get the previously createdBoard', function (done) {
+        it('retrieval of previously createdBoard', function (done) {
             var request = {
                 params: {
                     id: boardId
@@ -138,28 +125,28 @@ describe('boardController', function () {
             };
 
             var reply = function (responseValue) {
-                expect(responseValue).to.have.deep.property('title', 'testBoard');
-                expect(responseValue).to.have.deep.property('scrumMaster', 'john');
-                expect(responseValue).to.have.deep.property('scrumMasterKey', 'testKey');
+                expect(responseValue).to.have.deep.property('title', boardName);
+                expect(responseValue).to.have.deep.property('scrumMaster', scrumMaster);
+                expect(responseValue).to.have.deep.property('scrumMasterKey', scrumMasterKey);
                 done();
             };
 
             boardController.getBoard.handler(request, reply);
         });
 
+        it('scrum master key', function (done) {
+           boardModel.isScrumMasterKeyCorrect(boardId, scrumMasterKey, function(err, result){
+               assert.isNull(err, 'there was no error');
+               assert.isTrue(result, 'Scrum Master Key was set correctly!');
+               done();
+           });
+        });
 
-    });
-
-    describe.skip('joinBoardAndLeaveFeedback', function () {
-
-    });
-
-    describe('deleteBoard', function () {
-        it('should delete board', function (done) {
+        it('deletion', function (done) {
             var request = {
                 params: {
                     id: boardId,
-                    scrumMasterKey: 'testKey',
+                    scrumMasterKey: scrumMasterKey,
                     test: true
                 }
             };
@@ -172,7 +159,7 @@ describe('boardController', function () {
             boardController.deleteBoard.handler(request, reply);
         });
 
-        it('Board no longer exists', function (done) {
+        it('no longer exists', function (done) {
             var request = {
                 params: {
                     id: boardId
@@ -187,6 +174,114 @@ describe('boardController', function () {
 
             boardController.getBoard.handler(request, reply);
         });
+    });
+
+    describe('#Board Participants', function () {
+        before(function (done) {
+            boardModel.create(scrumMaster, boardName, scrumMasterKey, function(err, data){
+                assert.isUndefined(err, 'there was no error');
+                boardId = data.id;
+
+                boardModel.joinBoard(boardId, userA, function(err, data){
+                    assert.isUndefined(err, 'there was no error');
+                    boardModel.joinBoard(boardId, userB, function(err, data){
+                        assert.isUndefined(err, 'there was no error');
+                        done();
+                    });
+                });
+            });
+        });
+
+        it('should find 2 particpants', function (done) {
+            var request = {
+                params: {
+                    id: boardId
+                }
+            };
+
+            var reply = function (responseValue) {
+                expect(responseValue).to.include.members([userA, userB]);
+                done();
+            };
+
+            boardController.getBoardParticipants.handler(request, reply);
+        });
+
+        it('should find 1 participant after 1 leaves', function (done) {
+            boardModel.leaveBoard(boardId, userA, function(err, data) {
+                assert.isUndefined(err, 'there was no error');
+                var request = {
+                    params: {
+                        id: boardId
+                    }
+                };
+
+                var reply = function (responseValue) {
+                    expect(responseValue).to.include.members([userB]);
+                    done();
+                };
+
+                boardController.getBoardParticipants.handler(request, reply);
+            });
+        });
+    });
+
+    describe('#Board Feedback', function () {
+        before(function (done) {
+            boardModel.create(scrumMaster, boardName, scrumMasterKey, function(err, data){
+                assert.isUndefined(err, 'there was no error');
+                boardId = data.id;
+
+                boardModel.joinBoard(boardId, userA, function(err, data){
+                    assert.isUndefined(err, 'there was no error');
+                    boardModel.joinBoard(boardId, userB, function(err, data){
+                        assert.isUndefined(err, 'there was no error');
+                        done();
+                    });
+                });
+            });
+        });
+
+        it('added to \'What Went Well\'', function (done) {
+            var request = {
+                params: {
+                    id: boardId,
+                    type: constants.feedbackTypes.whatWentWell
+                },
+                payload: {
+                    feedback: 'testFeedback'
+                }
+            };
+
+            var reply = function (responseValue) {
+                assert.equal(responseValue, 'testFeedback');
+                done();
+            };
+
+            boardController.addFeedback.handler(request, reply);
+        });
+
+        it('changed to \'Improve Feedback\'', function (done) {
+            var request = {
+                params: {
+                    id: boardId,
+                    type: constants.feedbackTypes.whatNeedsImprovement,
+                    test: true
+                },
+                payload: {
+                    feedback: 'testFeedback',
+                    scrumMasterKey: scrumMasterKey
+                }
+            };
+
+            var reply = function (responseValue) {
+                expect(responseValue).to.have.deep.property('improveFeedback', 'testFeedback');
+                done();
+            };
+
+            boardController.setFeedback.handler(request, reply);
+        });
+
     });
 
 });

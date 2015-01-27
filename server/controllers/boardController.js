@@ -179,16 +179,18 @@ module.exports = {
                     }
                     reply(error);
                 } else {
-                    switch(request.params.type){
-                        case constants.feedbackTypes.whatWentWell:
-                            io.to(request.params.id).emit(constants.socketEmitters.wellFeedbackEdited, board.wellFeedback);
-                            break;
-                        case constants.feedbackTypes.whatNeedsImprovement:
-                            io.to(request.params.id).emit(constants.socketEmitters.improveFeedbackEdited, board.improveFeedback);
-                            break;
-                        case constants.feedbackTypes.actionItems:
-                            io.to(request.params.id).emit(constants.socketEmitters.actionItemsEdited, board.actionItems);
-                            break;
+                    if(!request.params.test) {
+                        switch (request.params.type) {
+                            case constants.feedbackTypes.whatWentWell:
+                                io.to(request.params.id).emit(constants.socketEmitters.wellFeedbackEdited, board.wellFeedback);
+                                break;
+                            case constants.feedbackTypes.whatNeedsImprovement:
+                                io.to(request.params.id).emit(constants.socketEmitters.improveFeedbackEdited, board.improveFeedback);
+                                break;
+                            case constants.feedbackTypes.actionItems:
+                                io.to(request.params.id).emit(constants.socketEmitters.actionItemsEdited, board.actionItems);
+                                break;
+                        }
                     }
                     reply(board);
                 }
