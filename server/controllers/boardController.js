@@ -71,18 +71,24 @@ module.exports = {
                 } else {
                     switch (request.payload.phase) {
                         case constants.phases.actionVotingEnded:
-                            io.to(request.params.id).emit(constants.socketEmitters.collectVotes, sboard);
+                            if(!request.params.test) {
+                                io.to(request.params.id).emit(constants.socketEmitters.collectVotes, sboard);
+                            }
 
                             setTimeout(function() {
                                 board.createActionItemsFromThemes(request.params.id, function(err, ssboard) {
-                                    io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, ssboard);
+                                    if(!request.params.test) {
+                                        io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, ssboard);
+                                    }
                                     reply(true);
                                 });
                             }, 3000);
                             break;
                         case constants.phases.actionVotingStarted:
                             board.createThemesFromImproveFeedback(request.params.id, function (err, ssboard) {
-                                io.to(request.params.id).emit(constants.socketEmitters.beginVoting, ssboard);
+                                if(!request.params.test) {
+                                    io.to(request.params.id).emit(constants.socketEmitters.beginVoting, ssboard);
+                                }
                                 //TODO: do in one step
                                 reply(true);
                             });
@@ -139,7 +145,10 @@ module.exports = {
                     error.output.statusCode = 404;
                     reply(error);
                 } else {
-                    io.to(request.params.id).emit(constants.socketEmitters.themesEdited, themes);
+
+                    if(!request.params.test) {
+                        io.to(request.params.id).emit(constants.socketEmitters.themesEdited, themes);
+                    }
                     reply(request.payload.theme);
                 }
             });
@@ -156,7 +165,9 @@ module.exports = {
                     error.output.statusCode = 404;
                     reply(error);
                 } else {
-                    io.to(request.params.id).emit(constants.socketEmitters.themesEdited, themes);
+                    if(!request.params.test) {
+                        io.to(request.params.id).emit(constants.socketEmitters.themesEdited, themes);
+                    }
                     reply(request.payload.theme);
                 }
             });
@@ -208,7 +219,9 @@ module.exports = {
                     error.output.statusCode = 404;
                     reply(error);
                 } else {
-                    io.to(request.params.id).emit(constants.socketEmitters.themeAdded, themes);
+                    if(!request.params.test) {
+                        io.to(request.params.id).emit(constants.socketEmitters.themeAdded, themes);
+                    }
                     reply(true);
                 }
             });
