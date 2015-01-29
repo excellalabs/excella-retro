@@ -13,6 +13,7 @@ var constants = require('../../../shared/constants/boardConstants');
 
 var boardModel = require('../../../server/models/board');
 var boardController = require('../../../server/controllers/boardController');
+var oldIo;
 
 //Test Global Variables
 var boardId;
@@ -23,6 +24,28 @@ var userA = 'userA';
 var userB = 'userB';
 
 describe('boardController', function () {
+
+    describe('Mock IO', function(){
+        function Mock(){}
+        Mock.prototype.to = function() {return this;};
+        Mock.prototype.emit = function() {};
+
+        it('mocked', function (done) {
+            var request = {
+                params: {
+                    mock:  new Mock()
+                }
+            };
+
+            var reply = function (responseValue) {
+                oldIo = responseValue;
+                done();
+            };
+
+            boardController.setIo.handler(request, reply);
+        });
+    });
+
     describe('#getBoard', function () {
         var oldGet = boardModel.get;
         var spyGet = chai.spy(function (id, cb) {
@@ -530,9 +553,21 @@ describe('boardController', function () {
 
             boardController.setBoardPhase.handler(request, reply);
         });
-
-
     });
 
+    describe('Reset Mocked IO', function(){
+        it('mocked', function (done) {
+            var request = {
+                params: {
+                    mock:  oldIo
+                }
+            };
 
+            var reply = function () {
+                done();
+            };
+
+            boardController.setIo.handler(request, reply);
+        });
+    });
 });

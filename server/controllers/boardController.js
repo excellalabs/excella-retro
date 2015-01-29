@@ -57,10 +57,10 @@ module.exports = {
     },
     setBoardPhase: {
         handler: function (request, reply) {
-            board.setPhase(request.params.id, request.payload.phase, request.payload.scrumMasterKey, function(err, sboard){
-                if(err){
+            board.setPhase(request.params.id, request.payload.phase, request.payload.scrumMasterKey, function (err, sboard) {
+                if (err) {
                     var error;
-                    if(err === constants.errors.scrumMasterMismatch) {
+                    if (err === constants.errors.scrumMasterMismatch) {
                         error = Hapi.error.badRequest(constants.messages.cannotUpdatePhase);
                         error.output.statusCode = 400;
                     } else {
@@ -71,24 +71,18 @@ module.exports = {
                 } else {
                     switch (request.payload.phase) {
                         case constants.phases.actionVotingEnded:
-                            if(!request.params.test) {
-                                io.to(request.params.id).emit(constants.socketEmitters.collectVotes, sboard);
-                            }
+                            io.to(request.params.id).emit(constants.socketEmitters.collectVotes, sboard);
 
-                            setTimeout(function() {
-                                board.createActionItemsFromThemes(request.params.id, function(err, ssboard) {
-                                    if(!request.params.test) {
-                                        io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, ssboard);
-                                    }
+                            setTimeout(function () {
+                                board.createActionItemsFromThemes(request.params.id, function (err, ssboard) {
+                                    io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, ssboard);
                                     reply(true);
                                 });
                             }, 3000);
                             break;
                         case constants.phases.actionVotingStarted:
                             board.createThemesFromImproveFeedback(request.params.id, function (err, ssboard) {
-                                if(!request.params.test) {
-                                    io.to(request.params.id).emit(constants.socketEmitters.beginVoting, ssboard);
-                                }
+                                io.to(request.params.id).emit(constants.socketEmitters.beginVoting, ssboard);
                                 //TODO: do in one step
                                 reply(true);
                             });
@@ -112,11 +106,11 @@ module.exports = {
                     var error = Hapi.error.badRequest(constants.messages.cannotFind);
                     error.output.statusCode = 404;
                     reply(error);
-                    } else {
-                        reply(feedback);
-                    }
-                });
-            },
+                } else {
+                    reply(feedback);
+                }
+            });
+        },
         app: {
             name: 'board'
         }
@@ -145,10 +139,7 @@ module.exports = {
                     error.output.statusCode = 404;
                     reply(error);
                 } else {
-
-                    if(!request.params.test) {
-                        io.to(request.params.id).emit(constants.socketEmitters.themesEdited, themes);
-                    }
+                    io.to(request.params.id).emit(constants.socketEmitters.themesEdited, themes);
                     reply(request.payload.theme);
                 }
             });
@@ -165,9 +156,7 @@ module.exports = {
                     error.output.statusCode = 404;
                     reply(error);
                 } else {
-                    if(!request.params.test) {
-                        io.to(request.params.id).emit(constants.socketEmitters.themesEdited, themes);
-                    }
+                    io.to(request.params.id).emit(constants.socketEmitters.themesEdited, themes);
                     reply(request.payload.theme);
                 }
             });
@@ -181,7 +170,7 @@ module.exports = {
             board.setFeedback(request.params.id, request.params.type, request.payload.feedback, request.payload.scrumMasterKey, function (err, board) {
                 if (err) {
                     var error;
-                    if(err === constants.errors.scrumMasterMismatch) {
+                    if (err === constants.errors.scrumMasterMismatch) {
                         error = Hapi.error.badRequest(constants.messages.cannotUpdateFeedback);
                         error.output.statusCode = 400;
                     } else {
@@ -190,18 +179,16 @@ module.exports = {
                     }
                     reply(error);
                 } else {
-                    if(!request.params.test) {
-                        switch (request.params.type) {
-                            case constants.feedbackTypes.whatWentWell:
-                                io.to(request.params.id).emit(constants.socketEmitters.wellFeedbackEdited, board.wellFeedback);
-                                break;
-                            case constants.feedbackTypes.whatNeedsImprovement:
-                                io.to(request.params.id).emit(constants.socketEmitters.improveFeedbackEdited, board.improveFeedback);
-                                break;
-                            case constants.feedbackTypes.actionItems:
-                                io.to(request.params.id).emit(constants.socketEmitters.actionItemsEdited, board.actionItems);
-                                break;
-                        }
+                    switch (request.params.type) {
+                        case constants.feedbackTypes.whatWentWell:
+                            io.to(request.params.id).emit(constants.socketEmitters.wellFeedbackEdited, board.wellFeedback);
+                            break;
+                        case constants.feedbackTypes.whatNeedsImprovement:
+                            io.to(request.params.id).emit(constants.socketEmitters.improveFeedbackEdited, board.improveFeedback);
+                            break;
+                        case constants.feedbackTypes.actionItems:
+                            io.to(request.params.id).emit(constants.socketEmitters.actionItemsEdited, board.actionItems);
+                            break;
                     }
                     reply(board);
                 }
@@ -219,9 +206,7 @@ module.exports = {
                     error.output.statusCode = 404;
                     reply(error);
                 } else {
-                    if(!request.params.test) {
-                        io.to(request.params.id).emit(constants.socketEmitters.themeAdded, themes);
-                    }
+                    io.to(request.params.id).emit(constants.socketEmitters.themeAdded, themes);
                     reply(true);
                 }
             });
@@ -231,11 +216,11 @@ module.exports = {
         }
     },
     deleteBoard: {
-        handler: function(request, reply){
-            board.delete(request.params.id, request.params.scrumMasterKey, function(err){
-                if(err){
+        handler: function (request, reply) {
+            board.delete(request.params.id, request.params.scrumMasterKey, function (err) {
+                if (err) {
                     var error;
-                    if(err === constants.errors.scrumMasterMismatch) {
+                    if (err === constants.errors.scrumMasterMismatch) {
                         error = Hapi.error.badRequest(constants.messages.cannotDelete);
                         error.output.statusCode = 400;
                     } else {
@@ -244,13 +229,22 @@ module.exports = {
                     }
                     reply(error);
                 } else {
-                    if(!request.params.test) {
-                        io.to(request.params.id).emit(constants.socketEmitters.boardClosed, request.params.id);
-                    }
+                    io.to(request.params.id).emit(constants.socketEmitters.boardClosed, request.params.id);
                     reply(true);
                 }
 
             });
+        },
+        app: {
+            name: 'board'
+        }
+    },
+    setIo: {
+        handler: function (request, reply) {
+            var oldIo = io;
+            io = request.params.mock;
+
+            reply(oldIo);
         },
         app: {
             name: 'board'
