@@ -10,6 +10,7 @@ app.directive('viewFeedback', [function() {
         templateUrl: 'templates/directives/viewFeedback.html',
         scope: {
             feedbackList: '=feedback',
+            tmp: '@tmp',
             feedbackContext: '@feedbackContext'
         }
     };

@@ -56,6 +56,13 @@ gulp.task('scripts', function() {
               path: 'public/bower_components/interact/interact.js',
               exports: 'interact'
           },
+          'angular-xeditable': {
+              path: 'public/bower_components/angular-xeditable/dist/js/xeditable.js',
+              exports: null,
+              depends: {
+                  angular: 'angular'
+              }
+          },
           'angular-route': {
               path: 'public/bower_components/angular-route/angular-route',
               exports: null,

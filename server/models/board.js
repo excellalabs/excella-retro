@@ -164,21 +164,25 @@ module.exports = {
         });
     },
     addFeedback: function(boardId, type, feedback, callback) {
+        var feedbackObj = {
+            id: helpers.guid(),
+            feedback: feedback
+        };
         this.get(boardId, function(err, board) {
             switch(type) {
                 case constants.feedbackTypes.whatWentWell:
-                    board.wellFeedback.push(feedback);
+                    board.wellFeedback.push(feedbackObj);
                     break;
                 case constants.feedbackTypes.whatNeedsImprovement:
-                    board.improveFeedback.push(feedback);
+                    board.improveFeedback.push(feedbackObj);
                     break;
                 case constants.feedbackTypes.actionItems:
-                    board.actionItems.push(feedback);
+                    board.actionItems.push(feedbackObj);
                     break;
             }
 
             saveBoard(boardId, board, function(err, savedBoard) {
-                callback(err, feedback);
+                callback(err, feedbackObj);
             });
         });
     },

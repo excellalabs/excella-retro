@@ -2,6 +2,25 @@
     <div class="panel-heading"><strong>{{feedbackContext}} Feedback</strong></div>
     <div class="panel-body" ng-if="!feedbackList || feedbackList.length == 0">No feedback</div>
     <ul class="list-group">
-        <li class="list-group-item" ng-repeat="feedback in feedbackList track by $index">{{feedback[0]}}</li>
+        <form role="form" name="editFeedbackForm" editable-form>
+        <div ng-repeat="feedback in feedbackList track by $index">
+            <!--<li class="list-group-item" ng-click="editorEnabled=!editorEnable" ng-hide="editorEnabled">{{feedback[0]}}-->
+
+            <!--</li>-->
+            {{feedback}}
+            <span editable-text="feedback[0]" e-name="feedback" e-form="editFeedbackForm">{{feedback[0]}}</span>
+            <button class="btn btn-default" ng-click="editFeedbackForm.$show()">
+            edit
+            </button>
+            <!--<input ng-show="editorEnabled" ng-model="feedback[0]"/>-->
+
+            <!--<a href="#" class="icon-ok" ng-show="editorEnabled" ng-click="editorEnabled=!editorEnabled">-->
+                <!--<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-->
+            <!--</a>-->
+            <!--<a href="#" class="icon-ok" ng-show="editorEnabled" ng-click="editorEnabled=!editorEnabled">-->
+                <!--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>-->
+            <!--</a>-->
+        </div>
+        </form>
     </ul>
 </div>
