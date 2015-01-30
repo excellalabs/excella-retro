@@ -169,8 +169,7 @@ describe('boardController', function () {
             var request = {
                 params: {
                     id: boardId,
-                    scrumMasterKey: scrumMasterKey,
-                    test: true
+                    scrumMasterKey: scrumMasterKey
                 }
             };
 
@@ -288,8 +287,7 @@ describe('boardController', function () {
             var request = {
                 params: {
                     id: boardId,
-                    type: constants.feedbackTypes.whatNeedsImprovement,
-                    test: true
+                    type: constants.feedbackTypes.whatNeedsImprovement
                 },
                 payload: {
                     feedback: 'testFeedback',
@@ -357,8 +355,7 @@ describe('boardController', function () {
         it('addition \'testTheme\'', function (done) {
             var request = {
                 params: {
-                    id: boardId,
-                    test: true
+                    id: boardId
                 },
                 payload: {
                     theme: 'testTheme'
@@ -387,8 +384,7 @@ describe('boardController', function () {
                 themes[0].description = 'alternate theme';
                 var request = {
                     params: {
-                        id: boardId,
-                        test: true
+                        id: boardId
                     },
                     payload:{
                         theme: 'alternate theme',
@@ -486,8 +482,7 @@ describe('boardController', function () {
         it('set Phase to Voting Started', function (done) {
             var request = {
                 params: {
-                    id: boardId,
-                    test: true
+                    id: boardId
                 },
                 payload: {
                     scrumMasterKey: scrumMasterKey,
@@ -514,8 +509,7 @@ describe('boardController', function () {
 
                 var request = {
                     params: {
-                        id: boardId,
-                        test: true
+                        id: boardId
                     },
                     payload: {
                         themeIdVoteCollection:themeIdCollection
@@ -537,8 +531,7 @@ describe('boardController', function () {
             this.timeout(3500);
             var request = {
                 params: {
-                    id: boardId,
-                    test: true
+                    id: boardId
                 },
                 payload: {
                     scrumMasterKey: scrumMasterKey,
@@ -556,7 +549,7 @@ describe('boardController', function () {
     });
 
     describe('Reset Mocked IO', function(){
-        it('mocked', function (done) {
+        it('resetted', function (done) {
             var request = {
                 params: {
                     mock:  oldIo
