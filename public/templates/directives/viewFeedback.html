@@ -8,9 +8,11 @@
 
             <!--</li>-->
             {{feedback}}
-            <span editable-text="feedback[0]" e-name="feedback" e-form="editFeedbackForm">{{feedback[0]}}</span>
-            <button class="btn btn-default" ng-click="editFeedbackForm.$show()">
-            edit
+            <span editable-text="user.name" e-form="textBtnForm">
+                {{feedback[0].feedback}}
+              </span>
+            <button class="btn btn-default" ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visible">
+                edit
             </button>
             <!--<input ng-show="editorEnabled" ng-model="feedback[0]"/>-->
 

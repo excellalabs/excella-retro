@@ -1,10 +1,14 @@
 /* global require, module, exports */
 /* jslint browser: true */
+'use strict';
 
 var app = require('./_module_init.js');
 
+app.run(function(editableOptions) {
+    editableOptions.theme = 'bs3';
+});
+
 app.directive('viewFeedback', [function() {
-    "use strict";
     return {
         restrict: 'E',
         templateUrl: 'templates/directives/viewFeedback.html',

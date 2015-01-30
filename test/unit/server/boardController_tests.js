@@ -10,6 +10,7 @@ var expect = chai.expect;
 var assert = chai.assert;
 
 var constants = require('../../../shared/constants/boardConstants');
+var helpers = require('../../../shared/helpers.js');
 
 var boardModel = require('../../../server/models/board');
 var boardController = require('../../../server/controllers/boardController');
@@ -278,7 +279,7 @@ describe('boardController', function () {
             };
 
             var reply = function (responseValue) {
-                assert.equal(responseValue, 'testFeedback');
+                expect(responseValue).to.have.deep.property('feedback', 'testFeedback');
                 done();
             };
 
@@ -286,19 +287,21 @@ describe('boardController', function () {
         });
 
         it('should set \'What Needs Improvement\' Feedback list', function (done) {
+            var feedbacks = [{id: helpers.guid() , feedback: 'Improve TestFeedback 1'},
+                {id: helpers.guid(), feedback: 'Improve TestFeedback 2'}];
             var request = {
                 params: {
                     id: boardId,
                     type: constants.feedbackTypes.whatNeedsImprovement
                 },
                 payload: {
-                    feedback: ['Improve TestFeedback 1', 'Improve TestFeedback 2'],
+                    feedback: feedbacks,
                     scrumMasterKey: scrumMasterKey
                 }
             };
 
             var reply = function (responseValue) {
-                expect(responseValue.improveFeedback).to.deep.equal(['Improve TestFeedback 1', 'Improve TestFeedback 2']);
+                expect(responseValue.improveFeedback).to.deep.equal(feedbacks);
                 done();
             };
 
@@ -338,13 +341,11 @@ describe('boardController', function () {
                             }
                         };
 
-                        var fDreply1 = function (responseValue) {
-                            assert.equal(responseValue, 'testFeedback');
+                        var fDreply1 = function () {
                             boardController.addFeedback.handler(feedback2, fDreply2);
                         };
 
-                        var fDreply2 = function (responseValue) {
-                            assert.equal(responseValue, 'testFeedback');
+                        var fDreply2 = function () {
                             done();
                         };
 
@@ -465,13 +466,11 @@ describe('boardController', function () {
                             }
                         };
 
-                        var fDreply1 = function (responseValue) {
-                            assert.equal(responseValue, 'testFeedback');
+                        var fDreply1 = function () {
                             boardController.addFeedback.handler(feedback2, fDreply2);
                         };
 
-                        var fDreply2 = function (responseValue) {
-                            assert.equal(responseValue, 'testFeedback');
+                        var fDreply2 = function () {
                             done();
                         };
 

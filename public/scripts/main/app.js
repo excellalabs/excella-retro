@@ -24,6 +24,7 @@ angular.element(document).ready(function() {
 		'remoteRetro.adminService',
         'remoteRetro.socketFactory',
 		'ngRoute',
+        'xeditable',
         'ui.bootstrap'
 	];
 
