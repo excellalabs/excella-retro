@@ -25,25 +25,27 @@ var userB = 'userB';
 
 describe('boardController', function () {
 
-    describe('Mock IO', function(){
-        function Mock(){}
-        Mock.prototype.to = function() {return this;};
-        Mock.prototype.emit = function() {};
+    before(function () {
+        function Mock() {
+        }
 
-        it('mocked', function (done) {
-            var request = {
-                params: {
-                    mock:  new Mock()
-                }
-            };
+        Mock.prototype.to = function () {
+            return this;
+        };
+        Mock.prototype.emit = function () {
+        };
 
-            var reply = function (responseValue) {
-                oldIo = responseValue;
-                done();
-            };
+        var request = {
+            params: {
+                mock: new Mock()
+            }
+        };
 
-            boardController.setIo.handler(request, reply);
-        });
+        var reply = function (responseValue) {
+            oldIo = responseValue;
+        };
+
+        boardController.setIo.handler(request, reply);
     });
 
     describe('#getBoard', function () {
@@ -119,8 +121,8 @@ describe('boardController', function () {
         });
     });
 
-    describe('#Test Board', function () {
-        it('creation', function (done) {
+    describe('#Board initialization', function () {
+        it('should create 1 board', function (done) {
             var request = {
                 payload: {
                     user: scrumMaster,
@@ -140,7 +142,7 @@ describe('boardController', function () {
             boardController.createBoard.handler(request, reply);
         });
 
-        it('retrieval of previously createdBoard', function (done) {
+        it('should retrieve previously created board by Id', function (done) {
             var request = {
                 params: {
                     id: boardId
@@ -157,20 +159,19 @@ describe('boardController', function () {
             boardController.getBoard.handler(request, reply);
         });
 
-        it('scrum master key', function (done) {
-           boardModel.isScrumMasterKeyCorrect(boardId, scrumMasterKey, function(err, result){
-               assert.isNull(err, 'there was no error');
-               assert.isTrue(result, 'Scrum Master Key was set correctly!');
-               done();
-           });
+        it('should verify the scrum master key was set correctly', function (done) {
+            boardModel.isScrumMasterKeyCorrect(boardId, scrumMasterKey, function (err, result) {
+                assert.isNull(err, 'there was no error');
+                assert.isTrue(result, 'Scrum Master Key was set correctly!');
+                done();
+            });
         });
 
-        it('deletion', function (done) {
+        it('should delete the created board', function (done) {
             var request = {
                 params: {
                     id: boardId,
-                    scrumMasterKey: scrumMasterKey,
-                    test: true
+                    scrumMasterKey: scrumMasterKey
                 }
             };
 
@@ -182,7 +183,7 @@ describe('boardController', function () {
             boardController.deleteBoard.handler(request, reply);
         });
 
-        it('no longer exists', function (done) {
+        it('should not find the created board', function (done) {
             var request = {
                 params: {
                     id: boardId
@@ -201,13 +202,13 @@ describe('boardController', function () {
 
     describe('#Board Participants', function () {
         before(function (done) {
-            boardModel.create(scrumMaster, boardName, scrumMasterKey, function(err, data){
+            boardModel.create(scrumMaster, boardName, scrumMasterKey, function (err, data) {
                 assert.isUndefined(err, 'there was no error');
                 boardId = data.id;
 
-                boardModel.joinBoard(boardId, userA, function(err){
+                boardModel.joinBoard(boardId, userA, function (err) {
                     assert.isUndefined(err, 'there was no error');
-                    boardModel.joinBoard(boardId, userB, function(err){
+                    boardModel.joinBoard(boardId, userB, function (err) {
                         assert.isUndefined(err, 'there was no error');
                         done();
                     });
@@ -231,7 +232,7 @@ describe('boardController', function () {
         });
 
         it('should find 1 participant after 1 leaves', function (done) {
-            boardModel.leaveBoard(boardId, userA, function(err) {
+            boardModel.leaveBoard(boardId, userA, function (err) {
                 assert.isUndefined(err, 'there was no error');
                 var request = {
                     params: {
@@ -251,13 +252,13 @@ describe('boardController', function () {
 
     describe('#Board Feedback', function () {
         before(function (done) {
-            boardModel.create(scrumMaster, boardName, scrumMasterKey, function(err, data){
+            boardModel.create(scrumMaster, boardName, scrumMasterKey, function (err, data) {
                 assert.isUndefined(err, 'there was no error');
                 boardId = data.id;
 
-                boardModel.joinBoard(boardId, userA, function(err){
+                boardModel.joinBoard(boardId, userA, function (err) {
                     assert.isUndefined(err, 'there was no error');
-                    boardModel.joinBoard(boardId, userB, function(err){
+                    boardModel.joinBoard(boardId, userB, function (err) {
                         assert.isUndefined(err, 'there was no error');
                         done();
                     });
@@ -265,7 +266,7 @@ describe('boardController', function () {
             });
         });
 
-        it('added to \'What Went Well\'', function (done) {
+        it('should add feedback to \'What Went Well\' list', function (done) {
             var request = {
                 params: {
                     id: boardId,
@@ -284,21 +285,20 @@ describe('boardController', function () {
             boardController.addFeedback.handler(request, reply);
         });
 
-        it('changed to \'Improve Feedback\'', function (done) {
+        it('should set \'What Needs Improvement\' Feedback list', function (done) {
             var request = {
                 params: {
                     id: boardId,
-                    type: constants.feedbackTypes.whatNeedsImprovement,
-                    test: true
+                    type: constants.feedbackTypes.whatNeedsImprovement
                 },
                 payload: {
-                    feedback: 'testFeedback',
+                    feedback: ['Improve TestFeedback 1', 'Improve TestFeedback 2'],
                     scrumMasterKey: scrumMasterKey
                 }
             };
 
             var reply = function (responseValue) {
-                expect(responseValue).to.have.deep.property('improveFeedback', 'testFeedback');
+                expect(responseValue.improveFeedback).to.deep.equal(['Improve TestFeedback 1', 'Improve TestFeedback 2']);
                 done();
             };
 
@@ -310,13 +310,13 @@ describe('boardController', function () {
         var theme = 'testTheme';
 
         before(function (done) {
-            boardModel.create(scrumMaster, boardName, scrumMasterKey, function(err, data){
+            boardModel.create(scrumMaster, boardName, scrumMasterKey, function (err, data) {
                 assert.isUndefined(err, 'there was no error');
                 boardId = data.id;
 
-                boardModel.joinBoard(boardId, userA, function(err){
+                boardModel.joinBoard(boardId, userA, function (err) {
                     assert.isUndefined(err, 'there was no error');
-                    boardModel.joinBoard(boardId, userB, function(err){
+                    boardModel.joinBoard(boardId, userB, function (err) {
                         assert.isUndefined(err, 'there was no error');
                         var feedback1 = {
                             params: {
@@ -354,11 +354,10 @@ describe('boardController', function () {
             });
         });
 
-        it('addition \'testTheme\'', function (done) {
+        it('should create the Theme \'testTheme\'', function (done) {
             var request = {
                 params: {
-                    id: boardId,
-                    test: true
+                    id: boardId
                 },
                 payload: {
                     theme: 'testTheme'
@@ -373,7 +372,7 @@ describe('boardController', function () {
             boardController.addTheme.handler(request, reply);
         });
 
-        it('verification that \'testTheme\' was added and changed to \'alternate theme\'', function (done) {
+        it('should verify that the \'testTheme\' Theme was added and changed to \'alternate theme\' Theme', function (done) {
             var request = {
                 params: {
                     id: boardId
@@ -387,16 +386,15 @@ describe('boardController', function () {
                 themes[0].description = 'alternate theme';
                 var request = {
                     params: {
-                        id: boardId,
-                        test: true
+                        id: boardId
                     },
-                    payload:{
+                    payload: {
                         theme: 'alternate theme',
                         themes: themes
                     }
                 };
                 var reply = function () {
-                    boardModel.getThemes(boardId, function(err, data){
+                    boardModel.getThemes(boardId, function (err, data) {
                         assert.isNull(err, 'there was no error');
                         expect(data[0]).to.have.deep.property('description', 'alternate theme');
                         done();
@@ -410,11 +408,11 @@ describe('boardController', function () {
             boardController.getThemes.handler(request, reply);
         });
 
-        it('creation of theme from \'Improve Feedback\'', function (done) {
-            boardModel.createThemesFromImproveFeedback(boardId,function(err) {
+        it('should create a theme from feedback in \'What Needs Improvement\' Feedback', function (done) {
+            boardModel.createThemesFromImproveFeedback(boardId, function (err) {
                 assert.isUndefined(err, 'there was no error');
 
-                boardModel.getThemes(boardId, function(err, data){
+                boardModel.getThemes(boardId, function (err, data) {
                     assert.isNull(err, 'there was no error');
                     expect(data).to.have.length(2);
                     done();
@@ -422,11 +420,11 @@ describe('boardController', function () {
             });
         });
 
-        it('creation of action items', function (done) {
-            boardModel.createActionItemsFromThemes(boardId,function(err) {
+        it('should create action items from created Themes', function (done) {
+            boardModel.createActionItemsFromThemes(boardId, function (err) {
                 assert.isUndefined(err, 'there was no error');
 
-                boardModel.get(boardId, function(err, data){
+                boardModel.get(boardId, function (err, data) {
                     assert.isNull(err, 'there was no error');
                     expect(data.actionItems).to.have.length(2);
                     done();
@@ -439,13 +437,13 @@ describe('boardController', function () {
         var theme = 'testTheme';
 
         before(function (done) {
-            boardModel.create(scrumMaster, boardName, scrumMasterKey, function(err, data){
+            boardModel.create(scrumMaster, boardName, scrumMasterKey, function (err, data) {
                 assert.isUndefined(err, 'there was no error');
                 boardId = data.id;
 
-                boardModel.joinBoard(boardId, userA, function(err){
+                boardModel.joinBoard(boardId, userA, function (err) {
                     assert.isUndefined(err, 'there was no error');
-                    boardModel.joinBoard(boardId, userB, function(err){
+                    boardModel.joinBoard(boardId, userB, function (err) {
                         assert.isUndefined(err, 'there was no error');
                         var feedback1 = {
                             params: {
@@ -483,11 +481,10 @@ describe('boardController', function () {
             });
         });
 
-        it('set Phase to Voting Started', function (done) {
+        it('should set the board phase to \'Voting Started\'', function (done) {
             var request = {
                 params: {
-                    id: boardId,
-                    test: true
+                    id: boardId
                 },
                 payload: {
                     scrumMasterKey: scrumMasterKey,
@@ -503,8 +500,8 @@ describe('boardController', function () {
             boardController.setBoardPhase.handler(request, reply);
         });
 
-        it('tallied for each theme', function (done) {
-            boardModel.getThemes(boardId, function(err, data){
+        it('should tally the votes for each theme', function (done) {
+            boardModel.getThemes(boardId, function (err, data) {
                 assert.isNull(err, 'there was no error');
                 var themeId1 = data[0].id;
                 var themeId2 = data[1].id;
@@ -514,11 +511,10 @@ describe('boardController', function () {
 
                 var request = {
                     params: {
-                        id: boardId,
-                        test: true
+                        id: boardId
                     },
                     payload: {
-                        themeIdVoteCollection:themeIdCollection
+                        themeIdVoteCollection: themeIdCollection
                     }
                 };
 
@@ -533,12 +529,11 @@ describe('boardController', function () {
 
         });
 
-        it('set Phase to Voting Ended', function (done) {
+        it('should set the board phase to \'Voting Ended\'', function (done) {
             this.timeout(3500);
             var request = {
                 params: {
-                    id: boardId,
-                    test: true
+                    id: boardId
                 },
                 payload: {
                     scrumMasterKey: scrumMasterKey,
@@ -555,19 +550,16 @@ describe('boardController', function () {
         });
     });
 
-    describe('Reset Mocked IO', function(){
-        it('mocked', function (done) {
-            var request = {
-                params: {
-                    mock:  oldIo
-                }
-            };
+    after(function () {
+        var request = {
+            params: {
+                mock: oldIo
+            }
+        };
 
-            var reply = function () {
-                done();
-            };
+        var reply = function () {
+        };
 
-            boardController.setIo.handler(request, reply);
-        });
+        boardController.setIo.handler(request, reply);
     });
 });
