@@ -13,7 +13,6 @@ function saveBoard(boardId, board, callback) {
         }
         callback(err, board);
     });
-    console.log(board);
 }
 
 function removePrivateFields(board){
@@ -204,13 +203,6 @@ module.exports = {
                         }
                     }
                     break;
-                case constants.feedbackTypes.actionItems:
-                    //for(var i = 0; i < board.actionItems.length; i++){
-                    //    if(board.actionItems[i].id === feedback.id){
-                    //        board.actionItems[i].feedback = feedback.feedback;
-                    //    }
-                    //}
-                    break;
             }
 
             saveBoard(boardId, board, function(err) {
@@ -225,7 +217,6 @@ module.exports = {
                 callback(err, board);
             });
         });
-        console.log('setThemes');
     },
     createThemesFromImproveFeedback: function(boardId, callback) {
         var that = this;
@@ -234,7 +225,6 @@ module.exports = {
             var formattedThemes = themes.map(function(theme) { return { id: helpers.guid(), description: theme, votes: 0 }; });
             that.setThemes(board.id, formattedThemes, callback);
         });
-        console.log('createThemesFromImproveFeedback');
     },
     createActionItemsFromThemes: function(boardId, callback) {
         this.get(boardId, function (err, board) {
@@ -242,7 +232,6 @@ module.exports = {
             board.actionItems = sortedThemes.map(function(theme) { return [theme.description + " (" + theme.votes + ")"];});
             saveBoard(boardId, board, callback);
         });
-        console.log('createActionItemsFromThemes');
     },
     addTheme: function(boardId, theme, callback) {
         this.get(boardId, function(err, board) {
@@ -252,13 +241,11 @@ module.exports = {
                 callback(err, board.themes);
             });
         });
-        console.log('addTheme');
     },
     getThemes: function(boardId, callback) {
         this.get(boardId, function(err, board) {
             callback(err, board.themes);
         });
-        console.log('getThemes');
     },
     addVotes: function(boardId, themeIdVoteCollection, callback) {
         var that = this;

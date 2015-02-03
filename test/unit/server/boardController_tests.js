@@ -267,6 +267,7 @@ describe('boardController', function () {
             });
         });
 
+        var wentWellFeedback;
         it('should add feedback to \'What Went Well\' list', function (done) {
             var request = {
                 params: {
@@ -280,10 +281,31 @@ describe('boardController', function () {
 
             var reply = function (responseValue) {
                 expect(responseValue).to.have.deep.property('feedback', 'testFeedback');
+                wentWellFeedback = responseValue;
                 done();
             };
 
             boardController.addFeedback.handler(request, reply);
+        });
+
+        it('should edit feedback in \'What Went Well\' list', function (done) {
+            wentWellFeedback.feedback = 'edited feedback';
+            var request = {
+                params: {
+                    id: boardId,
+                    type: constants.feedbackTypes.whatWentWell
+                },
+                payload: {
+                    editedFeedback: wentWellFeedback
+                }
+            };
+
+            var reply = function (responseValue) {
+                expect(responseValue).to.have.deep.property('feedback', 'edited feedback');
+                done();
+            };
+
+            boardController.editFeedback.handler(request, reply);
         });
 
         it('should set \'What Needs Improvement\' Feedback list', function (done) {
