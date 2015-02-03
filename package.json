@@ -12,7 +12,7 @@
     "start": "node server",
     "stop": "taskkill /F /IM node.exe",
     "test": "gulp test",
-    "dev": "nodemon server"
+    "dev": "gulp dev"
   },
   "repository": {
     "type": "git",
