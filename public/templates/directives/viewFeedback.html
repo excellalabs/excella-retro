@@ -5,20 +5,15 @@
         <div ng-repeat="feedback in feedbackList track by $index">
             <li class="list-group-item">
             <span e-name="feedback" editable-text="feedbackList[$index].feedback[0]" ng-model="feedback"
-                  e-form="editFeedbackForm" ng-show="!editFeedbackForm.$visible">
+                  e-form="editFeedbackForm" ng-show="!editFeedbackForm.$visible" style="word-wrap: break-word;">
                 {{feedback.feedback[0]}}
             </span>
 
-            <form class="form-buttons form-inline" editable-form name="editFeedbackForm" ng-show="editFeedbackForm.$visible"
+            <form editable-form name="editFeedbackForm" ng-show="editFeedbackForm.$visible"
                   onbeforesave="editFeedback()">
-                <error-field model="validation"></error-field>
-                <button type="submit" ng-disabled="editFeedbackForm.$waiting" class="btn btn-primary">
-                    save
-                </button>
+                <button type="submit" ng-disabled="editFeedbackForm.$waiting" class="btn btn-primary glyphicon glyphicon-ok"/>
                 <button type="button" ng-disabled="editFeedbackForm.$waiting" ng-click="editFeedbackForm.$cancel()"
-                        class="btn btn-default">
-                    cancel
-                </button>
+                        class="btn glyphicon glyphicon-remove"/>
             </form>
             <button class="btn btn-primary" ng-click="editFeedbackForm.$show()" ng-show="!editFeedbackForm.$visible">
                 edit
