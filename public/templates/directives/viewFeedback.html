@@ -9,22 +9,24 @@
                 {{feedback.feedback[0]}}
             </span>
 
-            <form class="form-buttons form-inline" editable-form name="editFeedbackForm" ng-show="editFeedbackForm.$visible"
-                  onbeforesave="editFeedback()">
-                <error-field model="validation"></error-field>
-                <button type="submit" ng-disabled="editFeedbackForm.$waiting" class="btn btn-primary">
-                    save
+                <form class="form-buttons form-inline" editable-form name="editFeedbackForm"
+                      ng-show="editFeedbackForm.$visible"
+                      onbeforesave="editFeedback()">
+                    <error-field model="validation"></error-field>
+                    <button type="submit" ng-disabled="editFeedbackForm.$waiting" class="btn btn-primary">
+                        save
+                    </button>
+                    <button type="button" ng-disabled="editFeedbackForm.$waiting" ng-click="editFeedbackForm.$cancel()"
+                            class="btn btn-default">
+                        cancel
+                    </button>
+                </form>
+                <button class="btn btn-primary" ng-click="editFeedbackForm.$show()"
+                        ng-show="!editFeedbackForm.$visible">
+                    edit
                 </button>
-                <button type="button" ng-disabled="editFeedbackForm.$waiting" ng-click="editFeedbackForm.$cancel()"
-                        class="btn btn-default">
-                    cancel
-                </button>
-            </form>
-            <button class="btn btn-primary" ng-click="editFeedbackForm.$show()" ng-show="!editFeedbackForm.$visible">
-                edit
-            </button>
+                <button class="btn btn-danger" ng-click="deleteFeedback($index); editFeedbackForm.$hide()" ng-show="!editFeedbackForm.$visible">del</button>
             </li>
-            <!--<button class="btn btn-danger" ng-click="removeUser($index)">del</button>-->
         </div>
     </ul>
 </div>

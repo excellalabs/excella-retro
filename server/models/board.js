@@ -210,6 +210,26 @@ module.exports = {
             });
         });
     },
+    deleteFeedback: function(boardId, type, feedbackId, callback) {
+        this.get(boardId, function(err, board) {
+            switch(type) {
+                case constants.feedbackTypes.whatWentWell:
+                    board.wellFeedback = board.wellFeedback.filter(function(fd){
+                        return fd.id !== feedbackId;
+                    });
+                    break;
+                case constants.feedbackTypes.whatNeedsImprovement:
+                    board.improveFeedback.filter(function(fd){
+                        return fd.id !== feedbackId;
+                    });
+                    break;
+            }
+
+            saveBoard(boardId, board, function(err) {
+                callback(err);
+            });
+        });
+    },
     setThemes: function(boardId, themes, callback) {
         this.get(boardId, function(err, board) {
             board.themes = themes;

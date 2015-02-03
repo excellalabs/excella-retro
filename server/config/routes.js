@@ -92,6 +92,11 @@ module.exports = [
         config: controller.board.editFeedback
     },
     {
+        method: 'DELETE',
+        path: '/board/{id}/deleteFeedback/{type}/{feedbackId}',
+        config: controller.board.deleteFeedback
+    },
+    {
         method: 'GET',
         path: '/board/{id}/theme',
         config: controller.board.getThemes

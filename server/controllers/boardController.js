@@ -134,6 +134,22 @@ module.exports = {
             name: 'board'
         }
     },
+    deleteFeedback: {
+        handler: function (request, reply) {
+            board.deleteFeedback(request.params.id, request.params.type, request.params.feedbackId, function (err) {
+                if (err) {
+                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
+                    error.output.statusCode = 404;
+                    reply(error);
+                } else {
+                    reply(true);
+                }
+            });
+        },
+        app: {
+            name: 'board'
+        }
+    },
     getThemes: {
         handler: function (request, reply) {
             board.getThemes(request.params.id, function (err, themes) {
