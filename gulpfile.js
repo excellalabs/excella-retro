@@ -8,6 +8,7 @@ var less        = require('gulp-less');
 var sourcemaps  = require('gulp-sourcemaps');
 var mocha       = require('gulp-mocha');
 var colorMaps   = require('./less/gulpLessColorMaps');
+var nodemon = require('gulp-nodemon');
 
 
 var isProduction = false;
@@ -102,6 +103,24 @@ gulp.task('watch', function(){
     gulp.watch('public/scripts/**/*.js', ['scripts']);
     gulp.watch('less/**/*.less', ['less']);
     gulp.watch('less/gulpLessColorMaps.js', ['less']);
+});
+
+gulp.task('dev', function () {
+    nodemon({
+        script: 'server.js',
+        ext: 'html js',
+        verbose: true,
+        "env": {
+            "NODE_ENV": "development"
+        },
+        ignore: [
+            ".git",
+            "node_modules/**/node_modules"
+        ]
+        })
+        .on('restart', function () {
+            console.log('Server Restarted!');
+        });
 });
 
 gulp.task('test', function (){
