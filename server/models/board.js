@@ -181,8 +181,39 @@ module.exports = {
                     break;
             }
 
-            saveBoard(boardId, board, function(err, savedBoard) {
+            saveBoard(boardId, board, function(err) {
                 callback(err, feedbackObj);
+            });
+        });
+    },
+    editFeedback: function(boardId, type, editedFeedback, callback) {
+        this.get(boardId, function(err, board) {
+            switch(type) {
+                case constants.feedbackTypes.whatWentWell:
+                    for(var i = 0; i < board.wellFeedback.length; i++){
+                        if(board.wellFeedback[i].id === editedFeedback.id){
+                            board.wellFeedback[i].feedback[0] = editedFeedback.feedback;
+                        }
+                    }
+                    break;
+                case constants.feedbackTypes.whatNeedsImprovement:
+                    for(var i = 0; i < board.improveFeedback.length; i++){
+                        if(board.improveFeedback[i].id === editedFeedback.id){
+                            board.improveFeedback[i].feedback[0] = editedFeedback.feedback;
+                        }
+                    }
+                    break;
+                case constants.feedbackTypes.actionItems:
+                    //for(var i = 0; i < board.actionItems.length; i++){
+                    //    if(board.actionItems[i].id === feedback.id){
+                    //        board.actionItems[i].feedback = feedback.feedback;
+                    //    }
+                    //}
+                    break;
+            }
+
+            saveBoard(boardId, board, function(err) {
+                callback(err, editedFeedback);
             });
         });
     },
