@@ -3,7 +3,6 @@
 
 var angular = require('angular');
 require('angular-route');
-require('angular-xeditable');
 require('ui-bootstrap');
 require('ui-bootstrap-tpls');
 require('../controllers/_module_init');

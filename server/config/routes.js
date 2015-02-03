@@ -87,6 +87,11 @@ module.exports = [
         config: controller.board.addFeedback
     },
     {
+        method: 'POST',
+        path: '/board/{id}/editFeedback/{type}',
+        config: controller.board.editFeedback
+    },
+    {
         method: 'GET',
         path: '/board/{id}/theme',
         config: controller.board.getThemes

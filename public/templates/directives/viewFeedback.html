@@ -2,17 +2,29 @@
     <div class="panel-heading"><strong>{{feedbackContext}} Feedback</strong></div>
     <div class="panel-body" ng-if="!feedbackList || feedbackList.length == 0">No feedback</div>
     <ul class="list-group">
-        <form role="form" name="editForm" editable-form>
         <div ng-repeat="feedback in feedbackList track by $index">
-
-            <span editable-text="feedbackList[$index].feedback[0]" e-form="editForm">
+            <li class="list-group-item">
+            <span e-name="feedback" editable-text="feedbackList[$index].feedback[0]" ng-model="feedback"
+                  e-form="editFeedbackForm" ng-show="!editFeedbackForm.$visible">
                 {{feedback.feedback[0]}}
-              </span>
-            <button class="btn btn-default" ng-click="editForm.$show()" ng-hide="editForm.$visible">
+            </span>
+
+            <form class="form-buttons form-inline" editable-form name="editFeedbackForm" ng-show="editFeedbackForm.$visible"
+                  onbeforesave="editFeedback()">
+                <error-field model="validation"></error-field>
+                <button type="submit" ng-disabled="editFeedbackForm.$waiting" class="btn btn-primary">
+                    save
+                </button>
+                <button type="button" ng-disabled="editFeedbackForm.$waiting" ng-click="editFeedbackForm.$cancel()"
+                        class="btn btn-default">
+                    cancel
+                </button>
+            </form>
+            <button class="btn btn-primary" ng-click="editFeedbackForm.$show()" ng-show="!editFeedbackForm.$visible">
                 edit
             </button>
-
+            </li>
+            <!--<button class="btn btn-danger" ng-click="removeUser($index)">del</button>-->
         </div>
-        </form>
     </ul>
 </div>

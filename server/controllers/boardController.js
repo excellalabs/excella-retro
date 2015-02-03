@@ -118,6 +118,22 @@ module.exports = {
             name: 'board'
         }
     },
+    editFeedback: {
+        handler: function (request, reply) {
+            board.editFeedback(request.params.id, request.params.type, request.payload.editedFeedback, function (err, editedFeedback) {
+                if (err) {
+                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
+                    error.output.statusCode = 404;
+                    reply(error);
+                } else {
+                    reply(editedFeedback);
+                }
+            });
+        },
+        app: {
+            name: 'board'
+        }
+    },
     getThemes: {
         handler: function (request, reply) {
             board.getThemes(request.params.id, function (err, themes) {
