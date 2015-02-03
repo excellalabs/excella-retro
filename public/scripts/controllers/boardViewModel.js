@@ -32,7 +32,7 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
             }).catch(function() {
                 $location.path('/closed');
             });
-        }
+        };
 
         var setIsUserScrumMaster = function (scrumMaster, boardsScrumMasterKey) {
             var user = userProvider.getUser();

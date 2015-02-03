@@ -164,21 +164,69 @@ module.exports = {
         });
     },
     addFeedback: function(boardId, type, feedback, callback) {
+        var feedbackObj = {
+            id: helpers.guid(),
+            feedback: feedback
+        };
         this.get(boardId, function(err, board) {
             switch(type) {
                 case constants.feedbackTypes.whatWentWell:
-                    board.wellFeedback.push(feedback);
+                    board.wellFeedback.push(feedbackObj);
                     break;
                 case constants.feedbackTypes.whatNeedsImprovement:
-                    board.improveFeedback.push(feedback);
+                    board.improveFeedback.push(feedbackObj);
                     break;
                 case constants.feedbackTypes.actionItems:
-                    board.actionItems.push(feedback);
+                    board.actionItems.push(feedbackObj);
                     break;
             }
 
-            saveBoard(boardId, board, function(err, savedBoard) {
-                callback(err, feedback);
+            saveBoard(boardId, board, function(err) {
+                callback(err, feedbackObj);
+            });
+        });
+    },
+    editFeedback: function(boardId, type, editedFeedback, callback) {
+        this.get(boardId, function(err, board) {
+            switch(type) {
+                case constants.feedbackTypes.whatWentWell:
+                    for(var i = 0; i < board.wellFeedback.length; i++){
+                        if(board.wellFeedback[i].id === editedFeedback.id){
+                            board.wellFeedback[i].feedback[0] = editedFeedback.feedback;
+                        }
+                    }
+                    break;
+                case constants.feedbackTypes.whatNeedsImprovement:
+                    for(var i = 0; i < board.improveFeedback.length; i++){
+                        if(board.improveFeedback[i].id === editedFeedback.id){
+                            board.improveFeedback[i].feedback[0] = editedFeedback.feedback;
+                        }
+                    }
+                    break;
+            }
+
+            saveBoard(boardId, board, function(err) {
+                callback(err, editedFeedback);
+            });
+        });
+    },
+    deleteFeedback: function(boardId, type, feedbackId, callback) {
+        this.get(boardId, function(err, board) {
+            switch(type) {
+                case constants.feedbackTypes.whatWentWell:
+                    board.wellFeedback = board.wellFeedback.filter(function(fd){
+                        return fd.id !== feedbackId;
+                    });
+                    break;
+                case constants.feedbackTypes.whatNeedsImprovement:
+                    board.improveFeedback = board.improveFeedback.filter(function(fd){
+                        return fd.id !== feedbackId;
+                    });
+                    break;
+            }
+
+            saveBoard(boardId, board, function(err) {
+                callback(err);
             });
         });
     },
@@ -193,7 +241,7 @@ module.exports = {
     createThemesFromImproveFeedback: function(boardId, callback) {
         var that = this;
         this.get(boardId, function (err, board) {
-            var themes = board.improveFeedback.map(function(item) { return item[0];});
+            var themes = board.improveFeedback.map(function(item) { return item.feedback[0];});
             var formattedThemes = themes.map(function(theme) { return { id: helpers.guid(), description: theme, votes: 0 }; });
             that.setThemes(board.id, formattedThemes, callback);
         });

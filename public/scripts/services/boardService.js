@@ -76,6 +76,24 @@ app.factory('boardService', ['$http', '$q', 'userProvider', 'socket', '_',
                     });
                     return deferred.promise;
                 },
+                editFeedback: function (boardId, type, editedFeedback) {
+                    var deferred = $q.defer();
+                    $http.post(boardUrl + '/' + boardId + '/editFeedback/' + type, {editedFeedback: editedFeedback}).then(function (ctx) {
+                        deferred.resolve(ctx.data);
+                    }, function (ctx) {
+                        deferred.reject(ctx.data);
+                    });
+                    return deferred.promise;
+                },
+                deleteFeedback: function (boardId, type, feedbackId) {
+                    var deferred = $q.defer();
+                    $http.delete(boardUrl + '/' + boardId + '/deleteFeedback/' + type + '/' + feedbackId).then(function (ctx) {
+                        deferred.resolve(ctx.data);
+                    }, function (ctx) {
+                        deferred.reject(ctx.data);
+                    });
+                    return deferred.promise;
+                },
                 changeThemes: function(boardId, themes){
                     var deferred = $q.defer();
                     $http.post(boardUrl + '/' + boardId + '/themes', {themes: themes}).then(function (ctx) {

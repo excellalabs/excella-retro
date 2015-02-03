@@ -57,10 +57,10 @@ module.exports = {
     },
     setBoardPhase: {
         handler: function (request, reply) {
-            board.setPhase(request.params.id, request.payload.phase, request.payload.scrumMasterKey, function(err, sboard){
-                if(err){
+            board.setPhase(request.params.id, request.payload.phase, request.payload.scrumMasterKey, function (err, sboard) {
+                if (err) {
                     var error;
-                    if(err === constants.errors.scrumMasterMismatch) {
+                    if (err === constants.errors.scrumMasterMismatch) {
                         error = Hapi.error.badRequest(constants.messages.cannotUpdatePhase);
                         error.output.statusCode = 400;
                     } else {
@@ -73,8 +73,8 @@ module.exports = {
                         case constants.phases.actionVotingEnded:
                             io.to(request.params.id).emit(constants.socketEmitters.collectVotes, sboard);
 
-                            setTimeout(function() {
-                                board.createActionItemsFromThemes(request.params.id, function(err, ssboard) {
+                            setTimeout(function () {
+                                board.createActionItemsFromThemes(request.params.id, function (err, ssboard) {
                                     io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, ssboard);
                                     reply(true);
                                 });
@@ -109,11 +109,43 @@ module.exports = {
                     var error = Hapi.error.badRequest(constants.messages.cannotFind);
                     error.output.statusCode = 404;
                     reply(error);
-                    } else {
-                        reply(feedback);
-                    }
-                });
-            },
+                } else {
+                    reply(feedback);
+                }
+            });
+        },
+        app: {
+            name: 'board'
+        }
+    },
+    editFeedback: {
+        handler: function (request, reply) {
+            board.editFeedback(request.params.id, request.params.type, request.payload.editedFeedback, function (err, editedFeedback) {
+                if (err) {
+                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
+                    error.output.statusCode = 404;
+                    reply(error);
+                } else {
+                    reply(editedFeedback);
+                }
+            });
+        },
+        app: {
+            name: 'board'
+        }
+    },
+    deleteFeedback: {
+        handler: function (request, reply) {
+            board.deleteFeedback(request.params.id, request.params.type, request.params.feedbackId, function (err) {
+                if (err) {
+                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
+                    error.output.statusCode = 404;
+                    reply(error);
+                } else {
+                    reply(true);
+                }
+            });
+        },
         app: {
             name: 'board'
         }
@@ -173,7 +205,7 @@ module.exports = {
             board.setFeedback(request.params.id, request.params.type, request.payload.feedback, request.payload.scrumMasterKey, function (err, board) {
                 if (err) {
                     var error;
-                    if(err === constants.errors.scrumMasterMismatch) {
+                    if (err === constants.errors.scrumMasterMismatch) {
                         error = Hapi.error.badRequest(constants.messages.cannotUpdateFeedback);
                         error.output.statusCode = 400;
                     } else {
@@ -182,7 +214,7 @@ module.exports = {
                     }
                     reply(error);
                 } else {
-                    switch(request.params.type){
+                    switch (request.params.type) {
                         case constants.feedbackTypes.whatWentWell:
                             io.to(request.params.id).emit(constants.socketEmitters.wellFeedbackEdited, board.wellFeedback);
                             break;
@@ -219,11 +251,11 @@ module.exports = {
         }
     },
     deleteBoard: {
-        handler: function(request, reply){
-            board.delete(request.params.id, request.params.scrumMasterKey, function(err){
-                if(err){
+        handler: function (request, reply) {
+            board.delete(request.params.id, request.params.scrumMasterKey, function (err) {
+                if (err) {
                     var error;
-                    if(err === constants.errors.scrumMasterMismatch) {
+                    if (err === constants.errors.scrumMasterMismatch) {
                         error = Hapi.error.badRequest(constants.messages.cannotDelete);
                         error.output.statusCode = 400;
                     } else {
@@ -237,6 +269,17 @@ module.exports = {
                 }
 
             });
+        },
+        app: {
+            name: 'board'
+        }
+    },
+    setIo: {
+        handler: function (request, reply) {
+            var oldIo = io;
+            io = request.params.mock;
+
+            reply(oldIo);
         },
         app: {
             name: 'board'
