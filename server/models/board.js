@@ -13,6 +13,7 @@ function saveBoard(boardId, board, callback) {
         }
         callback(err, board);
     });
+    console.log(board);
 }
 
 function removePrivateFields(board){
@@ -224,14 +225,16 @@ module.exports = {
                 callback(err, board);
             });
         });
+        console.log('setThemes');
     },
     createThemesFromImproveFeedback: function(boardId, callback) {
         var that = this;
         this.get(boardId, function (err, board) {
-            var themes = board.improveFeedback.map(function(item) { return item[0];});
+            var themes = board.improveFeedback.map(function(item) { return item.feedback[0];});
             var formattedThemes = themes.map(function(theme) { return { id: helpers.guid(), description: theme, votes: 0 }; });
             that.setThemes(board.id, formattedThemes, callback);
         });
+        console.log('createThemesFromImproveFeedback');
     },
     createActionItemsFromThemes: function(boardId, callback) {
         this.get(boardId, function (err, board) {
@@ -239,6 +242,7 @@ module.exports = {
             board.actionItems = sortedThemes.map(function(theme) { return [theme.description + " (" + theme.votes + ")"];});
             saveBoard(boardId, board, callback);
         });
+        console.log('createActionItemsFromThemes');
     },
     addTheme: function(boardId, theme, callback) {
         this.get(boardId, function(err, board) {
@@ -248,11 +252,13 @@ module.exports = {
                 callback(err, board.themes);
             });
         });
+        console.log('addTheme');
     },
     getThemes: function(boardId, callback) {
         this.get(boardId, function(err, board) {
             callback(err, board.themes);
         });
+        console.log('getThemes');
     },
     addVotes: function(boardId, themeIdVoteCollection, callback) {
         var that = this;
