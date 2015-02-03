@@ -219,7 +219,7 @@ module.exports = {
                     });
                     break;
                 case constants.feedbackTypes.whatNeedsImprovement:
-                    board.improveFeedback.filter(function(fd){
+                    board.improveFeedback = board.improveFeedback.filter(function(fd){
                         return fd.id !== feedbackId;
                     });
                     break;

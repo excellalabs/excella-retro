@@ -308,6 +308,28 @@ describe('boardController', function () {
             boardController.editFeedback.handler(request, reply);
         });
 
+        it('should delete feedback in \'What Went Well\' list', function (done) {
+            var request = {
+                params: {
+                    id: boardId,
+                    type: constants.feedbackTypes.whatWentWell,
+                    feedbackId: wentWellFeedback.id
+                }
+            };
+
+            var deleteReply = function (responseValue) {
+                assert.isTrue(responseValue);
+                boardController.getBoard.handler(request, getReply);
+            };
+
+            var getReply = function (responseValue) {
+                expect(responseValue.wellFeedback).to.have.length(0);
+                done();
+            };
+
+            boardController.deleteFeedback.handler(request, deleteReply);
+        });
+
         it('should set \'What Needs Improvement\' Feedback list', function (done) {
             var feedbacks = [{id: helpers.guid() , feedback: 'Improve TestFeedback 1'},
                 {id: helpers.guid(), feedback: 'Improve TestFeedback 2'}];

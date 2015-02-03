@@ -25,12 +25,7 @@ app.directive('viewFeedback', [function () {
                     id: this.feedback.id,
                     feedback: this.editFeedbackForm.$data.feedback
                 };
-                boardService.editFeedback($scope.boardId, $scope.type, editedFeedback).then(function (validation) {
-                    if (typeof validation !== "object") {
-                        validation = [validation];
-                    }
-                    $scope.validation = validation;
-                });
+                boardService.editFeedback($scope.boardId, $scope.type, editedFeedback);
             };
             $scope.deleteFeedback = function (index) {
                 boardService.deleteFeedback($scope.boardId, $scope.type, this.feedback.id).then(function (validation) {
