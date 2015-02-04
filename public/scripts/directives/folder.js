@@ -30,9 +30,9 @@ app.directive('folder', [function() {
             var folderController = this;
             var folderHolderController = $element.controller('folderHolder');
 
-            if($scope.list.feedback.length > 1){
+            if($scope.list.length > 1){
                 $scope.nameIsSet = true;
-                $scope.name = $scope.list.feedback[0];
+                $scope.name = $scope.list[0];
             } else {
                 $scope.name = '';
             }
@@ -76,7 +76,7 @@ app.directive('folder', [function() {
 
                 if(!$scope.nameIsSet){
                     $scope.nameIsSet = true;
-                    $scope.name = $scope.list.feedback[0];
+                    $scope.name = $scope.list[0];
                 }
 
                 if(!$scope.ignoreAnimation) {
@@ -96,30 +96,30 @@ app.directive('folder', [function() {
                 var index = options.draggable.element.attr('data-index');
                 if(index === '' || index === undefined || index === null) { return; }
 
-                push.call($scope.list.feedback, value);
+                push.call($scope.list, value);
                 otherFolder.removeAt(index);
             };
 
             this.remove = function(value){
-                var index = indexOf.call($scope.list.feedback, value);
+                var index = indexOf.call($scope.list, value);
                 return this.removeAt(index);
             };
 
             this.removeAt = function(index){
                 if(index >= 0){
-                    splice.call($scope.list.feedback, index, 1);
+                    splice.call($scope.list, index, 1);
                 }
                 if(folderHolderController){
                     folderHolderController.changed();
                 }
 
-                if($scope.list.feedback.length === 0) {
+                if($scope.list.length === 0) {
                     if (folderHolderController) {
                         folderHolderController.removeFolder($scope.list);
                     } else {
                         $element.remove();
                     }
-                } else if($scope.list.feedback.length === 1){
+                } else if($scope.list.length === 1){
                     $scope.nameIsSet = false;
                     $scope.name = '';
                 }

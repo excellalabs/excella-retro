@@ -91,6 +91,18 @@ module.exports = {
                                 }, 1000);
                             });
                             break;
+                        case constants.phases.wellFeedbackCompleted:
+                            board.stripFeedbackIds(request.params.id, 'wellFeedback', function(err, ssboard) {
+                                io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, ssboard);
+                                reply(true);
+                            });
+                            break;
+                        case constants.phases.improveFeedbackCompleted:
+                            board.stripFeedbackIds(request.params.id, 'improveFeedback', function(err, ssboard) {
+                                io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, ssboard);
+                                reply(true);
+                            });
+                            break;
                         default:
                             io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, sboard);
                             reply(true);

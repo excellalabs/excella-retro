@@ -29,9 +29,10 @@ app.directive('viewFeedback', [function () {
             };
             $scope.deleteFeedback = function (index) {
                 boardService.deleteFeedback($scope.boardId, $scope.type, this.feedback.id).then(function (validation) {
-                    if(validation) {
+                    if (validation) {
                         $scope.feedbackList.splice(index, 1);
                     }
+                });
             };
         }
     };

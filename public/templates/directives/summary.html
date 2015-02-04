@@ -7,9 +7,9 @@
             <!--<folder-holder class="col-xs-12" lists="board.wellFeedback" readonly="true"></folder-holder>-->
             <ol class="list-group">
                 <li class="list-group-item" ng-repeat="actionItemGroup in board.wellFeedback track by $index">
-                    <div><strong>{{actionItemGroup.feedback[0]}}</strong></div>
+                    <div><strong>{{actionItemGroup[0]}}</strong></div>
                     <ul>
-                        <li ng-repeat="actionItem in actionItemGroup.feedback track by $index" ng-show="!$first">
+                        <li ng-repeat="actionItem in actionItemGroup track by $index" ng-show="!$first">
                             {{actionItem}}
                         </li>
                     </ul>
@@ -22,9 +22,9 @@
             <!--<folder-holder class="col-xs-12" lists="board.improveFeedback" readonly="true"></folder-holder>-->
             <ol class="list-group">
                 <li class="list-group-item" ng-repeat="actionItemGroup in board.improveFeedback track by $index">
-                    <div><strong>{{actionItemGroup.feedback[0]}}</strong></div>
+                    <div><strong>{{actionItemGroup[0]}}</strong></div>
                     <ul>
-                        <li ng-repeat="actionItem in actionItemGroup.feedback track by $index" ng-show="!$first">
+                        <li ng-repeat="actionItem in actionItemGroup track by $index" ng-show="!$first">
                             {{actionItem}}
                         </li>
                     </ul>
