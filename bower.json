@@ -11,6 +11,11 @@
       "name": "Kevin Groat",
       "email": "kgroat@live.com",
       "url": "https://github.com/thegrtman"
+    },
+    {
+      "name": "Emmanuel Apau",
+      "email": "etapau@gmail.com",
+      "url": "https://github.com/kave"
     }
   ],
   "license": "MIT",
@@ -28,6 +33,7 @@
     "lodash": "~2.4.1",
     "angular-route": "~1.2.23",
     "angular-resource": "~1.2.23",
+    "angular-xeditable ": "~0.1.8",
     "angular-mocks": "~1.2.23",
     "angular-bootstrap": "~0.11.0",
     "interact": "~1.0.25",

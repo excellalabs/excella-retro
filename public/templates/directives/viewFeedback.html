@@ -2,6 +2,31 @@
     <div class="panel-heading"><strong>{{feedbackContext}} Feedback</strong></div>
     <div class="panel-body" ng-if="!feedbackList || feedbackList.length == 0">No feedback</div>
     <ul class="list-group">
-        <li class="list-group-item" ng-repeat="feedback in feedbackList track by $index">{{feedback[0]}}</li>
+        <div ng-repeat="feedback in feedbackList track by $index">
+            <li class="list-group-item">
+            <span e-name="feedback" editable-text="feedbackList[$index].feedback[0]" ng-model="feedback"
+                  e-form="editFeedbackForm" ng-show="!editFeedbackForm.$visible" style="word-wrap: break-word;">
+                {{feedback.feedback[0]}}
+            </span>
+
+                <form class="form-buttons form-inline" editable-form name="editFeedbackForm"
+                      ng-show="editFeedbackForm.$visible"
+                      onbeforesave="editFeedback()">
+                    <error-field model="validation"></error-field>
+                    <button type="submit" ng-disabled="editFeedbackForm.$waiting" class="btn btn-primary">
+                        save
+                    </button>
+                    <button type="button" ng-disabled="editFeedbackForm.$waiting" ng-click="editFeedbackForm.$cancel()"
+                            class="btn btn-default">
+                        cancel
+                    </button>
+                </form>
+                <button class="btn btn-primary" ng-click="editFeedbackForm.$show()"
+                        ng-show="!editFeedbackForm.$visible">
+                    edit
+                </button>
+                <button class="btn btn-danger" ng-click="deleteFeedback($index); editFeedbackForm.$hide()" ng-show="!editFeedbackForm.$visible">del</button>
+            </li>
+        </div>
     </ul>
 </div>
