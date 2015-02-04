@@ -241,7 +241,7 @@ module.exports = {
     createThemesFromImproveFeedback: function(boardId, callback) {
         var that = this;
         this.get(boardId, function (err, board) {
-            var themes = board.improveFeedback.map(function(item) { return item.feedback[0];});
+            var themes = board.improveFeedback.map(function(item) { return item[0];});
             var formattedThemes = themes.map(function(theme) { return { id: helpers.guid(), description: theme, votes: 0 }; });
             that.setThemes(board.id, formattedThemes, callback);
         });

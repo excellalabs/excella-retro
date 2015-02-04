@@ -15,14 +15,10 @@
                     <button type="button" ng-disabled="editFeedbackForm.$waiting" ng-click="editFeedbackForm.$cancel()"
                             class="btn glyphicon glyphicon-remove"/>
                 </form>
-                <button class="btn btn-primary" ng-click="editFeedbackForm.$show()"
-                        ng-show="!editFeedbackForm.$visible">
-                    edit
-                </button>
-                <button class="btn btn-danger" ng-click="deleteFeedback($index); editFeedbackForm.$hide()"
-                        ng-show="!editFeedbackForm.$visible">
-                    del
-                </button>
+                <button class="btn btn-primary glyphicon glyphicon-pencil" ng-click="editFeedbackForm.$show()"
+                        ng-show="!editFeedbackForm.$visible"/>
+                <button class="btn btn-danger glyphicon glyphicon-remove" ng-click="deleteFeedback($index); editFeedbackForm.$hide()"
+                        ng-show="!editFeedbackForm.$visible"/>
             </li>
         </div>
     </ul>
