@@ -253,6 +253,12 @@ module.exports = {
             saveBoard(boardId, board, callback);
         });
     },
+    stripFeedbackIds: function(boardId, name, callback) {
+        this.get(boardId, function(err, board){
+            board[name] = _.map(board[name], function(item) { return item.feedback; });
+            saveBoard(boardId, board, callback);
+        });
+    },
     addTheme: function(boardId, theme, callback) {
         this.get(boardId, function(err, board) {
             var newTheme = { id: helpers.guid(), description: theme, votes: 0 };

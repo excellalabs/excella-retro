@@ -8,7 +8,6 @@
                   e-form="editFeedbackForm" ng-show="!editFeedbackForm.$visible" style="word-wrap: break-word;">
                 {{feedback.feedback[0]}}
             </span>
-
                 <form editable-form name="editFeedbackForm" ng-show="editFeedbackForm.$visible"
                       onbeforesave="editFeedback()">
                     <button type="submit" ng-disabled="editFeedbackForm.$waiting"

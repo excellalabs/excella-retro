@@ -85,9 +85,22 @@ module.exports = {
                                 io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, ssboard);
                                 setTimeout(function() {
                                     io.to(request.params.id).emit(constants.socketEmitters.beginVoting, ssboard);
+                                
                                     //TODO: do in one step
                                     reply(true);
                                 }, 1000);
+                            });
+                            break;
+                        case constants.phases.wellFeedbackCompleted:
+                            board.stripFeedbackIds(request.params.id, 'wellFeedback', function(err, ssboard) {
+                                io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, ssboard);
+                                reply(true);
+                            });
+                            break;
+                        case constants.phases.improveFeedbackCompleted:
+                            board.stripFeedbackIds(request.params.id, 'improveFeedback', function(err, ssboard) {
+                                io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, ssboard);
+                                reply(true);
                             });
                             break;
                         default:
