@@ -15,29 +15,6 @@ app.directive('whatNeedsImprovement', [function() {
         controller: ['$scope', 'boardService', '$rootScope', function($scope, boardService, $rootScope) {
             $scope.phases = constants.phases;
             $scope.isScrumMaster = $rootScope.isScrumMaster;
-
-            $scope.sendThemes = function(){
-                boardService.updateFeedback($scope.board.id, constants.feedbackTypes.whatNeedsImprovement, $scope.board.improveFeedback, $rootScope.scrumMasterKey).then(function(savedFeedback) {
-                }, function(validation){
-                    if(typeof validation !== "object"){
-                        validation = [validation];
-                    }
-                    $scope.validation = validation;
-                });
-            };
-
-            $scope.sendFeedback = function() {
-                boardService.sendFeedback($scope.boardId, $scope.feedback).then(function(savedFeedback) {
-                    $scope.userFeedback.push(savedFeedback);
-                    $scope.sendFeedbackForm.$setPristine();
-                    $scope.feedback = '';
-                }, function(validation){
-                    if(typeof validation !== "object"){
-                        validation = [validation];
-                    }
-                    $scope.validation = validation;
-                });
-            };
         }]
     };
 }]);

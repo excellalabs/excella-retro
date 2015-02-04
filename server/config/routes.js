@@ -2,53 +2,11 @@
 /**
 * Dependencies.
 */
-
 var controller = require('./controllers');
 
 // Array of routes for Hapi
 // TODO: split up based on controller
 module.exports = [
-    // Base
-    {
-        method: 'GET',
-        path: '/',
-        config: controller.base.index
-    },
-    {
-        method: 'GET',
-        path: '/{path*}',
-        config: controller.base.missing
-    },
-    {
-        method: 'GET',
-        path: '/images/{path*}',
-        config: controller.assets.images
-    },
-    {
-        method: 'GET',
-        path: '/css/{path*}',
-        config: controller.assets.css
-    },
-    {
-        method: 'GET',
-        path: '/fonts/{path*}',
-        config: controller.assets.fonts
-    },
-    {
-        method: 'GET',
-        path: '/templates/{path*}',
-        config: controller.assets.templates
-    },
-    {
-        method: 'GET',
-        path: '/js/{path*}',
-        config: controller.assets.js
-    },
-    {
-        method: 'GET',
-        path: '/bower_components/{path*}',
-        config: controller.assets.bower
-    },
     // Admin
     {
         method: 'POST',
