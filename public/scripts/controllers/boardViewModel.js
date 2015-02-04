@@ -61,7 +61,7 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
 
         socket.on('reconnect', function (attemptNo) {
             $scope.socketStatus = 0;
-            socket.emit('room', $rootScope.boardId, $scope.user);
+            socket.emit(constants.socketEmitters.joinBoard, $rootScope.boardId, $scope.user);
         });
 
         socket.on('reconnect_failed', function () {
