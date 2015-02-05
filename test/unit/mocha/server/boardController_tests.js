@@ -9,11 +9,11 @@ chai.use(spies);
 var expect = chai.expect;
 var assert = chai.assert;
 
-var constants = require('../../../shared/constants/boardConstants');
-var helpers = require('../../../shared/helpers.js');
+var constants = require('../../../../shared/constants/boardConstants');
+var helpers = require('../../../../shared/helpers.js');
 
-var boardModel = require('../../../server/models/board');
-var boardController = require('../../../server/controllers/boardController');
+var boardModel = require('../../../../server/models/board');
+var boardController = require('../../../../server/controllers/boardController');
 var oldIo;
 
 //Test Global Variables

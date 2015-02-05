@@ -2,6 +2,7 @@
 'use strict';
 
 // dependencies
+var spawn = require('child_process').spawn;
 var gulp = require('gulp');
 var browserify = require('gulp-browserify');
 var less = require('gulp-less');
@@ -117,9 +118,9 @@ gulp.task('dev_config', ['scripts', 'less'], function () {
                 "NODE_ENV": "development"
             }
         })
-        .on('restart', function () {
-            console.log('Server Restarted!');
-        });
+            .on('restart', function () {
+                console.log('Server Restarted!');
+            });
     } else {
         nodemon_instance.emit('restart');
     }
@@ -130,8 +131,10 @@ gulp.task('dev', ['dev_config'], function () {
 });
 
 gulp.task('test', function () {
-    return gulp.src('./test/**/*.js', {read: false})
-        .pipe(mocha());
+    return gulp.src('./test/unit/mocha/**/*.js', {read: false})
+        .pipe(mocha()).on('end', function () {
+            return spawn('mocha-casperjs', ['./test/unit/casper/**/*.js'], {stdio: 'inherit'});
+        });
 });
 
 gulp.task('default', ['scripts', 'less']);
