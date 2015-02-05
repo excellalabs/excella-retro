@@ -2,7 +2,7 @@
 /* jslint browser: true */
 'use strict';
 
-var shortId = require('gen-id')('xxxxx');
+var shortId = require('gen-id')('xxxxxxxx');
 
 module.exports = {
     guid: function () {
