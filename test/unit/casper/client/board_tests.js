@@ -15,6 +15,9 @@ var constants = require('../../../../shared/constants/boardConstants');
 var helpers = require('../../../../shared/helpers.js');
 
 describe('board', function () {
+    before(function() {
+        casper.start('http://www.google.com/');
+    });
 
     describe('#Casper Test', function () {
         before(function() {

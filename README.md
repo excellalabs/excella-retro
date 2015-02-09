@@ -14,6 +14,14 @@ npm install
 ## Run
 npm start
 
+##Unit Tests
+npm test
+
+##Integration Tests
+1. Ensure selenium is installed "npm install_selenium"
+1. start Server in separate window "npm start_selenium"
+1. Run tests in a new window "npm test"
+
 ## Tech Stack
 * Node
 * Angular

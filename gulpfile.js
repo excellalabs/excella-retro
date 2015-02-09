@@ -10,6 +10,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var mocha = require('gulp-mocha');
 var colorMaps = require('./less/gulpLessColorMaps');
 var nodemon = require('gulp-nodemon');
+var protractor = require("gulp-protractor").protractor;
 
 
 var isProduction = false;
@@ -130,11 +131,31 @@ gulp.task('dev', ['dev_config'], function () {
     return gulp.watch(['server/**', 'public/scripts/**'], ['dev_config']);
 });
 
+gulp.task('install_selenium', function(){
+    return spawn('./node_modules/selenium-standalone/bin/selenium-standalone', ['install', '--version=2.43.0',
+        '--baseURL=http://selenium-release.storage.googleapis.com'],
+        {stdio: 'inherit'});
+});
+
+gulp.task('start_selenium', function(){
+    return spawn('./node_modules/selenium-standalone/bin/selenium-standalone', ['start', '--version=2.43.0'],
+        {stdio: 'inherit'});
+});
+
 gulp.task('test', function () {
-    return gulp.src('./test/unit/mocha/**/*.js', {read: false})
-        .pipe(mocha()).on('end', function () {
-            return spawn('mocha-casperjs', ['./test/unit/casper/**/*.js'], {stdio: 'inherit'});
-        });
+    //return gulp.src('./test/unit/**/*.js', {read: false})
+    //    .pipe(mocha());
+    //    .on('end', function () {
+    //        return spawn('mocha-casperjs', ['./test/unit/casper/**/*.js'], {stdio: 'inherit'});
+    //    });
+    return spawn('mocha-casperjs', ['./test/unit/casper/**/*.js'], {stdio: 'inherit'});
+
+});
+gulp.task('integration', function () {
+    return gulp.src('./test/integration/**/*.js', {read: false})
+        .pipe(mocha());
 });
 
 gulp.task('default', ['scripts', 'less']);
+
+
