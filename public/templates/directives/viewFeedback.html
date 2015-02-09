@@ -1,25 +1,31 @@
 <div class="panel panel-default">
     <div class="panel-heading"><strong>{{feedbackContext}} Feedback</strong></div>
     <div class="panel-body" ng-if="!feedbackList || feedbackList.length == 0">No feedback</div>
-    <ul class="list-group">
-        <div ng-repeat="feedback in feedbackList track by $index">
-            <li class="list-group-item">
-            <span e-name="feedback" editable-text="feedbackList[$index].feedback[0]" ng-model="feedback"
-                  e-form="editFeedbackForm" ng-show="!editFeedbackForm.$visible" style="word-wrap: break-word;">
-                {{feedback.feedback[0]}}
-            </span>
+    <div class="container-fluid">
+        <div class="row" ng-repeat="feedback in feedbackList track by $index">
+            <div class="col-xs-8 col-sm-8" style="word-wrap: break-word;">
+                    <span e-name="feedback" editable-text="feedbackList[$index].feedback[0]" ng-model="feedback"
+                          e-form="editFeedbackForm" ng-show="!editFeedbackForm.$visible">
+                        {{feedback.feedback[0]}}
+                    </span>
+            </div>
+            <div class="col-xs-4 col-sm-4 text-right">
                 <form editable-form name="editFeedbackForm" ng-show="editFeedbackForm.$visible"
                       onbeforesave="editFeedback()">
                     <button type="submit" ng-disabled="editFeedbackForm.$waiting"
                             class="btn btn-primary glyphicon glyphicon-ok"/>
                     <button type="button" ng-disabled="editFeedbackForm.$waiting" ng-click="editFeedbackForm.$cancel()"
-                            class="btn glyphicon glyphicon-remove"/>
+                            class="btn btn-default glyphicon glyphicon-remove"/>
                 </form>
-                <button class="btn btn-primary glyphicon glyphicon-pencil" ng-click="editFeedbackForm.$show()"
+
+                <button class="btn btn-default glyphicon glyphicon-pencil" ng-click="editFeedbackForm.$show()"
                         ng-show="!editFeedbackForm.$visible"/>
-                <button class="btn btn-danger glyphicon glyphicon-remove" ng-click="deleteFeedback($index); editFeedbackForm.$hide()"
+                <button class="btn btn-default glyphicon glyphicon-trash"
+                        ng-click="deleteFeedback($index); editFeedbackForm.$hide()"
                         ng-show="!editFeedbackForm.$visible"/>
-            </li>
+            </div>
+
+            <div class="clearfix"></div>
         </div>
-    </ul>
+    </div>
 </div>
