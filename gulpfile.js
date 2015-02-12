@@ -3,7 +3,6 @@
 
 // dependencies
 var gulp = require('gulp');
-var concat = require('gulp-concat');
 var browserify = require('gulp-browserify');
 var less = require('gulp-less');
 var sourcemaps = require('gulp-sourcemaps');
