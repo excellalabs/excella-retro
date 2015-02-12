@@ -2,10 +2,8 @@
 /* jslint node: true */
 "use strict";
 
-define(['jquery', 'chai', 'chai-as-promised', 'sinon-chai', 'sinon', 'lodash', 'app', 'angular', 'angularMocks'],
-    function ($, chai, asPromised, sinonChai, sinon, _, app, angular, angMock) {
-        chai.use(sinonChai);
-        chai.use(asPromised);
+define(['jquery', 'chai', 'app', 'angular', 'angularMocks'],
+    function ($, chai, app, angular, angMock) {
         var expect = chai.expect;
         var assert = chai.assert;
 

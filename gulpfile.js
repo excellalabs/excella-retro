@@ -134,12 +134,14 @@ gulp.task('dev', ['dev_config'], function () {
     return gulp.watch(['server/**', 'public/scripts/**'], ['dev_config']);
 });
 
-gulp.task('test', function () {
+gulp.task('test', ['scripts', 'less'],  function () {
     return gulp.src('./test/unit/server/*.js', {read: false})
-        .pipe(mocha());
+        .pipe(mocha()).on('end', function(){
+            gulp.run('karma');
+        });
 });
 
-gulp.task('karma',['scripts', 'less'], function (done) {
+gulp.task('karma', function (done) {
     karma.start({
         configFile: karmaConf,
         singleRun: true
