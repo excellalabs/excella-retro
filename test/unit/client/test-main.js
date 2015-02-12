@@ -16,6 +16,9 @@ requirejs.config({
 
     paths: {
         "chai": "../node_modules/chai/chai.js",
+        "chai-as-promised": "../node_modules/chai-as-promised/lib/chai-as-promised",
+        "sinon-chai": "../node_modules/sinon-chai/lib/sinon-chai",
+        "sinon": "../lib/sinon-1.12.2", //Using precompiled version of sinon as bower version caused intermitted errors loading all the dependencies for requireJs
        'jquery': 'bower_components/jquery/dist/jquery',
         'app': 'js/app',
         'angular': 'bower_components/angular/angular',

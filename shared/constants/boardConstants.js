@@ -1,7 +1,7 @@
 /* jslint node: true */
 'use strict';
 
-var readonly = require('./readonly.js');
+//var readonly = require('./readonly.js');
 
 var values = {
     errors: {
@@ -62,7 +62,7 @@ values.workflow = [
     { phase: values.phases.actionVotingStarted, actionText: 'End Dot Voting'},
     { phase: values.phases.actionVotingEnded, actionText: 'Finish \"Action Items\" Phase'},
     { phase: values.phases.summary, actionText: 'Close Retrospective'}
-]
+];
 
 //TODO: call readonly(values) which is currently broken
 exports = module.exports = values;
