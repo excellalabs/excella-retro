@@ -135,9 +135,7 @@ gulp.task('dev', ['dev_config'], function () {
 
 gulp.task('test', ['scripts', 'less'],  function () {
     return gulp.src('./test/unit/server/*.js', {read: false})
-        .pipe(mocha()).on('end', function(){
-            gulp.run('karma');
-        });
+        .pipe(mocha());
 });
 
 gulp.task('karma', function (done) {
