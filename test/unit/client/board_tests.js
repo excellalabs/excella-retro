@@ -14,7 +14,7 @@ define(['jquery', 'chai', 'app', 'angular', 'angularMocks'],
             // Load the module with Controller to be tested
             beforeEach(module('remoteRetro'));
 
-            beforeEach(inject(function ($controller, $rootScope, _boardService_, _userProvider_, _$httpBackend_, $injector) {//, $injector, $q
+            beforeEach(inject(function ($controller, $rootScope, _boardService_, _userProvider_, _$httpBackend_, $injector) {
 
                 // Create a new scope that's a child of the $rootScope
                 scope = $rootScope.$new();
