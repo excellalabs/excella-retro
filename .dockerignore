@@ -1,0 +1,4 @@
+# Docker will ignore these paths when sending context for builds
+
+node_modules
+public/bower_components
