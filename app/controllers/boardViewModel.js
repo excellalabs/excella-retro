@@ -2,36 +2,41 @@
 /* jslint browser: true */
 
 var app = require('./_module_init.js');
-var constants = require('../../../shared/constants/boardConstants');
+var constants = require('../../shared/constants/boardConstants');
 
-app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', 'socket', '$modal', function($scope, $routeParams, userProvider, boardService, $location, $rootScope, socket, $modal) {
+app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', 'socket', '$modal',
+    function($scope, $routeParams, userProvider, boardService, $location, $rootScope, socket, $modal) {
     "use strict";
     $scope.phases = constants.phases;
-    if(!$rootScope.boardId) {
+    if(!$routeParams.id) {
         $location.path('/closed');
     }
     else {
         $scope.socketStatus = "Connecting...";
         var loadBoard = function(cb) {
-            boardService.getBoard($rootScope.boardId).then(function (board) {
-                $scope.board = board;
-                $scope.themes = board.themes;
-                $scope.participants = board.participants;
-                setIsUserScrumMaster(board.scrumMaster, board.scrumMasterKey);
-                boardService.joinBoard($scope.boardId, $scope.user);
+            if($rootScope.user || $rootScope.scrumMasterKey) {
+                boardService.getBoard($routeParams.id).then(function (board) {
+                    $scope.board = board;
+                    $scope.themes = board.themes;
+                    $scope.participants = board.participants;
+                    setIsUserScrumMaster(board.scrumMaster, board.scrumMasterKey);
+                    boardService.joinBoard($scope.boardId, $scope.user);
 
-                $scope.refresh = function() {
-                    loadBoard();
-                };
+                    $scope.refresh = function () {
+                        loadBoard();
+                    };
 
-                // TODO: eventually make this promise-based, or find a better solution?
-                // shim for board refresh on viewThemes.js
-                if(cb){
-                    cb();
-                }
-            }).catch(function() {
-                $location.path('/closed');
-            });
+                    // TODO: eventually make this promise-based, or find a better solution?
+                    // shim for board refresh on viewThemes.js
+                    if (cb) {
+                        cb();
+                    }
+                }).catch(function () {
+                    $location.path('/closed');
+                });
+            } else {
+                $location.path('retro/' + $routeParams.id + '/join');
+            }
         };
 
         var setIsUserScrumMaster = function (scrumMaster, boardsScrumMasterKey) {

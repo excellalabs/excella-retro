@@ -28,17 +28,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.2.23",
-    "bootstrap": "~3.2.0",
-    "lodash": "~2.4.1",
-    "angular-route": "~1.2.23",
-    "angular-resource": "~1.2.23",
-    "angular-xeditable ": "~0.1.8",
-    "angular-mocks": "~1.2.23",
-    "angular-bootstrap": "~0.11.0",
-    "interact": "~1.0.25",
     "bootstrap-wizard": "~1.0.0",
-    "jquery": "~2.1.1",
     "building-blox.directives": "~0.1.0"
   },
   "resolutions": {

@@ -3,6 +3,7 @@ module.exports = function(server) {
     "use strict";
 
     var path = require('path');
+    var inert = require('inert');
 
     var basePath = process.env.TEMP_DIR || ".";
 
@@ -12,17 +13,23 @@ module.exports = function(server) {
 
     // Options to pass into the 'Good' plugin
     var goodOptions = {
-        subscribers: {
-            console: ['ops', 'request', 'log', 'error'],
-            goodPath: ['ops', 'request', 'log', 'error']
-        }
+        opsInterval: 1000,
+        reporters: [{
+            reporter: require('good-console'),
+            events: { log: '*', response: '*' }
+        }, {
+            reporter: require('good-file'),
+            events: { ops: '*' },
+            config: goodPath + 'good_log'
+        }]
     };
 
-    server.pack.register([
+    server.register([
         {
-            plugin: require("good"),
+            register: require("good"),
             options: goodOptions
-        }
+        },
+        inert
     ], function(err) {
         if (err) { throw err; }
     });

@@ -9,80 +9,117 @@ var sourcemaps = require('gulp-sourcemaps');
 var mocha = require('gulp-mocha');
 var colorMaps = require('./less/gulpLessColorMaps');
 var nodemon = require('gulp-nodemon');
-
+var jshint = require('gulp-jshint');
+var html2js = require('gulp-html2js');
+var concat = require('gulp-concat');
+var livereload = require('gulp-livereload');
 
 var isProduction = false;
 
+var isWindows = process.platform === 'win32';
+
+
+function stopNode(){
+    if(isWindows) {
+        exec('taskkill /IM node.exe -F');
+    } else {
+        exec('killall -9 node');
+    }
+}
+
+gulp.task('bundle-html', function(){
+    return gulp.src('app/**/*.html')
+        .pipe(html2js({
+            outputModuleName: 'templates',
+            base: 'app',
+            rename: function(name) { return name },
+            useStrict: true,
+            singleModule: true,
+            htmlmin: {
+                collapseBooleanAttributes: true,
+                collapseWhitespace: true,
+                removeAttributeQuotes: true,
+                removeComments: true,
+                removeEmptyAttributes: true,
+                removeRedundantAttributes: true,
+                removeScriptTypeAttributes: true,
+                removeStyleLinkTypeAttributes: true
+            }
+        }))
+        .pipe(concat('templates.js'))
+        .pipe(gulp.dest('app/scratch'));
+});
+
 // scripts task
-gulp.task('scripts', function () {
-    return gulp.src('public/scripts/main/app.js')
+gulp.task('build', ['bundle-html', 'less'], function () {
+    return gulp.src('app/app.js')
         .pipe(browserify({
             insertGlobals: true,
             debug: !isProduction,
             shim: {
-                jquery: {
-                    path: 'public/bower_components/jquery/dist/jquery.js',
-                    exports: '$'
-                },
-                angular: {
-                    path: 'public/bower_components/angular/angular.js',
-                    exports: 'angular',
-                    depends: {
-                        jquery: 'jQuery'
-                    }
-                },
-                bootstrap: {
-                    path: 'public/bower_components/bootstrap/dist/js/bootstrap.js',
-                    exports: null,
-                    depends: {
-                        jquery: 'jQuery'
-                    }
-                },
-                'ui-bootstrap': {
-                    path: 'public/bower_components/angular-bootstrap/ui-bootstrap.js',
-                    exports: null,
-                    depends: {
-                        angular: 'angular'
-                    }
-                },
-                'ui-bootstrap-tpls': {
-                    path: 'public/bower_components/angular-bootstrap/ui-bootstrap-tpls',
-                    exports: null,
-                    depends: {
-                        angular: 'angular',
-                        'ui-bootstrap': null
-                    }
-                },
-                'interact': {
-                    path: 'public/bower_components/interact/interact.js',
-                    exports: 'interact'
-                },
-                'angular-xeditable': {
-                    path: 'public/bower_components/angular-xeditable/dist/js/xeditable.js',
-                    exports: null,
-                    depends: {
-                        angular: 'angular'
-                    }
-                },
-                'angular-route': {
-                    path: 'public/bower_components/angular-route/angular-route',
-                    exports: null,
-                    depends: {
-                        angular: 'angular'
-                    }
-                },
-                lodash: {
-                    path: 'public/bower_components/lodash/dist/lodash',
-                    exports: '_'
-                },
-                'bootstrap-wizard': {
-                    path: 'public/bower_components/bootstrap-wizard/jquery.bootstrap.wizard.js',
-                    exports: null,
-                    depends: {
-                        jquery: 'jQuery',
-                        bootstrap: 'bootstrap'
-                    }
-                }
+                //jquery: {
+                //    path: 'node_modules/jquery/dist/jquery.js',
+                //    exports: '$'
+                //},
+                //angular: {
+                //    path: 'node_modules/angular/angular.js',
+                //    exports: 'angular',
+                //    depends: {
+                //        jquery: 'jQuery'
+                //    }
+                //},
+                //bootstrap: {
+                //    path: 'node_modules/bootstrap/dist/js/bootstrap.js',
+                //    exports: null,
+                //    depends: {
+                //        jquery: 'jQuery'
+                //    }
+                //},
+                //'ui-bootstrap': {
+                //    path: 'node_modulus/angular-bootstrap/ui-bootstrap.js',
+                //    exports: null,
+                //    depends: {
+                //        angular: 'angular'
+                //    }
+                //},
+                //'ui-bootstrap-tpls': {
+                //    path: 'public/bower_components/angular-bootstrap/ui-bootstrap-tpls',
+                //    exports: null,
+                //    depends: {
+                //        angular: 'angular',
+                //        'ui-bootstrap': null
+                //    }
+                //},
+                //'interact': {
+                //    path: 'public/bower_components/interact/interact.js',
+                //    exports: 'interact'
+                //},
+                //'angular-xeditable': {
+                //    path: 'public/bower_components/angular-xeditable/dist/js/xeditable.js',
+                //    exports: null,
+                //    depends: {
+                //        angular: 'angular'
+                //    }
+                //},
+                //'angular-route': {
+                //    path: 'public/bower_components/angular-route/angular-route',
+                //    exports: null,
+                //    depends: {
+                //        angular: 'angular'
+                //    }
+                //},
+                //lodash: {
+                //    path: 'public/bower_components/lodash/dist/lodash',
+                //    exports: '_'
+                //},
+                //'bootstrap-wizard': {
+                //    path: 'public/bower_components/bootstrap-wizard/jquery.bootstrap.wizard.js',
+                //    exports: null,
+                //    depends: {
+                //        jquery: 'jQuery',
+                //        bootstrap: 'bootstrap'
+                //    }
+                //}
             }
         }))
         .pipe(gulp.dest('public/js'));
@@ -96,37 +133,37 @@ gulp.task('less', function () {
         }))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/css'));
-    gulp.src('./public/bower_components/bootstrap/dist/fonts/*.*').pipe(gulp.dest('./public/fonts'));
+    gulp.src('./node_modules/bootstrap/dist/fonts/*.*').pipe(gulp.dest('./public/fonts'));
 });
 
-gulp.task('watch', function () {
-    gulp.watch('public/scripts/**/*.js', ['scripts']);
-    gulp.watch('less/**/*.less', ['less']);
-    gulp.watch('less/gulpLessColorMaps.js', ['less']);
+gulp.task('watch', [], function () {
+    gulp.watch(['./app/**/*.js', './app/**/*.html', './less/**/*.less', './less/gulpLessColorMaps.js'], ['default']);
 });
 
-var nodemon_instance;
-gulp.task('dev_config', ['scripts', 'less'], function () {
-    if (!nodemon_instance) {
-        nodemon_instance = nodemon({
+gulp.task('lr', function() {
+    livereload.listen();
+});
+
+gulp.task('dev', ['build', 'lr'], function () {
+    nodemon({
             script: 'server.js',
-            watch: '__manual_watch__',
-            ext: '__manual_watch__',
-            verbose: true,
+            //stdout: false,
+            ext: 'js html css scss less',
+            tasks: ['build'],
             "env": {
                 "NODE_ENV": "development"
             }
         })
+        .on('start', function() {
+            setTimeout(function() {
+                console.log('reloading on 2s delay...');
+                livereload.reload();
+            }, 2000);
+            console.log('starting...');
+        })
         .on('restart', function () {
             console.log('Server Restarted!');
         });
-    } else {
-        nodemon_instance.emit('restart');
-    }
-});
-
-gulp.task('dev', ['dev_config'], function () {
-    return gulp.watch(['server/**', 'public/scripts/**'], ['dev_config']);
 });
 
 gulp.task('test', function () {
@@ -134,4 +171,16 @@ gulp.task('test', function () {
         .pipe(mocha());
 });
 
-gulp.task('default', ['scripts', 'less']);
+gulp.task('lint', function () {
+    gulp.src(['./server/**/*.js','./app/**/*.js', '!./app/tmp/**.js'])
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'))
+        .pipe(jshint.reporter('fail'));
+});
+
+gulp.task('node-stop', function(){
+    console.log('stopping node...');
+    stopNode();
+});
+
+gulp.task('default', ['build']);

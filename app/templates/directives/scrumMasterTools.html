@@ -14,12 +14,27 @@
             <div class="panel-body">
                 <div class="row-fluid collapse in">
                     <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                        <div>Invite Participants</div>
-                        <a class="btn btn-default glyphicon glyphicon-link" target="_blank"
-                           ng-href="{{participantJoinLink(board.id)}}"
-                           title="Copy link to send participants"></a>
-                        <a class="btn btn-default glyphicon glyphicon-envelope" ng-href="{{participantMailToLink(board.id, board.title)}}"
-                           title="Send email to participants"></a>
+                        <div class="row-fluid">Invite Participants</div>
+                        <class="row-fluid">
+                            <div class="col-xs-2">
+                                <a class="btn btn-default glyphicon glyphicon-link" target="_blank"
+                                   ng-href="{{participantJoinLink(board.id)}}"
+                                   title="Copy link to send participants"></a>
+                            </div>
+                            <div class="col-xs-2">
+                                <a class="btn btn-default glyphicon glyphicon-envelope" ng-href="{{participantMailToLink(board.id, board.title)}}"
+                                   title="Send email to participants"></a>
+                            </div>
+                            <div class="col-xs-8">
+                                <form name="rc">
+                                    <span class="input-group">
+                                        <span class="input-group-addon glyphicon glyphicon-pencil"></span>
+                                        <input type="text" class="form-control" name="retroCode" ng-model="boardId"
+                                               style="top: 1px; width: 90px; text-align: center;" readonly>
+                                    </span>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
                         <div>Admin</div>

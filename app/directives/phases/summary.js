@@ -2,7 +2,7 @@
 /* jslint browser: true */
 
 var app = require('./../_module_init.js');
-var constants = require('../../../../shared/constants/boardConstants');
+var constants = require('../../../shared/constants/boardConstants');
 
 app.directive('summary', [function() {
     "use strict";

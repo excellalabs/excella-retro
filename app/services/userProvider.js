@@ -2,7 +2,7 @@
 /* jslint browser: true */
 
 var angular = require('angular');
-var helpers = require('../../../shared/helpers');
+var helpers = require('../../shared/helpers');
 
 var user = '', scrumMasterKey = null;
 

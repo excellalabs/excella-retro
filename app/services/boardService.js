@@ -2,7 +2,7 @@
 /* jslint browser: true */
 
 var angular = require('angular');
-var constants = require('../../../shared/constants/boardConstants');
+var constants = require('../../shared/constants/boardConstants');
 require('./helpersModule');
 
 var app = angular.module('remoteRetro.boardService', ['remoteRetro.helpers']);

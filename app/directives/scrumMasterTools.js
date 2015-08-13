@@ -2,7 +2,7 @@
 /* jslint browser: true */
 
 var app = require('./_module_init.js');
-var constants = require('../../../shared/constants/boardConstants');
+var constants = require('../../shared/constants/boardConstants');
 
 app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
     "use strict";
@@ -16,6 +16,8 @@ app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
             $scope.phases = constants.phases;
             var index = $scope.board ? _.findIndex(constants.workflow, {phase: $scope.board.phase }) : 0;
             $scope.actionText = constants.workflow[index].actionText;
+
+            $scope.boardId = $scope.board.id;
 
             $scope.participantMailToLink = function (boardId, boardTitle) {
                 return 'mailto:?subject=Join Retrospective: ' + boardTitle + '&body=' + encodeURIComponent('Please join my retrospective at:\n\n' + boardService.getJoinBoardUrl(boardId));

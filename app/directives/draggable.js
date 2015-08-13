@@ -2,7 +2,7 @@
 /* jslint browser: true */
 
 var app = require('./_module_init.js');
-var interact = require('../../bower_components/interact/interact');
+var interact = require('interact');
 
 
 app.directive('draggable', ['$rootScope', function($rootScope) {

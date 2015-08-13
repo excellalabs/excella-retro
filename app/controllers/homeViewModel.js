@@ -20,7 +20,7 @@ app.controller('HomeController', ['$scope', 'userProvider', 'boardService', '$lo
 
         boardService.createBoard($scope.user, $scope.boardName, scrumMasterKey).then(function(board){
             $rootScope.boardId = board.id;
-            $location.path('retro');
+            $location.path('retro/' + board.id);
         }, function(validation){
             if(typeof validation !== "object"){
                 validation = [validation];

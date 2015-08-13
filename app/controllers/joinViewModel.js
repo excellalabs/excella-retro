@@ -3,7 +3,8 @@
 
 var app = require('./_module_init.js');
 
-app.controller('JoinController', ['$scope', 'userProvider', 'boardService', '$location', '$rootScope', '$routeParams', '$modal', function($scope, userProvider, boardService, $location, $rootScope, $routeParams, $modal) {
+app.controller('JoinController', ['$scope', 'userProvider', 'boardService', '$location', '$rootScope', '$routeParams', '$modal',
+    function($scope, userProvider, boardService, $location, $rootScope, $routeParams, $modal) {
     "use strict";
     $scope.joinBoard = function(){
         var isScrumMaster = false;
@@ -19,6 +20,7 @@ app.controller('JoinController', ['$scope', 'userProvider', 'boardService', '$lo
         boardService.joinBoard($routeParams.id, $scope.user).then(function(success){
             if(success) {
                 $rootScope.boardId = $routeParams.id;
+                $rootScope.user = $scope.user;
                 var modalInstance = $modal.open({
                     templateUrl: 'templates/modal.html',
                     controller: 'ModalInstanceController',
@@ -31,7 +33,7 @@ app.controller('JoinController', ['$scope', 'userProvider', 'boardService', '$lo
                 });
 
                 modalInstance.result.then(function (selectedItem) {
-                    $location.path('retro');
+                    $location.path('retro/' + $routeParams.id);
                 });
             } else {
                 $scope.validation = ['Can\'t join the retrospective.'];

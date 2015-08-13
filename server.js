@@ -1,7 +1,10 @@
 /* jslint node: true */
 var Hapi = require('hapi');
-var server = Hapi.createServer(process.env.HOST || 'localhost', parseInt(process.env.PORT, 10) || 3000);
-var webServerRoutes = require('hapi-web-server');
+var server = new Hapi.Server();
+server.connection({
+    host: process.env.HOST || 'localhost',
+    port: parseInt(process.env.PORT, 10) || 3000
+});
 
 // Bootstrap Hapi Server Plugins, passes the server object to the plugins
 require('./server/config/socketSetup')(server);
@@ -11,7 +14,19 @@ require('./server/socketFeatures/boardSocket');
 
 // Require the routes and pass the server object.
 var boardRoutes = require('./server/config/routes');
-var routes = webServerRoutes.concat(boardRoutes);
+
+var webServerRoute = [{
+    method: 'GET',
+    path: '/{param*}',
+    handler: {
+        directory: {
+            path: 'public',
+            redirectToSlash: true
+        }
+    }
+}];
+
+var routes = webServerRoute.concat(boardRoutes);
 
 // Add the server routes
 server.route(routes);

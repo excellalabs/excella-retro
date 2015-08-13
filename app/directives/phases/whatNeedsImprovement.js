@@ -2,13 +2,13 @@
 /* jslint browser: true */
 
 var app = require('./../_module_init.js');
-var constants = require('../../../../shared/constants/boardConstants');
+var constants = require('../../../shared/constants/boardConstants');
 
-app.directive('whatWentWell', [function() {
+app.directive('whatNeedsImprovement', [function() {
     "use strict";
     return {
         restrict: 'E',
-        templateUrl: 'templates/directives/whatWentWell.html',
+        templateUrl: 'templates/directives/whatNeedsImprovement.html',
         scope: {
             board: '='
         },
@@ -17,7 +17,7 @@ app.directive('whatWentWell', [function() {
             $scope.isScrumMaster = $rootScope.isScrumMaster;
 
             $scope.sendThemes = function(){
-                boardService.updateFeedback($scope.board.id, constants.feedbackTypes.whatWentWell, $scope.board.wellFeedback, $rootScope.scrumMasterKey).then(function(savedFeedback) {
+                boardService.updateFeedback($scope.board.id, constants.feedbackTypes.whatNeedsImprovement, $scope.board.improveFeedback, $rootScope.scrumMasterKey).then(function(savedFeedback) {
                 }, function(validation){
                     if(typeof validation !== "object"){
                         validation = [validation];
