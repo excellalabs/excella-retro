@@ -1,6 +1,17 @@
 <nav-bar></nav-bar>
 <div class="row-fluid">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="jumbotron col-md-6 col-md-offset-3">
+        <h2>Welcome to Excella Retro!</h2>
+        <h3>A real-time retrospective and collaboration tool for SCRUM teams.</h3>
+        <p>This is an <a href="https://github.com/excellalabs/excella-retro">open source project</a> proudly hosted by <a href="http://excella.com">Excella Consulting.</a></p>
+        <p><a class="btn btn-primary btn-lg" href="http://excellalabs.com" role="button">Learn more</a>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="col-md-6">
+        <div class="page-header">
+            <h3>Create a New Retro</h3>
+        </div>
         <form role="form" ng-submit="createBoard()">
             <error-field model="validation"></error-field>
             <div class="form-group">
@@ -14,5 +25,31 @@
             <button type="submit" class="btn btn-primary" value="Create new board">Start a new retrospective</button>
         </form>
     </div>
+    <div class="col-md-6">
+        <div class="page-header">
+            <h3>Join Existing Retro</h3>
+        </div>
+        <form role="form" ng-submit="joinBoard()">
+            <error-field model="validation"></error-field>
+            <div class="form-group">
+                <label for="userName">Name</label>
+                <input class="form-control" id="userName" placeholder="Enter your name" ng-model="user">
+            </div>
+            <div class="form-group">
+                <label for="boardId">Retro ID</label>
+                <input class="form-control" id="boardId" placeholder="Enter 8 digit code" ng-model="boardId">
+            </div>
+            <button type="submit" class="btn btn-primary" value="Join board">Join retrospective</button>
+        </form>
+    </div>
 </div>
-<branding></branding>
+<div class="row-fluid" style="background: white;">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="row-fluid">
+            <img src="images/excella_jsa.jpg" class="img-responsive center-block excella-logo" style="margin-top: 54px"/>
+        </div>
+        <div class="row-fluid text-center">
+            <a class="terms" href="#/tos" target="_blank">Terms</a>
+        </div>
+    </div>
+</div>

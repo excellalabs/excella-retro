@@ -5,13 +5,26 @@ var angular = require('angular');
 var constants = require('../../shared/constants/boardConstants');
 require('./helpersModule');
 
-var app = angular.module('remoteRetro.boardService', ['remoteRetro.helpers']);
-app.factory('boardService', ['$http', '$q', 'userProvider', 'socket', '_',
-        function($http, $q, userProvider, socket, _){
+var app = angular.module('remoteRetro.boardService', ['remoteRetro.helpers', 'ngCookies']);
+app.factory('boardService', ['$http', '$q', 'userProvider', 'socket', '_', '$cookies',
+        function($http, $q, userProvider, socket, _, $cookies){
             "use strict";
             var boardUrl = '../board';
 
             return {
+                cacheBoardInfo: function(boardId, user, scrumMasterKey) {
+                    var expirationDate = new Date();
+                    expirationDate.setDate(expirationDate.getDate() + 3);
+
+                    $cookies.putObject('excella-retro', { boardId: boardId, user: user, scrumMasterKey: scrumMasterKey},
+                        { expires: expirationDate });
+                },
+                getCachedBoardInfo: function() {
+                    return $cookies.getObject('excella-retro');
+                },
+                clearCache: function() {
+                    $cookies.remove('excella-retro');
+                },
                 createBoard: function (user, boardName, scrumMasterKey) {
                     var deferred = $q.defer();
                     $http.post(boardUrl, { user: user, boardName: boardName, scrumMasterKey: scrumMasterKey }).then(function (ctx) {

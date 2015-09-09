@@ -1,11 +1,12 @@
 /* global require, module, exports */
 /* jslint browser: true */
-
+var angular = require('angular');
 var app = require('./_module_init.js');
 
 app.controller('JoinController', ['$scope', 'userProvider', 'boardService', '$location', '$rootScope', '$routeParams', '$modal',
     function($scope, userProvider, boardService, $location, $rootScope, $routeParams, $modal) {
     "use strict";
+
     $scope.joinBoard = function(){
         var isScrumMaster = false;
 
@@ -21,27 +22,28 @@ app.controller('JoinController', ['$scope', 'userProvider', 'boardService', '$lo
             if(success) {
                 $rootScope.boardId = $routeParams.id;
                 $rootScope.user = $scope.user;
-                var modalInstance = $modal.open({
-                    templateUrl: 'templates/modal.html',
-                    controller: 'ModalInstanceController',
-                    size: 'sm',
-                    resolve: {
-                        title: function() { return "You've Joined a Retrospective"; },
-                        body: function() { return "Your Facilitator will control the phases of this retrospective on your device. If you get disconnected, you may re-join the board by clicking on the invitation link you've received."; },
-                        hasCancel: function() { return false; }
-                    }
-                });
 
-                modalInstance.result.then(function (selectedItem) {
-                    $location.path('retro/' + $routeParams.id);
-                });
+                $location.path('retro/' + $routeParams.id);
             } else {
                 $scope.validation = ['Can\'t join the retrospective.'];
             }
         }).catch(function() {
-            $scope.validation = ['Can\'t join the retrospective.'];
+            $location.path('closed');
         });
     };
+
+    var cache = boardService.getCachedBoardInfo();
+
+    if(cache && cache.boardId) {
+        if(cache.boardId === $routeParams.id) {
+            if(cache.scrumMasterKey && cache.scrumMasterKey.length === 8) {
+                $location.path('/');
+            } else {
+                $scope.user = cache.user;
+                $scope.joinBoard();
+            }
+        }
+    }
 }]);
 
 module.exports = app;

@@ -2,6 +2,7 @@
 /* jslint browser: true */
 require('angular');
 require('angular-route');
+require('angular-cookies');
 require('angular-bootstrap');
 require('angular-xeditable');
 require('./controllers/_module_init');

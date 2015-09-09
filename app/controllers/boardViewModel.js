@@ -4,11 +4,13 @@
 var app = require('./_module_init.js');
 var constants = require('../../shared/constants/boardConstants');
 
-app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', 'socket', '$modal',
-    function($scope, $routeParams, userProvider, boardService, $location, $rootScope, socket, $modal) {
+app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'boardService', '$location', '$rootScope', 'socket',
+    function($scope, $routeParams, userProvider, boardService, $location, $rootScope, socket) {
     "use strict";
     $scope.phases = constants.phases;
-    if(!$routeParams.id) {
+
+    var hasNoBoardId = !$routeParams.id ;
+    if(hasNoBoardId) {
         $location.path('/closed');
     }
     else {
@@ -94,6 +96,7 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
             $rootScope.boardId = null;
             $rootScope.scrumMasterKey = null;
             $scope.board = null;
+            boardService.clearCache();
             $location.path('/closed');
         });
 

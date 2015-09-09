@@ -8,7 +8,7 @@ var less = require('gulp-less');
 var sourcemaps = require('gulp-sourcemaps');
 var mocha = require('gulp-mocha');
 var colorMaps = require('./less/gulpLessColorMaps');
-var nodemon = require('gulp-nodemon');
+var nodemon = require('gulp-nodemon')
 var jshint = require('gulp-jshint');
 var html2js = require('gulp-html2js');
 var concat = require('gulp-concat');
@@ -136,8 +136,9 @@ gulp.task('less', function () {
     gulp.src('./node_modules/bootstrap/dist/fonts/*.*').pipe(gulp.dest('./public/fonts'));
 });
 
-gulp.task('watch', [], function () {
-    gulp.watch(['./app/**/*.js', './app/**/*.html', './less/**/*.less', './less/gulpLessColorMaps.js'], ['default']);
+gulp.task('watch', ['build'], function () {
+    gulp.watch(['./app/**/*.js', '!./app/tmp/**.js', './app/**/*.html',
+        './less/**/*.less', './less/gulpLessColorMaps.js'], ['build']);
 });
 
 gulp.task('lr', function() {

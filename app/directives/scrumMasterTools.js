@@ -4,7 +4,7 @@
 var app = require('./_module_init.js');
 var constants = require('../../shared/constants/boardConstants');
 
-app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
+app.directive('scrumMasterTools', ['$rootScope', '_', '$filter', function($rootScope, _, $filter) {
     "use strict";
     return {
         restrict: 'E',
@@ -18,6 +18,10 @@ app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
             $scope.actionText = constants.workflow[index].actionText;
 
             $scope.boardId = $scope.board.id;
+
+            $scope.$watch('boardId', function(boardId){
+                $scope.boardId = $filter('uppercase')(boardId);
+            });
 
             $scope.participantMailToLink = function (boardId, boardTitle) {
                 return 'mailto:?subject=Join Retrospective: ' + boardTitle + '&body=' + encodeURIComponent('Please join my retrospective at:\n\n' + boardService.getJoinBoardUrl(boardId));
@@ -55,6 +59,7 @@ app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
                 modalInstance.result.then(function (selectedItem) {
                     if(selectedItem === "OK") {
                         boardService.closeBoard($scope.board.id, $rootScope.scrumMasterKey, function() {
+                            this.clearCache();
                         });
                     }
                 });
@@ -63,7 +68,7 @@ app.directive('scrumMasterTools', ['$rootScope', '_', function($rootScope, _) {
             var collapsible = $element.find(".collapse");
             var collapsor = $element.find('#collapsor');
 
-            collapsor.click(function() {
+            collapsor.on('click', function() {
                 if(collapsible.hasClass("out")) {
                     collapsible.addClass("in");
                     collapsible.removeClass("out");

@@ -2,18 +2,16 @@
 "use strict";
 
 var board = require('../models/board');
-var Hapi = require('hapi');
 var io = require('../config/socketSetup').instance;
 var constants = require('../../shared/constants/boardConstants');
+var Boom = require('boom');
 
 module.exports = {
     createBoard: {
         handler: function (request, reply) {
             board.create(request.payload.user, request.payload.boardName, request.payload.scrumMasterKey, function (err, board) {
                 if (err) {
-                    var error = Hapi.error.badRequest(constants.messages.cannotCreate);
-                    error.output.statusCode = 400;
-                    reply(error);
+                    reply(Boom.badRequest(constants.messages.cannotCreate));
                 } else {
                     reply(board);
                 }
@@ -27,9 +25,7 @@ module.exports = {
         handler: function (request, reply) {
             board.get(request.params.id, function (err, board) {
                 if (err) {
-                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
-                    error.output.statusCode = 404;
-                    reply(error);
+                    reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
                     reply(board);
                 }
@@ -43,9 +39,7 @@ module.exports = {
         handler: function (request, reply) {
             board.getBoardParticipants(request.params.id, function (err, board) {
                 if (err) {
-                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
-                    error.output.statusCode = 404;
-                    reply(error);
+                    reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
                     reply(board);
                 }
@@ -61,13 +55,10 @@ module.exports = {
                 if (err) {
                     var error;
                     if (err === constants.errors.scrumMasterMismatch) {
-                        error = Hapi.error.badRequest(constants.messages.cannotUpdatePhase);
-                        error.output.statusCode = 400;
+                        reply(Boom.badRequest(constants.messages.cannotUpdatePhase));
                     } else {
-                        error = Hapi.error.badRequest(constants.messages.cannotFind);
-                        error.output.statusCode = 404;
+                        reply(Boom.notFound(constants.messages.cannotFind));
                     }
-                    reply(error);
                 } else {
                     switch (request.payload.phase) {
                         case constants.phases.actionVotingEnded:
@@ -119,9 +110,7 @@ module.exports = {
         handler: function (request, reply) {
             board.addFeedback(request.params.id, request.params.type, request.payload.feedback, function (err, feedback) {
                 if (err) {
-                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
-                    error.output.statusCode = 404;
-                    reply(error);
+                    reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
                     reply(feedback);
                 }
@@ -135,9 +124,7 @@ module.exports = {
         handler: function (request, reply) {
             board.editFeedback(request.params.id, request.params.type, request.payload.editedFeedback, function (err, editedFeedback) {
                 if (err) {
-                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
-                    error.output.statusCode = 404;
-                    reply(error);
+                    reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
                     reply(editedFeedback);
                 }
@@ -151,9 +138,7 @@ module.exports = {
         handler: function (request, reply) {
             board.deleteFeedback(request.params.id, request.params.type, request.params.feedbackId, function (err) {
                 if (err) {
-                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
-                    error.output.statusCode = 404;
-                    reply(error);
+                    reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
                     reply(true);
                 }
@@ -167,9 +152,7 @@ module.exports = {
         handler: function (request, reply) {
             board.getThemes(request.params.id, function (err, themes) {
                 if (err) {
-                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
-                    error.output.statusCode = 404;
-                    reply(error);
+                    reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
                     reply(themes);
                 }
@@ -183,9 +166,7 @@ module.exports = {
         handler: function (request, reply) {
             board.addTheme(request.params.id, request.payload.theme, function (err, themes) {
                 if (err) {
-                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
-                    error.output.statusCode = 404;
-                    reply(error);
+                    reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
                     io.to(request.params.id).emit(constants.socketEmitters.themesEdited, themes);
                     reply(request.payload.theme);
@@ -200,9 +181,7 @@ module.exports = {
         handler: function (request, reply) {
             board.setThemes(request.params.id, request.payload.themes, function (err, themes) {
                 if (err) {
-                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
-                    error.output.statusCode = 404;
-                    reply(error);
+                    reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
                     io.to(request.params.id).emit(constants.socketEmitters.themesEdited, themes);
                     reply(request.payload.theme);
@@ -219,13 +198,10 @@ module.exports = {
                 if (err) {
                     var error;
                     if (err === constants.errors.scrumMasterMismatch) {
-                        error = Hapi.error.badRequest(constants.messages.cannotUpdateFeedback);
-                        error.output.statusCode = 400;
+                        reply(Boom.badRequest(constants.messages.cannotUpdateFeedback));
                     } else {
-                        error = Hapi.error.badRequest(constants.messages.cannotFind);
-                        error.output.statusCode = 404;
+                        reply(Boom.notFound(constants.messages.cannotFind));
                     }
-                    reply(error);
                 } else {
                     switch (request.params.type) {
                         case constants.feedbackTypes.whatWentWell:
@@ -250,9 +226,7 @@ module.exports = {
         handler: function (request, reply) {
             board.addVotes(request.params.id, request.payload.themeIdVoteCollection, function (err, themes) {
                 if (err) {
-                    var error = Hapi.error.badRequest(constants.messages.cannotFind);
-                    error.output.statusCode = 404;
-                    reply(error);
+                    reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
                     io.to(request.params.id).emit(constants.socketEmitters.themeAdded, themes);
                     reply(true);
@@ -269,13 +243,10 @@ module.exports = {
                 if (err) {
                     var error;
                     if (err === constants.errors.scrumMasterMismatch) {
-                        error = Hapi.error.badRequest(constants.messages.cannotDelete);
-                        error.output.statusCode = 400;
+                        reply(Boom.badRequest(constants.messages.cannotDelete));
                     } else {
-                        error = Hapi.error.badRequest(constants.messages.cannotFind);
-                        error.output.statusCode = 404;
+                        reply(Boom.notFound(constants.messages.cannotFind));
                     }
-                    reply(error);
                 } else {
                     io.to(request.params.id).emit(constants.socketEmitters.boardClosed, request.params.id);
                     reply(true);

@@ -2,16 +2,14 @@
 "use strict";
 
 var admin = require('../models/admin');
-var Hapi = require('hapi');
+var Boom = require('boom');
 
 module.exports = {
     addFeedback: {
         handler: function (request, reply) {
             admin.addFeedback(request.payload.feedback, function (err, feedback) {
                 if (err) {
-                    var error = Hapi.error.badRequest('We failed to capture your feedback :(');
-                    error.output.statusCode = 400;
-                    reply(error);
+                    reply(Boom.badRequest('We failed to capture your feedback :('));
                 } else {
                     reply(feedback);
                 }

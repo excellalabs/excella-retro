@@ -3,10 +3,12 @@
 
 var app = require('./_module_init.js');
 
-app.controller('CloseViewModel', ['$scope', 'adminService',
-    function($scope, adminService) {
+app.controller('CloseViewModel', ['$scope', 'adminService', 'boardService',
+    function($scope, adminService, boardService) {
         "use strict";
         $scope.isSaving = false;
+
+        boardService.clearCache();
 
         $scope.canSubmit = function() {
             return !$scope.feedback || $scope.feedback.length === 0;
