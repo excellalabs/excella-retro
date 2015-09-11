@@ -55,72 +55,7 @@ gulp.task('build', ['bundle-html', 'less'], function () {
     return gulp.src('app/app.js')
         .pipe(browserify({
             insertGlobals: true,
-            debug: !isProduction,
-            shim: {
-                //jquery: {
-                //    path: 'node_modules/jquery/dist/jquery.js',
-                //    exports: '$'
-                //},
-                //angular: {
-                //    path: 'node_modules/angular/angular.js',
-                //    exports: 'angular',
-                //    depends: {
-                //        jquery: 'jQuery'
-                //    }
-                //},
-                //bootstrap: {
-                //    path: 'node_modules/bootstrap/dist/js/bootstrap.js',
-                //    exports: null,
-                //    depends: {
-                //        jquery: 'jQuery'
-                //    }
-                //},
-                //'ui-bootstrap': {
-                //    path: 'node_modulus/angular-bootstrap/ui-bootstrap.js',
-                //    exports: null,
-                //    depends: {
-                //        angular: 'angular'
-                //    }
-                //},
-                //'ui-bootstrap-tpls': {
-                //    path: 'public/bower_components/angular-bootstrap/ui-bootstrap-tpls',
-                //    exports: null,
-                //    depends: {
-                //        angular: 'angular',
-                //        'ui-bootstrap': null
-                //    }
-                //},
-                //'interact': {
-                //    path: 'public/bower_components/interact/interact.js',
-                //    exports: 'interact'
-                //},
-                //'angular-xeditable': {
-                //    path: 'public/bower_components/angular-xeditable/dist/js/xeditable.js',
-                //    exports: null,
-                //    depends: {
-                //        angular: 'angular'
-                //    }
-                //},
-                //'angular-route': {
-                //    path: 'public/bower_components/angular-route/angular-route',
-                //    exports: null,
-                //    depends: {
-                //        angular: 'angular'
-                //    }
-                //},
-                //lodash: {
-                //    path: 'public/bower_components/lodash/dist/lodash',
-                //    exports: '_'
-                //},
-                //'bootstrap-wizard': {
-                //    path: 'public/bower_components/bootstrap-wizard/jquery.bootstrap.wizard.js',
-                //    exports: null,
-                //    depends: {
-                //        jquery: 'jQuery',
-                //        bootstrap: 'bootstrap'
-                //    }
-                //}
-            }
+            debug: !isProduction
         }))
         .pipe(gulp.dest('public/js'));
 });
