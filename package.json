@@ -7,7 +7,6 @@
     "node": "4.0.0"
   },
   "scripts": {
-    "prestart": "gulp",
     "start": "node server",
     "stop": "killall -9 node",
     "test": "gulp test",
