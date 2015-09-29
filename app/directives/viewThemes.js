@@ -25,7 +25,7 @@ app.directive('viewThemes', [function() {
                 $scope.themes = $scope.themes.map(function(theme) { theme.votes = 0; return theme; });
             };
 
-            $scope.canVote = false;
+            $scope.canVote = true; //set to true by default for people who join later
 
             function canUpVote() {
                 return $scope.canVote && $scope.unusedVotes > 0;
