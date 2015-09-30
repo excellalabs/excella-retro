@@ -55,7 +55,72 @@ gulp.task('build', ['bundle-html', 'less'], function () {
     return gulp.src('app/app.js')
         .pipe(browserify({
             insertGlobals: true,
-            debug: !isProduction
+            debug: !isProduction,
+            shim: {
+                jquery: {
+                    path: 'node_modules/jquery/dist/jquery.js',
+                    exports: '$'
+                },
+                angular: {
+                    path: 'node_modules/angular/angular.js',
+                    exports: 'angular',
+                    depends: {
+                        jquery: 'jQuery'
+                    }
+                },
+                bootstrap: {
+                    path: 'node_modules/bootstrap/dist/js/bootstrap.js',
+                    exports: null,
+                    depends: {
+                        jquery: 'jQuery'
+                    }
+                },
+                'ui-bootstrap': {
+                    path: 'node_modules/angular-bootstrap/ui-bootstrap.js',
+                    exports: null,
+                    depends: {
+                        angular: 'angular'
+                    }
+                },
+                'ui-bootstrap-tpls': {
+                    path: 'node_modules/angular-bootstrap/ui-bootstrap-tpls',
+                    exports: null,
+                    depends: {
+                        angular: 'angular',
+                        'ui-bootstrap': null
+                    }
+                },
+                'interact': {
+                    path: 'node_modules/interact.js/interact.js',
+                    exports: 'interact'
+                },
+                'angular-xeditable': {
+                    path: 'node_modules/angular-xeditable/xeditable.min.js',
+                    exports: null,
+                    depends: {
+                        angular: 'angular'
+                    }
+                },
+                'angular-route': {
+                    path: 'node_modules/angular-route/angular-route',
+                    exports: null,
+                    depends: {
+                        angular: 'angular'
+                    }
+                },
+                lodash: {
+                    path: 'node_modules/lodash/index',
+                    exports: '_'
+                },
+                'bootstrap-wizard': {
+                    path: 'node_modules/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js',
+                    exports: null,
+                    depends: {
+                        jquery: 'jQuery',
+                        bootstrap: 'bootstrap'
+                    }
+                }
+            }
         }))
         .pipe(gulp.dest('public/js'));
 });

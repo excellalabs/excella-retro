@@ -24,6 +24,8 @@ app.directive('scrumMasterTools', ['$rootScope', '_', '$filter', function($rootS
             });
 
             $scope.participantMailToLink = function (boardId, boardTitle) {
+                boardTitle = window.escape(boardTitle);
+
                 return 'mailto:?subject=Join Retrospective: ' + boardTitle + '&body=' + encodeURIComponent('Please join my retrospective at:\n\n' + boardService.getJoinBoardUrl(boardId));
             };
 

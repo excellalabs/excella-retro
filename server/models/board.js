@@ -114,6 +114,9 @@ module.exports = {
         });
     },
     get: function(boardId, callback){
+        if(boardId) {
+            boardId = boardId.toLowerCase();
+        }
         db.get(boardId, function(err, board) {
             if (err) {
                 console.log('Get failed: ', err);

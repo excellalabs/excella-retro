@@ -18,6 +18,7 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
         var loadBoard = function(cb) {
             if($rootScope.user || $rootScope.scrumMasterKey) {
                 boardService.getBoard($routeParams.id).then(function (board) {
+                    $rootScope.boardId = $scope.boardId = board.id;
                     $scope.board = board;
                     $scope.themes = board.themes;
                     $scope.participants = board.participants;
