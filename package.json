@@ -4,7 +4,7 @@
   "description": "A tool to host retrospectives for Agile Scrum projects with remote members",
   "main": "server.js",
   "engines": {
-    "node": "4.0.0"
+    "node": "4.1.1"
   },
   "scripts": {
     "start": "node server",
