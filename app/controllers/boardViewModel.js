@@ -24,7 +24,7 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
                     $scope.participants = board.participants;
                     setIsUserScrumMaster(board.scrumMaster, board.scrumMasterKey);
                     boardService.joinBoard($scope.boardId, $scope.user, $rootScope.scrumMasterKey);
-
+                    $scope.boardStats = { wellCount: board.wellFeedback.length, improveCount: board.improveFeedback.length };
                     $scope.refresh = function () {
                         loadBoard();
                     };
@@ -85,9 +85,9 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
 
         });
 
-        socket.offOn(constants.socketEmitters.feedbackEdited, function(board) {
-            if(board) {
-                $scope.board = board;
+        socket.offOn(constants.socketEmitters.feedbackEdited, function(boardStats) {
+            if(boardStats) {
+                $scope.boardStats = boardStats;
             }
         });
 

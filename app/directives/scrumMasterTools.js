@@ -10,7 +10,8 @@ app.directive('scrumMasterTools', ['$rootScope', '_', '$filter', function($rootS
         restrict: 'E',
         templateUrl: 'templates/directives/scrumMasterTools.html',
         scope: {
-            board: '='
+            board: '=',
+            boardStats: '='
         },
         controller: ['$scope', 'boardService', '$element', '$modal', '$location', function($scope, boardService, $element, $modal, $location) {
             $scope.phases = constants.phases;

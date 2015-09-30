@@ -25,6 +25,7 @@ io.sockets.on('connection', function(socket){
                     socket.emit(constants.socketEmitters.joinSuccess, constants.socketEmitters.joinBoard, participants);
                     io.to(boardId).emit(constants.socketEmitters.joined, participants);
                     if(notOnBoard && isScrumMaster) {
+                        console.log('scrum master joined board');
                         socket.join(boardId + constants.scrumMasterRoomEnding);
                     }
                     release();

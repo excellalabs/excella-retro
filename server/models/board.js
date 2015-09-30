@@ -279,6 +279,9 @@ module.exports = {
             callback(err, board.themes);
         });
     },
+    getFacilitatorStats: function(board) {
+        return { wellCount: board.wellFeedback.length, improveCount: board.improveFeedback.length };
+    },
     addVotes: function(boardId, themeIdVoteCollection, callback) {
         var that = this;
 

@@ -108,11 +108,11 @@ module.exports = {
     },
     addFeedback: {
         handler: function (request, reply) {
-            board.addFeedback(request.params.id, request.params.type, request.payload.feedback, function (err, feedback, board) {
+            board.addFeedback(request.params.id, request.params.type, request.payload.feedback, function (err, feedback, sboard) {
                 if (err) {
                     reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
-                    io.to(request.params.id + constants.scrumMasterRoomEnding).emit(constants.socketEmitters.feedbackEdited, board);
+                    io.to(request.params.id + constants.scrumMasterRoomEnding).emit(constants.socketEmitters.feedbackEdited, board.getFacilitatorStats(sboard));
                     reply(feedback);
                 }
             });
@@ -123,11 +123,11 @@ module.exports = {
     },
     editFeedback: {
         handler: function (request, reply) {
-            board.editFeedback(request.params.id, request.params.type, request.payload.editedFeedback, function (err, feedback, board) {
+            board.editFeedback(request.params.id, request.params.type, request.payload.editedFeedback, function (err, feedback, sboard) {
                 if (err) {
                     reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
-                    io.to(request.params.id + constants.scrumMasterRoomEnding).emit(constants.socketEmitters.feedbackEdited, board);
+                    io.to(request.params.id + constants.scrumMasterRoomEnding).emit(constants.socketEmitters.feedbackEdited, board.getFacilitatorStats(sboard));
                     reply(feedback);
                 }
             });
@@ -138,11 +138,11 @@ module.exports = {
     },
     deleteFeedback: {
         handler: function (request, reply) {
-            board.deleteFeedback(request.params.id, request.params.type, request.params.feedbackId, function (err, board) {
+            board.deleteFeedback(request.params.id, request.params.type, request.params.feedbackId, function (err, sboard) {
                 if (err) {
                     reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
-                    io.to(request.params.id + constants.scrumMasterRoomEnding).emit(constants.socketEmitters.feedbackEdited, board);
+                    io.to(request.params.id + constants.scrumMasterRoomEnding).emit(constants.socketEmitters.feedbackEdited, board.getFacilitatorStats(sboard));
                     reply(true);
                 }
             });

@@ -39,15 +39,14 @@ app.directive('addFeedback', [function() {
             };
 
             $scope.getUserFeedback = function() {
-                if($scope.isScrumMaster) {
-                    switch($scope.type) {
-                        case 'well':
-                            return _.map($scope.board.wellFeedback, selectOwn);
-                        case 'improve':
-                            return _.map($scope.board.improveFeedback, selectOwn);
-                    }
-                }
-
+                //if($scope.isScrumMaster) {
+                //    switch($scope.type) {
+                //        case 'well':
+                //            return _.map($scope.board.wellFeedback, selectOwn);
+                //        case 'improve':
+                //            return _.map($scope.board.improveFeedback, selectOwn);
+                //    }
+                //}
                 return $scope.userFeedback;
             };
 
