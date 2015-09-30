@@ -12,34 +12,40 @@
         <div class="page-header">
             <h3>Create a New Retro</h3>
         </div>
-        <form role="form" ng-submit="createBoard()">
+        <form name="createForm" role="form" ng-submit="createBoard()">
             <error-field model="validation"></error-field>
             <div class="form-group">
                 <label for="scrumMasterName">Facilitator Name</label>
-                <input class="form-control" id="scrumMasterName" placeholder="Enter your name" ng-model="user">
+                <input class="form-control" id="scrumMasterName" placeholder="Enter your name" ng-model="user" name="user" required>
+                <p ng-show="createForm.user.$error.required">Name is required.</p>
             </div>
             <div class="form-group">
                 <label for="boardName">Retrospective Name</label>
-                <input class="form-control" id="boardName" placeholder="e.g. Project Phoenix - Sprint 6" ng-model="boardName">
+                <input class="form-control" id="boardName" placeholder="e.g. Project Phoenix - Sprint 6" ng-model="boardName" name="boardName" required>
+                <p ng-show="createForm.boardName.$error.required">Retro Name is required.</p>
             </div>
-            <button type="submit" class="btn btn-primary" value="Create new board">Start a new retrospective</button>
+            <button type="submit" class="btn btn-primary" value="Create new board" ng-disabled="createForm.$invalid">Start a new retrospective</button>
         </form>
     </div>
     <div class="col-md-6">
         <div class="page-header">
             <h3>Join Existing Retro</h3>
         </div>
-        <form role="form" ng-submit="joinBoard()">
+        <form name="joinForm" role="form" ng-submit="joinBoard()">
             <error-field model="validation"></error-field>
             <div class="form-group">
                 <label for="userName">Name</label>
-                <input class="form-control" id="userName" placeholder="Enter your name" ng-model="user">
+                <input class="form-control" id="userName" placeholder="Enter your name" ng-model="user" name="user" required>
+                <p ng-show="joinForm.user.$error.required">Name is required.</p>
             </div>
             <div class="form-group">
                 <label for="boardId">Retro ID</label>
-                <input class="form-control" id="boardId" placeholder="Enter 8 digit code" ng-model="boardId">
+                <input class="form-control" id="boardId" placeholder="Enter 8 character code" ng-model="boardId" name="boardId"
+                       ng-minlength="8" ng-maxlength="8" required>
+                <p ng-show="joinForm.boardId.$error.required">Retro ID is required.</p>
+                <p ng-show="joinForm.boardId.$error.minlength || joinForm.boardId.$error.maxlength">ID must be 8 characters long.</p>
             </div>
-            <button type="submit" class="btn btn-primary" value="Join board">Join retrospective</button>
+            <button type="submit" class="btn btn-primary" value="Join board" ng-disabled="joinForm.$invalid">Join retrospective</button>
         </form>
     </div>
 </div>
