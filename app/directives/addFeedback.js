@@ -9,7 +9,8 @@ app.directive('addFeedback', [function() {
         restrict: 'E',
         templateUrl: 'templates/directives/addFeedback.html',
         scope: {
-            boardId: '=boardId',
+            board: '=',
+            isScrumMaster: '=',
             feedbackContext: '@',
             type:'@'
         },
@@ -23,7 +24,8 @@ app.directive('addFeedback', [function() {
 
             $scope.sendFeedback = function() {
                 $scope.isSaving = true;
-                boardService.sendFeedback($scope.boardId, $scope.type, [$scope.feedback]).then(function(savedFeedback) {
+                boardService.sendFeedback($scope.board.id, $scope.type, [$scope.feedback]).then(function(savedFeedback) {
+                    savedFeedback.isOwn = true;
                     $scope.userFeedback.push(savedFeedback);
                     $scope.sendFeedbackForm.$setPristine();
                     $scope.feedback = '';
@@ -35,6 +37,26 @@ app.directive('addFeedback', [function() {
                     $scope.validation = validation;
                 });
             };
+
+            $scope.getUserFeedback = function() {
+                if($scope.isScrumMaster) {
+                    switch($scope.type) {
+                        case 'well':
+                            return _.map($scope.board.wellFeedback, selectOwn);
+                        case 'improve':
+                            return _.map($scope.board.improveFeedback, selectOwn);
+                    }
+                }
+
+                return $scope.userFeedback;
+            };
+
+            function selectOwn(feedbackItem) {
+                feedbackItem.isOwn = _.some($scope.userFeedback, function(userFeedback) {
+                    return userFeedback.id === feedbackItem.id;
+                });
+                return feedbackItem;
+            }
         }
     };
 }]);

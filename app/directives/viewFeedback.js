@@ -16,7 +16,7 @@ app.directive('viewFeedback', [function () {
         scope: {
             boardId: '=boardId',
             type: '=',
-            feedbackList: '=feedback',
+            feedbackList: '&feedback',
             feedbackContext: '@feedbackContext'
         },
         controller: function ($scope, boardService) {
@@ -30,7 +30,7 @@ app.directive('viewFeedback', [function () {
             $scope.deleteFeedback = function (index) {
                 boardService.deleteFeedback($scope.boardId, $scope.type, this.feedback.id).then(function (validation) {
                     if(validation) {
-                        $scope.feedbackList.splice(index, 1);
+                        $scope.feedbackList().splice(index, 1);
                     }
                 });
             };

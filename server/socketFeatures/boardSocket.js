@@ -8,14 +8,15 @@ var constants = require('../../shared/constants/boardConstants');
 
 
 io.sockets.on('connection', function(socket){
-    socket.on(constants.socketEmitters.joinBoard, function(boardId, name){
+    socket.on(constants.socketEmitters.joinBoard, function(boardId, name, scrumMasterKey){
         lock(socket.id, function(release){
             var notOnBoard = true;
             var oldId = socket.boardId;
             var oldName = socket.name;
             socket.boardId = boardId;
+
             var joinNewBoard = function(){
-                board.joinBoard(boardId, name, function(err, participants){
+                board.joinBoard(boardId, name, scrumMasterKey, function(err, participants, isScrumMaster){
                     if(err){
                         socket.emit(constants.socketEmitters.joinError, constants.socketEmitters.joinBoard, err);
                         return;
@@ -23,6 +24,9 @@ io.sockets.on('connection', function(socket){
                     socket.name = name;
                     socket.emit(constants.socketEmitters.joinSuccess, constants.socketEmitters.joinBoard, participants);
                     io.to(boardId).emit(constants.socketEmitters.joined, participants);
+                    if(notOnBoard && isScrumMaster) {
+                        socket.join(boardId + constants.scrumMasterRoomEnding);
+                    }
                     release();
                 });
             };

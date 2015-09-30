@@ -108,10 +108,11 @@ module.exports = {
     },
     addFeedback: {
         handler: function (request, reply) {
-            board.addFeedback(request.params.id, request.params.type, request.payload.feedback, function (err, feedback) {
+            board.addFeedback(request.params.id, request.params.type, request.payload.feedback, function (err, feedback, board) {
                 if (err) {
                     reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
+                    io.to(request.params.id + constants.scrumMasterRoomEnding).emit(constants.socketEmitters.feedbackEdited, board);
                     reply(feedback);
                 }
             });
@@ -122,11 +123,12 @@ module.exports = {
     },
     editFeedback: {
         handler: function (request, reply) {
-            board.editFeedback(request.params.id, request.params.type, request.payload.editedFeedback, function (err, editedFeedback) {
+            board.editFeedback(request.params.id, request.params.type, request.payload.editedFeedback, function (err, feedback, board) {
                 if (err) {
                     reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
-                    reply(editedFeedback);
+                    io.to(request.params.id + constants.scrumMasterRoomEnding).emit(constants.socketEmitters.feedbackEdited, board);
+                    reply(feedback);
                 }
             });
         },
@@ -136,10 +138,11 @@ module.exports = {
     },
     deleteFeedback: {
         handler: function (request, reply) {
-            board.deleteFeedback(request.params.id, request.params.type, request.params.feedbackId, function (err) {
+            board.deleteFeedback(request.params.id, request.params.type, request.params.feedbackId, function (err, board) {
                 if (err) {
                     reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
+                    io.to(request.params.id + constants.scrumMasterRoomEnding).emit(constants.socketEmitters.feedbackEdited, board);
                     reply(true);
                 }
             });

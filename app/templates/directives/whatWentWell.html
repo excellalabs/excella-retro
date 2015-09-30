@@ -4,7 +4,7 @@
         <span ng-show="isScrumMaster && board.phase == phases.wellFeedbackStarted" class="help-block">Ask your team to provide feedback now. Time box the exercise and encourage everyone to share feedback.</span>
         <add-feedback ng-if="board.phase == phases.wellFeedbackStarted"
                       feedback-context="What Went Well"
-                      board-id="board.id" type="well"></add-feedback>
+                      type="well" board="board" is-scrum-master="isScrumMaster"></add-feedback>
         <div class="row-fluid" ng-if="board.phase == phases.wellFeedbackCompleted">
             <span ng-show="isScrumMaster" class="help-block">Group feedback together by dragging and dropping one on to another. The initial item being dropped on will define the header for that group of feedback. You may re-arrange by un-grouping.</span>
             <folder-holder class="col-xs-11 col-sm-11 col-md-12 col-lg-12" on-change="sendThemes" readonly="!isScrumMaster" lists="board.wellFeedback"></folder-holder>

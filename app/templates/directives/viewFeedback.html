@@ -1,10 +1,10 @@
 <div class="panel panel-default">
     <div class="panel-heading"><strong>{{feedbackContext}} Feedback</strong></div>
-    <div class="panel-body" ng-if="!feedbackList || feedbackList.length == 0">No feedback</div>
+    <div class="panel-body" ng-if="!feedbackList() || feedbackList().length == 0">No feedback</div>
     <div class="container-fluid">
-        <div class="row" ng-repeat="feedback in feedbackList track by $index">
+        <div class="row" ng-repeat="feedback in feedbackList() track by $index">
             <div class="col-xs-8 col-sm-8" style="word-wrap: break-word;">
-                    <span e-name="feedback" editable-text="feedbackList[$index].feedback[0]" ng-model="feedback"
+                    <span e-name="feedback" editable-text="feedbackList()[$index].feedback[0]" ng-model="feedback"
                           e-form="editFeedbackForm" ng-show="!editFeedbackForm.$visible">
                         {{feedback.feedback[0]}}
                     </span>
@@ -18,11 +18,13 @@
                             class="btn btn-default glyphicon glyphicon-remove"/>
                 </form>
 
-                <button class="btn btn-default glyphicon glyphicon-pencil" ng-click="editFeedbackForm.$show()"
-                        ng-show="!editFeedbackForm.$visible"/>
-                <button class="btn btn-default glyphicon glyphicon-trash"
-                        ng-click="deleteFeedback($index); editFeedbackForm.$hide()"
-                        ng-show="!editFeedbackForm.$visible"/>
+                <div ng-show="feedback.isOwn">
+                    <button class="btn btn-default glyphicon glyphicon-pencil" ng-click="editFeedbackForm.$show()"
+                            ng-show="!editFeedbackForm.$visible"/>
+                    <button class="btn btn-default glyphicon glyphicon-trash"
+                            ng-click="deleteFeedback($index); editFeedbackForm.$hide()"
+                            ng-show="!editFeedbackForm.$visible"/>
+                </div>
             </div>
 
             <div class="clearfix"></div>

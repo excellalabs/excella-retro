@@ -52,9 +52,9 @@ app.factory('boardService', ['$http', '$q', 'userProvider', 'socket', '_', '$coo
                     });
                     return deferred.promise;
                 },
-                joinBoard: function (boardId, user) {
+                joinBoard: function (boardId, user, scrumMasterKey) {
                     var deferred = $q.defer();
-                    socket.emit(constants.socketEmitters.joinBoard, boardId, user);
+                    socket.emit(constants.socketEmitters.joinBoard, boardId, user, scrumMasterKey);
                     var successCallback = function(requestName, username){
                         if(requestName !== constants.socketEmitters.joinBoard){ return; }
                         socket.off(constants.socketEmitters.joinSuccess, successCallback);

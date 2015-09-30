@@ -4,6 +4,8 @@
 var readonly = require('./readonly.js');
 
 var values = {
+    scrumMasterRoomEnding: '_sm',
+
     errors: {
         scrumMasterMismatch: 'Facilitator key mismatch',
         userExists: "User is already on board",
@@ -50,7 +52,9 @@ var values = {
         refreshBoard: 'refresh-board',
         wellFeedbackEdited: 'well-feedback-edited',
         improveFeedbackEdited: 'improve-feedback-edited',
-        actionItemsEdited: 'action-items-edited'
+        actionItemsEdited: 'action-items-edited',
+        feedbackEdited:'feedback-edited'
+
     }
 };
 

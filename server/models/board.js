@@ -130,7 +130,7 @@ module.exports = {
             callback(err, board.participants);
         });
     },
-    joinBoard: function(boardId, user, callback) {
+    joinBoard: function(boardId, user, scrumMasterKey, callback) {
         this.get(boardId, function(err, board) {
             if(err) {
                 callback(err);
@@ -142,9 +142,12 @@ module.exports = {
                 callback(constants.errors.userExists, board.participants);
                 return;
             }
+
+            var isScrumMaster = board.scrumMasterKey === scrumMasterKey;
+
             board.participants.push(user);
             saveBoard(boardId, board, function(err, savedBoard) {
-                callback(err, savedBoard.participants);
+                callback(err, savedBoard.participants, isScrumMaster);
             });
         });
     },
@@ -185,7 +188,7 @@ module.exports = {
             }
 
             saveBoard(boardId, board, function(err) {
-                callback(err, feedbackObj);
+                callback(err, feedbackObj, board);
             });
         });
     },
@@ -209,7 +212,7 @@ module.exports = {
             }
 
             saveBoard(boardId, board, function(err) {
-                callback(err, editedFeedback);
+                callback(err, editedFeedback, board);
             });
         });
     },
@@ -229,7 +232,7 @@ module.exports = {
             }
 
             saveBoard(boardId, board, function(err) {
-                callback(err);
+                callback(err, board);
             });
         });
     },
