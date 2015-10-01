@@ -120,6 +120,8 @@ module.exports = {
         db.get(boardId, function(err, board) {
             if (err) {
                 console.log('Get failed: ', err);
+                callback(err);
+                return;
             }
             removePrivateFields(board);
             callback(err, board);
@@ -175,6 +177,11 @@ module.exports = {
             feedback: feedback
         };
         this.get(boardId, function(err, board) {
+            if(err) {
+                callback(err);
+                return;
+            }
+
             switch(type) {
                 case constants.feedbackTypes.whatWentWell:
                     board.wellFeedback.push(feedbackObj);
@@ -194,6 +201,11 @@ module.exports = {
     },
     editFeedback: function(boardId, type, editedFeedback, callback) {
         this.get(boardId, function(err, board) {
+            if(err) {
+                callback(err);
+                return;
+            }
+
             switch(type) {
                 case constants.feedbackTypes.whatWentWell:
                     for(var i = 0; i < board.wellFeedback.length; i++){
@@ -218,6 +230,11 @@ module.exports = {
     },
     deleteFeedback: function(boardId, type, feedbackId, callback) {
         this.get(boardId, function(err, board) {
+            if(err) {
+                callback(err);
+                return;
+            }
+
             switch(type) {
                 case constants.feedbackTypes.whatWentWell:
                     board.wellFeedback = board.wellFeedback.filter(function(fd){
@@ -238,6 +255,11 @@ module.exports = {
     },
     setThemes: function(boardId, themes, callback) {
         this.get(boardId, function(err, board) {
+            if(err) {
+                callback(err);
+                return;
+            }
+
             board.themes = themes;
             saveBoard(boardId, board, function(err, board) {
                 callback(err, board);
@@ -247,6 +269,11 @@ module.exports = {
     createThemesFromImproveFeedback: function(boardId, callback) {
         var that = this;
         this.get(boardId, function (err, board) {
+            if(err) {
+                callback(err);
+                return;
+            }
+
             var themes = board.improveFeedback.map(function(item) { return item[0];});
             var formattedThemes = themes.map(function(theme) { return { id: helpers.guid(), description: theme, votes: 0 }; });
             that.setThemes(board.id, formattedThemes, callback);
@@ -254,6 +281,11 @@ module.exports = {
     },
     createActionItemsFromThemes: function(boardId, callback) {
         this.get(boardId, function (err, board) {
+            if(err) {
+                callback(err);
+                return;
+            }
+
             var sortedThemes = _.sortBy(board.themes, function(theme) { return theme.votes; }).reverse();
             board.actionItems = sortedThemes.map(function(theme) { return [theme.description + " (" + theme.votes + ")"];});
             saveBoard(boardId, board, callback);
@@ -261,12 +293,22 @@ module.exports = {
     },
     stripFeedbackIds: function(boardId, name, callback) {
         this.get(boardId, function(err, board){
+            if(err) {
+                callback(err);
+                return;
+            }
+
             board[name] = _.map(board[name], function(item) { return item.feedback; });
             saveBoard(boardId, board, callback);
         });
     },
     addTheme: function(boardId, theme, callback) {
         this.get(boardId, function(err, board) {
+            if(err) {
+                callback(err);
+                return;
+            }
+
             var newTheme = { id: helpers.guid(), description: theme, votes: 0 };
             board.themes.push(newTheme);
             saveBoard(boardId, board, function(err, board) {
@@ -287,6 +329,11 @@ module.exports = {
 
         lock(boardId, function(release) {
             that.get(boardId, function (err, board) {
+                if(err) {
+                    callback(err);
+                    return;
+                }
+
                 for (var themeId in themeIdVoteCollection) {
                     if (themeIdVoteCollection.hasOwnProperty(themeId)) {
                         var theme = _.findWhere(board.themes, {id: themeId});
