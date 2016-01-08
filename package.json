@@ -63,6 +63,7 @@
     "angular-mocks": "^1.4.3",
     "bower": "^1.4.1",
     "browserify": "^11.0.1",
+    "bufferutil": "^1.2.1",
     "chai": "^3.2.0",
     "chai-spies": "^0.7.0",
     "gulp": "^3.9.0",
@@ -76,7 +77,8 @@
     "gulp-nodemon": "^2.0.3",
     "gulp-sourcemaps": "^1.5.2",
     "mocha": "^2.2.5",
-    "nodemon": "^1.4.1"
+    "nodemon": "^1.4.1",
+    "utf-8-validate": "^1.2.1"
   },
   "subdomain": "excella-retro"
 }

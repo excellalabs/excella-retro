@@ -18,7 +18,11 @@ app.directive('scrumMasterTools', ['$rootScope', '_', '$filter', function($rootS
             var index = $scope.board ? _.findIndex(constants.workflow, {phase: $scope.board.phase }) : 0;
             $scope.actionText = constants.workflow[index].actionText;
 
-            $scope.boardId = $scope.board.id;
+            if($scope.board) {
+                $scope.boardId = $scope.board.id;
+            } else {
+                $scope.boardId = $rootScope.boardId;
+            }
 
             $scope.$watch('boardId', function(boardId){
                 $scope.boardId = $filter('uppercase')(boardId);

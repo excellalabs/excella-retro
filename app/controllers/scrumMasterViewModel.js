@@ -8,7 +8,7 @@ app.controller('ScrumMasterController', ['$scope', '$location', '$rootScope', '$
         "use strict";
         $rootScope.boardId = $routeParams.id;
         $rootScope.scrumMasterKey = $routeParams.scrumMasterKey;
-        $location.path('retro');
+        $location.path('retro/' + $routeParams.id);
 }]);
 
 module.exports = app;
