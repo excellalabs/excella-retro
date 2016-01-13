@@ -85,11 +85,13 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
 
         });
 
-        socket.offOn(constants.socketEmitters.feedbackEdited, function(boardStats) {
-            if(boardStats) {
-                $scope.boardStats = boardStats;
-            }
-        });
+        if($rootScope.scrumMasterKey) {
+            socket.offOn(constants.socketEmitters.feedbackEdited, function (boardStats) {
+                if (boardStats) {
+                    $scope.boardStats = boardStats;
+                }
+            });
+        }
 
         socket.offOn(constants.socketEmitters.joined, function(participants){
             $scope.participants = participants;
@@ -123,7 +125,7 @@ app.controller('BoardController', ['$scope', '$routeParams', 'userProvider', 'bo
             $scope.board.actionItems = actionItems;
         });
 
-        this.refreshBoard = loadBoard;
+        $rootScope.refreshBoard = this.refreshBoard = loadBoard;
 
         //Load the board
         loadBoard();

@@ -51,6 +51,33 @@ app.directive('scrumMasterTools', ['$rootScope', '_', '$filter', function($rootS
                 }
             };
 
+            $scope.$watch('boardStats', function(boardStats) {
+                $scope.$emit('appendToBody', boardStats.feedback);
+            });
+
+            $scope.viewLiveFeedback = function () {
+                $rootScope.refreshBoard(function() {
+                    setTimeout(function() {
+                        var modalInstance = $modal.open({
+                            templateUrl: 'templates/modal.html',
+                            controller: 'ModalInstanceController',
+                            size: 'lg',
+                            scope: $scope,
+                            resolve: {
+                                title: function() { return "Live Feedback"; },
+                                body: function() { return "Waiting for feedback..."; },
+                                feedbackList: function() { return $scope.board.wellFeedback.concat($scope.board.improveFeedback); },
+                                hasCancel: function() { return false; }
+                            }
+                        });
+
+                        modalInstance.result.then(function (selectedItem) {
+
+                        });
+                    });
+                });
+            }
+
             $scope.closeRetro = function () {
                 var modalInstance = $modal.open({
                     templateUrl: 'templates/modal.html',

@@ -2,7 +2,16 @@
     <h3 class="modal-title">{{title}}</h3>
 </div>
 <div class="modal-body">
-    {{body}}
+    <div ng-if="hideBody === false">
+        {{body}}
+    </div>
+    <div ng-if="hideBody === true">
+        <ul>
+            <li ng-repeat="feedback in feedbackList.slice().reverse()">
+                {{feedback.feedback[0]}}
+            </li>
+        </ul>
+    </div>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" ng-click="ok()">OK</button>

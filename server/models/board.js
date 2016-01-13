@@ -321,8 +321,8 @@ module.exports = {
             callback(err, board.themes);
         });
     },
-    getFacilitatorStats: function(board) {
-        return { wellCount: board.wellFeedback.length, improveCount: board.improveFeedback.length };
+    getFacilitatorStats: function(board, feedback) {
+        return { wellCount: board.wellFeedback.length, improveCount: board.improveFeedback.length, feedback: feedback };
     },
     addVotes: function(boardId, themeIdVoteCollection, callback) {
         var that = this;

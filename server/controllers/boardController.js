@@ -112,7 +112,7 @@ module.exports = {
                 if (err) {
                     reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
-                    io.to(request.params.id + constants.scrumMasterRoomEnding).emit(constants.socketEmitters.feedbackEdited, board.getFacilitatorStats(sboard));
+                    io.to(request.params.id).emit(constants.socketEmitters.feedbackEdited, board.getFacilitatorStats(sboard, feedback));
                     reply(feedback);
                 }
             });
@@ -127,7 +127,7 @@ module.exports = {
                 if (err) {
                     reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
-                    io.to(request.params.id + constants.scrumMasterRoomEnding).emit(constants.socketEmitters.feedbackEdited, board.getFacilitatorStats(sboard));
+                    io.to(request.params.id).emit(constants.socketEmitters.feedbackEdited, board.getFacilitatorStats(sboard, feedback));
                     reply(feedback);
                 }
             });
@@ -142,7 +142,7 @@ module.exports = {
                 if (err) {
                     reply(Boom.notFound(constants.messages.cannotFind));
                 } else {
-                    io.to(request.params.id + constants.scrumMasterRoomEnding).emit(constants.socketEmitters.feedbackEdited, board.getFacilitatorStats(sboard));
+                    io.to(request.params.id).emit(constants.socketEmitters.feedbackEdited, board.getFacilitatorStats(sboard, { id: request.params.feedbackId, feedback: "delete" }));
                     reply(true);
                 }
             });
