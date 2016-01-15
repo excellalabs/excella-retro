@@ -29,6 +29,7 @@ module.exports = {
                if(retro) {
                    cb(err, retro.value);
                } else {
+                   err = 'Retro doesn\'t exist';
                    cb(err);
                }
            });
@@ -43,6 +44,7 @@ module.exports = {
                 if(retro) {
                     cb(err, retro.value);
                 } else {
+                    err = 'Retro doesn\'t exist';
                     cb(err);
                 }
             });
