@@ -83,10 +83,12 @@ app.directive('scrumMasterTools', ['$rootScope', '_', '$filter', function($rootS
                     templateUrl: 'templates/modal.html',
                     controller: 'ModalInstanceController',
                     size: 'sm',
+                    scope: $scope,
                     resolve: {
                         title: function() { return "Close Retrospective?"; },
                         body: function() { return "This will permanently delete your retrospective. You will lose access to your data. Select OK to continue."; },
-                        hasCancel: function() { return true; }
+                        hasCancel: function() { return true; },
+                        feedbackList: function() { return null;}
                     }
                 });
 
