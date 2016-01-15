@@ -26,10 +26,10 @@ module.exports = {
     get: function(key, cb) {
         dbPromise.then(function(db) {
            db.collection('retro').findOne({ key: key }, function(err, retro) {
-               if(err) {
-                   cb(err);
-               } else {
+               if(retro) {
                    cb(err, retro.value);
+               } else {
+                   cb(err);
                }
            });
         });
@@ -40,10 +40,10 @@ module.exports = {
                 key: key,
                 value: value
             }, { upsert: true }, function(err, retro) {
-                if(err) {
-                    cb(err);
-                } else {
+                if(retro) {
                     cb(err, retro.value);
+                } else {
+                    cb(err);
                 }
             });
         });
