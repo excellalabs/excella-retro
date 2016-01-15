@@ -16,6 +16,8 @@ app.directive('whatWentWell', [function() {
             $scope.phases = constants.phases;
             $scope.isScrumMaster = $rootScope.isScrumMaster;
 
+            $scope.whatWentWell = $scope.board.id === 'excv2016' ? 'What is Your Impact' : 'What Went Well';
+
             $scope.sendThemes = function(){
                 boardService.updateFeedback($scope.board.id, constants.feedbackTypes.whatWentWell, $scope.board.wellFeedback, $rootScope.scrumMasterKey).then(function(savedFeedback) {
                 }, function(validation){

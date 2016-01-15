@@ -1,9 +1,13 @@
 <div class="row-fluid">
     <div class="col-md-12 no-padding" id="board">
-        <alert type="info"><strong>What Went Well?</strong><span ng-show="!isScrumMaster">  Once your Facilitator initiates feedback gathering you may share your feedback.</span></alert>
+        <alert type="info">
+            <strong>{{whatWentWell}}
+            </strong>
+            <span ng-show="!isScrumMaster">  Once your Facilitator initiates feedback gathering you may share your feedback.</span>
+        </alert>
         <span ng-show="isScrumMaster && board.phase == phases.wellFeedbackStarted" class="help-block">Ask your team to provide feedback now. Time box the exercise and encourage everyone to share feedback.</span>
         <add-feedback ng-if="board.phase == phases.wellFeedbackStarted"
-                      feedback-context="What Went Well"
+                      feedback-context={{whatWentWell}}
                       type="well" board="board" is-scrum-master="isScrumMaster"></add-feedback>
         <div class="row-fluid" ng-if="board.phase == phases.wellFeedbackCompleted">
             <span ng-show="isScrumMaster" class="help-block">Group feedback together by dragging and dropping one on to another. The initial item being dropped on will define the header for that group of feedback. You may re-arrange by un-grouping.</span>
