@@ -54,7 +54,7 @@ catch(err) { module = angular.module("templates", []); }
 module.run(["$templateCache", function($templateCache) {
   "use strict";
   $templateCache.put("templates/modal.html",
-    "<div class=modal-header><h3 class=modal-title>{{title}}</h3></div><div class=modal-body><div ng-if=\"hideBody === false\">{{body}}</div><div ng-if=\"hideBody === true\"><ul><li ng-repeat=\"feedback in feedbackList.slice().reverse()\">{{feedback.feedback[0]}}</li></ul></div></div><div class=modal-footer><button class=\"btn btn-primary\" ng-click=ok()>OK</button> <button class=\"btn btn-warning\" ng-click=cancel() ng-if=hasCancel>Cancel</button></div>");
+    "<div class=modal-header><h3 class=modal-title>{{title}}</h3></div><div class=modal-body><div ng-if=\"hideBody === false\">{{body}}</div><div ng-if=\"hideBody === true\"><ol reversed><li ng-repeat=\"feedback in feedbackList.slice().reverse()\" style=\"font-size: 24px\">{{feedback.feedback[0]}}</li></ol></div></div><div class=modal-footer><button class=\"btn btn-primary\" ng-click=ok()>OK</button> <button class=\"btn btn-warning\" ng-click=cancel() ng-if=hasCancel>Cancel</button></div>");
 }]);
 })();
 

@@ -6,11 +6,11 @@
         {{body}}
     </div>
     <div ng-if="hideBody === true">
-        <ul>
-            <li ng-repeat="feedback in feedbackList.slice().reverse()">
+        <ol reversed>
+            <li ng-repeat="feedback in feedbackList.slice().reverse()" style="font-size: 24px;">
                 {{feedback.feedback[0]}}
             </li>
-        </ul>
+        </ol>
     </div>
 </div>
 <div class="modal-footer">
