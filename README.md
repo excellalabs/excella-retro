@@ -17,6 +17,8 @@ npm start
 ## Tech Stack
 * Node
 * Angular
-* Hapi LEBRON (LevelDB, Browserify, npm)
+* MongoDB
+* Browserify
+* npm
 * Gulp
 
