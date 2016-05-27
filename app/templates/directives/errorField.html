@@ -1,4 +1,4 @@
-<alert class="ng-hide" type="danger" ng-show="errors">
+<alert class="ng-hide" type="danger" ng-show="errors && errors.length > 0">
     <strong>Error!</strong>
     <ul class="errorList">
         <li class="error" ng-repeat="error in errors">{{ error }}</li>
