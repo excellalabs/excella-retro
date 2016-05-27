@@ -134,7 +134,7 @@ catch(err) { module = angular.module("templates", []); }
 module.run(["$templateCache", function($templateCache) {
   "use strict";
   $templateCache.put("templates/directives/errorField.html",
-    "<alert class=ng-hide type=danger ng-show=errors><strong>Error!</strong><ul class=errorList><li class=error ng-repeat=\"error in errors\">{{ error }}</li></ul></alert>");
+    "<alert class=ng-hide type=danger ng-show=\"errors && errors.length > 0\"><strong>Error!</strong><ul class=errorList><li class=error ng-repeat=\"error in errors\">{{ error }}</li></ul></alert>");
 }]);
 })();
 
