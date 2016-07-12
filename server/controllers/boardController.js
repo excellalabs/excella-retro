@@ -69,7 +69,7 @@ module.exports = {
                                     io.to(request.params.id).emit(constants.socketEmitters.refreshBoard, ssboard);
                                     reply(true);
                                 });
-                            }, 3000);
+                            }, 30000);
                             break;
                         case constants.phases.actionVotingStarted:
                             board.createThemesFromImproveFeedback(request.params.id, function (err, ssboard) {
